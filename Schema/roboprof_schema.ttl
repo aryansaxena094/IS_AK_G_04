@@ -7,99 +7,121 @@
 @prefix dbr: <http://dbpedia.org/resource/> .
 
 # Classes
-ex:University a rdfs:Class .
-ex:Course a rdfs:Class .
-ex:Lecture a rdfs:Class .
-ex:Topic a rdfs:Class .
-ex:Student rdfs:subClassOf foaf:Person .
+ex:University a rdfs:Class ;
+    rdfs:label "University"@en ;
+    rdfs:comment "An institution of higher education and research."@en .
+ex:Course a rdfs:Class ;
+    rdfs:label "Course"@en ;
+    rdfs:comment "A unit of teaching that typically lasts one academic term, is led by one or more instructors, and has a fixed roster of students."@en .
+ex:Lecture a rdfs:Class ;
+    rdfs:label "Lecture"@en ;
+    rdfs:comment "A lecture is a specific instance of instruction within a course."@en .
+ex:Topic a rdfs:Class ;
+    rdfs:label "Topic"@en ;
+    rdfs:comment "A specific subject matter covered within the academic content of a course."@en .
+ex:Student a rdfs:Class ;
+    rdfs:label "Student"@en ;
+    rdfs:subClassOf foaf:Person ;
+    rdfs:comment "An individual who is studying at a university or other place of higher education."@en .
 
 # Properties
-
 ## General properties
 ex:hasName a rdf:Property ;
+    rdfs:label "has Name"@en ;
     rdfs:domain rdfs:Resource ;
     rdfs:range rdfs:Literal .
 
 ex:hasLink a rdf:Property ;
+    rdfs:label "has Link"@en ;
     rdfs:domain rdfs:Resource ;
     rdfs:range rdfs:Literal .
 
 ## University to Courses
 ex:offersCourse a rdf:Property ;
+    rdfs:label "offers Course"@en ;
     rdfs:domain ex:University ;
     rdfs:range ex:Course .
 
 ## Course properties
 ex:courseSubject a rdf:Property ;
+    rdfs:label "course Subject"@en ;
     rdfs:domain ex:Course ;
     rdfs:range rdfs:Literal .
 
 ex:courseNumber a rdf:Property ;
+    rdfs:label "course Number"@en ;
     rdfs:domain ex:Course ;
     rdfs:range rdfs:Literal .
 
 ex:courseCredits a rdf:Property ;
+    rdfs:label "course Credits"@en ;
     rdfs:domain ex:Course ;
     rdfs:range rdfs:Literal .
 
 ex:courseDescription a rdf:Property ;
+    rdfs:label "course Description"@en ;
     rdfs:domain ex:Course ;
     rdfs:range rdfs:Literal .
 
 ex:courseOutlineLink a rdf:Property ;
+    rdfs:label "course Outline Link"@en ;
     rdfs:domain ex:Course ;
     rdfs:range rdfs:Literal .
 
 ## Lecture properties
 ex:lectureNumber a rdf:Property ;
+    rdfs:label "lecture Number"@en ;
     rdfs:domain ex:Lecture ;
     rdfs:range rdfs:Literal .
 
 ex:lectureName a rdf:Property ;
+    rdfs:label "lecture Name"@en ;
     rdfs:domain ex:Lecture ;
     rdfs:range rdfs:Literal .
 
 ex:lectureContentLink a rdf:Property ;
+    rdfs:label "lecture Content Link"@en ;
     rdfs:domain ex:Lecture ;
     rdfs:range rdfs:Literal .
 
 ## Topic properties
 ex:topicName a rdf:Property ;
+    rdfs:label "topic Name"@en ;
     rdfs:domain ex:Topic ;
     rdfs:range rdfs:Literal .
 
 ex:topicProvenance a rdf:Property ;
+    rdfs:label "topic Provenance"@en ;
     rdfs:domain ex:Topic ;
     rdfs:range rdfs:Literal .
 
 ex:topicLink a rdf:Property ;
+    rdfs:label "topic Link"@en ;
     rdfs:domain ex:Topic ;
     rdfs:range rdfs:Literal .
 
 ## Student properties
 ex:studentID a rdf:Property ;
+    rdfs:label "student ID"@en ;
     rdfs:domain ex:Student ;
     rdfs:range rdfs:Literal .
 
 foaf:mbox a rdf:Property ;
-  rdfs:domain ex:Student ;
-  rdfs:range rdfs:Literal .
+    rdfs:label "email"@en ;
+    rdfs:domain ex:Student ;
+    rdfs:range rdfs:Literal .
   
 ex:completedCourse a rdf:Property ;
+    rdfs:label "completed Course"@en ;
     rdfs:domain ex:Student ;
     rdfs:range ex:Course .
 
 ex:courseGrade a rdf:Property ;
-    rdfs:domain ex:CompletedCourse ; # This assumes CompletedCourse is a class linking students and courses.
+    rdfs:label "course Grade"@en ;
+    rdfs:domain [a rdfs:Class ; rdfs:label "Completed Course"@en ; rdfs:comment "Represents a course completed by a student, possibly retaken for a different grade."] ;
     rdfs:range rdfs:Literal .
 
 ex:hasCompetency a rdf:Property ;
+    rdfs:label "has Competency"@en ;
     rdfs:domain ex:Student ;
     rdfs:range ex:Topic .
-
-# Class Descriptions
-ex:University rdfs:comment "An institution of higher education and research." .
-ex:Course rdfs:comment "A unit of teaching that typically lasts one academic term, is led by one or more instructors, and has a fixed roster of students." .
-ex:Lecture rdfs:comment "A lecture is a specific instance of instruction within a course." .
-ex:Topic rdfs:comment "A specific subject matter covered within the academic content of a course." .
-ex:Student rdfs:comment "An individual who is studying at a university or other place of higher education." .
