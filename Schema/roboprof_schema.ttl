@@ -1,0 +1,105 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix ex: <http://example.org/ns#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+
+# Classes
+ex:University a rdfs:Class .
+ex:Course a rdfs:Class .
+ex:Lecture a rdfs:Class .
+ex:Topic a rdfs:Class .
+ex:Student a rdfs:Class .
+
+# Properties
+
+## General properties
+ex:hasName a rdf:Property ;
+    rdfs:domain rdfs:Resource ;
+    rdfs:range rdfs:Literal .
+
+ex:hasLink a rdf:Property ;
+    rdfs:domain rdfs:Resource ;
+    rdfs:range rdfs:Literal .
+
+## University to Courses
+ex:offersCourse a rdf:Property ;
+    rdfs:domain ex:University ;
+    rdfs:range ex:Course .
+
+## Course properties
+ex:courseSubject a rdf:Property ;
+    rdfs:domain ex:Course ;
+    rdfs:range rdfs:Literal .
+
+ex:courseNumber a rdf:Property ;
+    rdfs:domain ex:Course ;
+    rdfs:range rdfs:Literal .
+
+ex:courseCredits a rdf:Property ;
+    rdfs:domain ex:Course ;
+    rdfs:range rdfs:Literal .
+
+ex:courseDescription a rdf:Property ;
+    rdfs:domain ex:Course ;
+    rdfs:range rdfs:Literal .
+
+ex:courseOutlineLink a rdf:Property ;
+    rdfs:domain ex:Course ;
+    rdfs:range rdfs:Literal .
+
+## Lecture properties
+ex:lectureNumber a rdf:Property ;
+    rdfs:domain ex:Lecture ;
+    rdfs:range rdfs:Literal .
+
+ex:lectureName a rdf:Property ;
+    rdfs:domain ex:Lecture ;
+    rdfs:range rdfs:Literal .
+
+ex:lectureContentLink a rdf:Property ;
+    rdfs:domain ex:Lecture ;
+    rdfs:range rdfs:Literal .
+
+## Topic properties
+ex:topicName a rdf:Property ;
+    rdfs:domain ex:Topic ;
+    rdfs:range rdfs:Literal .
+
+ex:topicProvenance a rdf:Property ;
+    rdfs:domain ex:Topic ;
+    rdfs:range rdfs:Literal .
+
+ex:topicLink a rdf:Property ;
+    rdfs:domain ex:Topic ;
+    rdfs:range rdfs:Literal .
+
+## Student properties
+ex:studentID a rdf:Property ;
+    rdfs:domain ex:Student ;
+    rdfs:range rdfs:Literal .
+
+ex:studentEmail a rdf:Property ;
+    rdfs:domain ex:Student ;
+    rdfs:range rdfs:Literal .
+
+ex:completedCourse a rdf:Property ;
+    rdfs:domain ex:Student ;
+    rdfs:range ex:Course .
+
+ex:courseGrade a rdf:Property ;
+    rdfs:domain ex:CompletedCourse ; # This assumes CompletedCourse is a class linking students and courses.
+    rdfs:range rdfs:Literal .
+
+ex:hasCompetency a rdf:Property ;
+    rdfs:domain ex:Student ;
+    rdfs:range ex:Topic .
+
+# Class Descriptions
+ex:University rdfs:comment "An institution of higher education and research." .
+ex:Course rdfs:comment "A unit of teaching that typically lasts one academic term, is led by one or more instructors, and has a fixed roster of students." .
+ex:Lecture rdfs:comment "A lecture is a specific instance of instruction within a course." .
+ex:Topic rdfs:comment "A specific subject matter covered within the academic content of a course." .
+ex:Student rdfs:comment "An individual who is studying at a university or other place of higher education." .

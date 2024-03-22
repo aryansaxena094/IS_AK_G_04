@@ -1,0 +1,23 @@
+The document is a detailed project assignment for the course COMP 474/6741 Intelligent Systems (Winter 2024), focusing on creating "Roboprof," an intelligent agent capable of answering university-related questions using a knowledge graph and natural language processing. Here are the key points:
+
+Due Date: Tuesday, March 19th, 2024. It counts for 50% of the course project.
+Goal: Build Roboprof to answer questions about courses, students, and topics at a university using a knowledge graph and NLP.
+Project Structure:
+The initial assignment focuses on constructing the knowledge base.
+Subsequent phases involve refining this base, developing the NLP interface, and integrating components into a cohesive system.
+Knowledge Graph Vocabulary Requirements: Information about universities, courses, lectures, topics, and students, utilizing RDF and RDFS standards. Specifics include:
+Universities: Names and links to DBpedia/Wikidata entries.
+Courses: Name, subject, number, credits, description, and links to additional information.
+Lectures: Number, name, content (slides, worksheets, readings, etc.), and links to information.
+Topics: Name, provenance information, and links to DBpedia/Wikidata.
+Students: Name, ID, email, completed courses with grades, and competencies based on completed courses.
+Tasks:
+Create a vocabulary using RDFS to capture the required information.
+Design SPARQL queries to validate the vocabulary and enable Roboprof to answer specific questions related to courses, topics, and students.
+Populate the knowledge base with information about Concordia's courses and additional material for COMP 474/6741 and another selected course.
+Configure a query server using Apache Fuseki and document query sample outputs.
+Deliverables: RDF schema, dataset, Python program(s) for KB construction, the complete knowledge base, queries and their results, a README file, and a project report.
+Project Demo: Scheduled demo sessions on campus, with all team members present.
+Grading Policy: Assumes equal contribution from team members but outlines procedures for addressing disputes over contributions.
+Academic Integrity: Strict guidelines on originality, citing external sources, usage of LLMs like ChatGPT, collaboration vs. copying, and ensuring private repositories.
+This assignment emphasizes constructing a comprehensive knowledge graph and developing an NLP interface to facilitate an educational assistant capable of querying university-related information.

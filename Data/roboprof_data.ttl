@@ -1,0 +1,45 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex: <http://example.org/ns#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+
+### Universities
+ex:ConcordiaUniversity a ex:University ;
+    ex:hasName "Concordia University" ;
+    ex:hasLink <https://www.concordia.ca/> .
+
+### Courses
+ex:COMP474 a ex:Course ;
+    ex:hasName "Intelligent Systems" ;
+    ex:courseSubject "COMP" ;
+    ex:courseNumber "474" ;
+    ex:courseCredits "3" ;
+    ex:courseDescription "Knowledge representation and reasoning. Uncertainty and conflict resolution..." ;
+    ex:courseOutlineLink <http://example.org/comp474-outline> ;
+    ex:offersCourse ex:ConcordiaUniversity .
+
+### Lectures
+ex:Lecture1_COMP474 a ex:Lecture ;
+    ex:hasName "Introduction to Knowledge Graphs" ;
+    ex:lectureNumber "1" ;
+    ex:lectureContentLink <http://example.org/comp474-lecture1> ;
+    ex:deliversLecture ex:COMP474 .
+
+### Topics
+ex:KnowledgeGraphs a ex:Topic ;
+    ex:topicName "Knowledge Graphs" ;
+    ex:topicProvenance "COMP474 Lecture 1" ;
+    ex:topicLink <https://dbpedia.org/resource/Knowledge_Graph> ;
+    ex:teachesTopic ex:COMP474 .
+
+### Students
+ex:StudentAlice a ex:Student ;
+    ex:hasName "Alice Johnson" ;
+    ex:studentID "S12345678" ;
+    ex:studentEmail "alice.johnson@example.edu" ;
+    ex:completedCourse ex:COMP474 ;
+    ex:courseGrade "A" ;
+    ex:hasCompetency ex:KnowledgeGraphs .
+
+### Note: Linking students to completed courses and grades might require a more detailed structure or additional properties/classes to accurately reflect multiple courses, attempts, and grades.
