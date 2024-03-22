@@ -11,7 +11,7 @@ ex:University a rdfs:Class .
 ex:Course a rdfs:Class .
 ex:Lecture a rdfs:Class .
 ex:Topic a rdfs:Class .
-ex:Student a rdfs:Class .
+ex:Student rdfs:subClassOf foaf:Person .
 
 # Properties
 
@@ -81,10 +81,14 @@ ex:studentID a rdf:Property ;
     rdfs:domain ex:Student ;
     rdfs:range rdfs:Literal .
 
-ex:studentEmail a rdf:Property ;
-    rdfs:domain ex:Student ;
-    rdfs:range rdfs:Literal .
+# ex:studentEmail a rdf:Property ;
+#     rdfs:domain ex:Student ;
+#     rdfs:range rdfs:Literal .
 
+foaf:mbox a rdf:Property ;
+  rdfs:domain ex:Student ;
+  rdfs:range rdfs:Literal .
+  
 ex:completedCourse a rdf:Property ;
     rdfs:domain ex:Student ;
     rdfs:range ex:Course .
