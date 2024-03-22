@@ -81,10 +81,6 @@ ex:studentID a rdf:Property ;
     rdfs:domain ex:Student ;
     rdfs:range rdfs:Literal .
 
-# ex:studentEmail a rdf:Property ;
-#     rdfs:domain ex:Student ;
-#     rdfs:range rdfs:Literal .
-
 foaf:mbox a rdf:Property ;
   rdfs:domain ex:Student ;
   rdfs:range rdfs:Literal .

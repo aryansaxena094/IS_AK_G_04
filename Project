@@ -11,8 +11,8 @@ Courses: Name, subject, number, credits, description, and links to additional in
 Lectures: Number, name, content (slides, worksheets, readings, etc.), and links to information.
 Topics: Name, provenance information, and links to DBpedia/Wikidata.
 Students: Name, ID, email, completed courses with grades, and competencies based on completed courses.
-Tasks:
-Create a vocabulary using RDFS to capture the required information.
+Tasks:Create a vocabulary using RDFS to capture the required information.
+
 Design SPARQL queries to validate the vocabulary and enable Roboprof to answer specific questions related to courses, topics, and students.
 Populate the knowledge base with information about Concordia's courses and additional material for COMP 474/6741 and another selected course.
 Configure a query server using Apache Fuseki and document query sample outputs.
