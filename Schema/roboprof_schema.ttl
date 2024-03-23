@@ -68,21 +68,50 @@ ex:courseOutlineLink a rdf:Property ;
     rdfs:domain ex:Course ;
     rdfs:range rdfs:Literal .
 
-## Lecture properties
+# Lecture properties
 ex:lectureNumber a rdf:Property ;
-    rdfs:label "lecture Number"@en ;
+    rdfs:label "Lecture Number"@en ;
     rdfs:domain ex:Lecture ;
     rdfs:range rdfs:Literal .
 
 ex:lectureName a rdf:Property ;
-    rdfs:label "lecture Name"@en ;
+    rdfs:label "Lecture Name"@en ;
     rdfs:domain ex:Lecture ;
     rdfs:range rdfs:Literal .
 
 ex:lectureContentLink a rdf:Property ;
-    rdfs:label "lecture Content Link"@en ;
+    rdfs:label "Lecture Content Link"@en ;
     rdfs:domain ex:Lecture ;
     rdfs:range rdfs:Literal .
+
+rdfs:seeAlso a rdf:Property ;
+    rdfs:label "See Also"@en ;
+    rdfs:comment "A link to more information about the subject."@en .
+
+# Subclass hierarchy for lecture content
+ex:LectureContent a rdfs:Class ;
+    rdfs:label "Lecture Content"@en ;
+    rdfs:comment "The content provided in a lecture."@en .
+
+ex:Slides a rdfs:Class ;
+    rdfs:label "Slides"@en ;
+    rdfs:comment "Presentation slides used in the lecture."@en ;
+    rdfs:subClassOf ex:LectureContent .
+
+ex:Worksheets a rdfs:Class ;
+    rdfs:label "Worksheets"@en ;
+    rdfs:comment "Worksheets provided for the lecture."@en ;
+    rdfs:subClassOf ex:LectureContent .
+
+ex:Readings a rdfs:Class ;
+    rdfs:label "Readings"@en ;
+    rdfs:comment "Reading materials recommended for the lecture."@en ;
+    rdfs:subClassOf ex:LectureContent .
+
+ex:OtherMaterial a rdfs:Class ;
+    rdfs:label "Other Material"@en ;
+    rdfs:comment "Other types of materials provided for the lecture, such as videos or images."@en ;
+    rdfs:subClassOf ex:LectureContent .
 
 ## Topic properties
 ex:topicName a rdf:Property ;

@@ -1,0 +1,143 @@
+@prefix ex: <http://example.org/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/vocab/lecture/5531/1> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/5531> ;
+    ex:lectureContentLink <http://example.org/lecture/5531/1/slides> ;
+    ex:lectureName "Introduction to Files and Databases"^^xsd:string ;
+    ex:lectureNumber 1 .
+
+<http://example.org/vocab/lecture/5531/2> a ex:Lecture,
+        ex:Worksheets ;
+    ex:isPartOf <http://example.org/vocab/course/5531> ;
+    ex:lectureContentLink <http://example.org/lecture/5531/2/worksheets> ;
+    ex:lectureName "Advanced File Handling"^^xsd:string ;
+    ex:lectureNumber 2 .
+
+<http://example.org/vocab/lecture/5531/3> a ex:Lecture,
+        ex:Readings ;
+    ex:isPartOf <http://example.org/vocab/course/5531> ;
+    ex:lectureContentLink <http://example.org/lecture/5531/3/readings> ;
+    ex:lectureName "Basic Database Design"^^xsd:string ;
+    ex:lectureNumber 3 .
+
+<http://example.org/vocab/lecture/5541/4> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/5541> ;
+    ex:lectureContentLink <http://example.org/lecture/5541/1/slides> ;
+    ex:lectureName "Introduction to SW Engineering"^^xsd:string ;
+    ex:lectureNumber 4 .
+
+<http://example.org/vocab/lecture/5541/5> a ex:Lecture,
+        ex:OtherMaterial ;
+    ex:isPartOf <http://example.org/vocab/course/5541> ;
+    ex:lectureContentLink <http://example.org/lecture/5541/2/videos> ;
+    ex:lectureName "Software Development Life Cycle"^^xsd:string ;
+    ex:lectureNumber 5 .
+
+<http://example.org/vocab/lecture/6231/6> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/6231> ;
+    ex:lectureContentLink <http://example.org/lecture/6231/1/slides> ;
+    ex:lectureName "Distributed Systems Overview"^^xsd:string ;
+    ex:lectureNumber 6 .
+
+<http://example.org/vocab/lecture/6231/7> a ex:Lecture,
+        ex:Worksheets ;
+    ex:isPartOf <http://example.org/vocab/course/6231> ;
+    ex:lectureContentLink <http://example.org/lecture/6231/2/worksheets> ;
+    ex:lectureName "Fault Tolerance in Distributed Systems"^^xsd:string ;
+    ex:lectureNumber 7 .
+
+<http://example.org/vocab/lecture/6281/8> a ex:Lecture,
+        ex:Readings ;
+    ex:isPartOf <http://example.org/vocab/course/6281> ;
+    ex:lectureContentLink <http://example.org/lecture/6281/1/readings> ;
+    ex:lectureName "Parallel Programming Basics"^^xsd:string ;
+    ex:lectureNumber 8 .
+
+<http://example.org/vocab/lecture/6281/9> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/6281> ;
+    ex:lectureContentLink <http://example.org/lecture/6281/2/slides> ;
+    ex:lectureName "Concurrency Models"^^xsd:string ;
+    ex:lectureNumber 9 .
+
+<http://example.org/vocab/lecture/6321/10> a ex:Lecture,
+        ex:OtherMaterial ;
+    ex:isPartOf <http://example.org/vocab/course/6321> ;
+    ex:lectureContentLink <http://example.org/lecture/6321/1/videos> ;
+    ex:lectureName "Introduction to Machine Learning"^^xsd:string ;
+    ex:lectureNumber 10 .
+
+<http://example.org/vocab/lecture/6321/11> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/6321> ;
+    ex:lectureContentLink <http://example.org/lecture/6321/2/slides> ;
+    ex:lectureName "Supervised vs Unsupervised Learning"^^xsd:string ;
+    ex:lectureNumber 11 .
+
+<http://example.org/vocab/lecture/6351/12> a ex:Lecture,
+        ex:Readings ;
+    ex:isPartOf <http://example.org/vocab/course/6351> ;
+    ex:lectureContentLink <http://example.org/lecture/6351/1/readings> ;
+    ex:lectureName "Scientific Computing Concepts"^^xsd:string ;
+    ex:lectureNumber 12 .
+
+<http://example.org/vocab/lecture/6361/13> a ex:Lecture,
+        ex:Worksheets ;
+    ex:isPartOf <http://example.org/vocab/course/6361> ;
+    ex:lectureContentLink <http://example.org/lecture/6361/1/worksheets> ;
+    ex:lectureName "Numerical Methods for Linear Equations"^^xsd:string ;
+    ex:lectureNumber 13 .
+
+<http://example.org/vocab/lecture/6411/14> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/6411> ;
+    ex:lectureContentLink <http://example.org/lecture/6411/1/slides> ;
+    ex:lectureName "Programming Language Paradigms"^^xsd:string ;
+    ex:lectureNumber 14 .
+
+<http://example.org/vocab/lecture/6461/15> a ex:Lecture,
+        ex:OtherMaterial ;
+    ex:isPartOf <http://example.org/vocab/course/6461> ;
+    ex:lectureContentLink <http://example.org/lecture/6461/1/videos> ;
+    ex:lectureName "Network Protocols"^^xsd:string ;
+    ex:lectureNumber 15 .
+
+<http://example.org/vocab/lecture/6481/16> a ex:Lecture,
+        ex:Readings ;
+    ex:isPartOf <http://example.org/vocab/course/6481> ;
+    ex:lectureContentLink <http://example.org/lecture/6481/1/readings> ;
+    ex:lectureName "Problem Solving Techniques"^^xsd:string ;
+    ex:lectureNumber 16 .
+
+<http://example.org/vocab/lecture/6521/17> a ex:Lecture,
+        ex:Slides ;
+    ex:isPartOf <http://example.org/vocab/course/6521> ;
+    ex:lectureContentLink <http://example.org/lecture/6521/1/slides> ;
+    ex:lectureName "Database Technologies"^^xsd:string ;
+    ex:lectureNumber 17 .
+
+<http://example.org/vocab/lecture/6531/18> a ex:Lecture,
+        ex:Worksheets ;
+    ex:isPartOf <http://example.org/vocab/course/6531> ;
+    ex:lectureContentLink <http://example.org/lecture/6531/1/worksheets> ;
+    ex:lectureName "Introduction to the Semantic Web"^^xsd:string ;
+    ex:lectureNumber 18 .
+
+<http://example.org/vocab/lecture/6591/19> a ex:Lecture,
+        ex:OtherMaterial ;
+    ex:isPartOf <http://example.org/vocab/course/6591> ;
+    ex:lectureContentLink <http://example.org/lecture/6591/1/videos> ;
+    ex:lectureName "Knowledge Representation"^^xsd:string ;
+    ex:lectureNumber 19 .
+
+<http://example.org/vocab/lecture/6641/20> a ex:Lecture,
+        ex:Readings ;
+    ex:isPartOf <http://example.org/vocab/course/6641> ;
+    ex:lectureContentLink <http://example.org/lecture/6641/1/readings> ;
+    ex:lectureName "Computational Theory Fundamentals"^^xsd:string ;
+    ex:lectureNumber 20 .
+
