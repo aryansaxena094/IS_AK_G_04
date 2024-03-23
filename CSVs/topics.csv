@@ -1,0 +1,8 @@
+TopicID,LectureID,CourseID,TopicName,TopicProvenance,TopicLink
+1,1,5598,"Knowledge-Based Systems","Lecture 1","https://dbpedia.org/page/Knowledge-based_systems"
+2,2,5598,"Knowledge Representation","Lecture 2","https://dbpedia.org/page/Knowledge_representation_and_reasoning"
+3,3,5603,"Automata Theory","Lecture 3","https://dbpedia.org/page/Automata_theory"
+4,4,5603,"Computability Theory","Lecture 4","https://dbpedia.org/page/Computability_theory"
+5,5,5605,"Algorithm Design","Lecture 5","https://dbpedia.org/page/Algorithm_design"
+6,6,5605,"Graph Theory","Lecture 6","https://dbpedia.org/page/Graph_theory"
+7,7,5605,"Greedy Algorithms","Lecture 7","https://dbpedia.org/page/Greedy_algorithm"

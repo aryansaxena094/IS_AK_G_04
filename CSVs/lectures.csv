@@ -1,0 +1,8 @@
+LectureID,CourseID,LectureNumber,LectureName,ContentLink,SeeAlsoLink
+1,5598,1,"Introduction to Knowledge-Based Systems","slides://intro_kb_systems","http://example.org/lectures/kbs_intro"
+2,5598,2,"Fundamentals of Knowledge Representation","readings://knowledge_representation_basics","http://example.org/lectures/knowledge_representation"
+3,5603,1,"Introduction to Automata","slides://intro_to_automata","http://example.org/lectures/automata_intro"
+4,5603,2,"Computability and Complexity","readings://computability_complexity","http://example.org/lectures/computability_complexity"
+5,5605,1,"Algorithm Design and Analysis","slides://algorithm_design_analysis","http://example.org/lectures/algorithm_design"
+6,5607,1,"Graph Algorithms","slides://graph_algorithms","http://example.org/lectures/graph_algorithms"
+7,5607,2,"Greedy Algorithms","worksheets://greedy_algorithms","http://example.org/lectures/greedy_algorithms"

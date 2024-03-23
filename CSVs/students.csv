@@ -1,0 +1,8 @@
+first_name,last_name,id_number,email,course_1_id,course_2_id,course_3_id,course_4_id,course_1_grade,course_2_grade,course_3_grade,course_4_grade,competent_in_course_id1,competent_in_course_id2
+Aryan,Saxena,S1001,aryan.saxena@concordia.ca,005605,005570,005527,005477,A,A,A-,C+,005411,005409
+Garvit,Kataria,S1002,Garvit.doe@concordia.ca,005605,005570,005527,005477,B,C+,A-,B,005411,005409
+Saumya,Sharma,S1003,Saumya.smith@concordia.ca,005605,005570,005526,005477,B+,C+,C,B,005410,005482
+Devanshi,Johnson,S1004,Devanshi.johnson@concordia.ca,005589,005534,005527,005477,A-,A,B+,A-,005410,005409
+Chintu,Brown,S1005,Chintu.brown@concordia.ca,005605,005534,005527,005411,B,B+,C+,B-,005415,005572
+Anni,Singh,S1006,Anni.davis@concordia.ca,005534,005534,005526,005411,B-,C+,C,A-,005406,005482
+Asmita,Upadhyay,S1007,Asmita.miller@concordia.ca,005534,005526,005526,005410,A,B+,B-,A-,005410,005572
