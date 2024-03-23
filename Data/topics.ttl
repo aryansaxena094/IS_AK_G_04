@@ -1,0 +1,52 @@
+@prefix ex: <http://example.org/vocab/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/vocab/topic/1> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5598> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/1> ;
+    ex:topicLink <https://dbpedia.org/page/Knowledge-based_systems> ;
+    ex:topicName "Knowledge-Based Systems"^^xsd:string ;
+    ex:topicProvenance "Lecture 1"^^xsd:string .
+
+<http://example.org/vocab/topic/2> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5598> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/2> ;
+    ex:topicLink <https://dbpedia.org/page/Knowledge_representation_and_reasoning> ;
+    ex:topicName "Knowledge Representation"^^xsd:string ;
+    ex:topicProvenance "Lecture 2"^^xsd:string .
+
+<http://example.org/vocab/topic/3> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5603> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/3> ;
+    ex:topicLink <https://dbpedia.org/page/Automata_theory> ;
+    ex:topicName "Automata Theory"^^xsd:string ;
+    ex:topicProvenance "Lecture 3"^^xsd:string .
+
+<http://example.org/vocab/topic/4> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5603> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/4> ;
+    ex:topicLink <https://dbpedia.org/page/Computability_theory> ;
+    ex:topicName "Computability Theory"^^xsd:string ;
+    ex:topicProvenance "Lecture 4"^^xsd:string .
+
+<http://example.org/vocab/topic/5> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5605> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/5> ;
+    ex:topicLink <https://dbpedia.org/page/Algorithm_design> ;
+    ex:topicName "Algorithm Design"^^xsd:string ;
+    ex:topicProvenance "Lecture 5"^^xsd:string .
+
+<http://example.org/vocab/topic/6> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5605> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/6> ;
+    ex:topicLink <https://dbpedia.org/page/Graph_theory> ;
+    ex:topicName "Graph Theory"^^xsd:string ;
+    ex:topicProvenance "Lecture 6"^^xsd:string .
+
+<http://example.org/vocab/topic/7> a ex:Topic ;
+    ex:isTopicOfCourse <http://example.org/vocab/course/5605> ;
+    ex:isTopicOfLecture <http://example.org/vocab/lecture/7> ;
+    ex:topicLink <https://dbpedia.org/page/Greedy_algorithm> ;
+    ex:topicName "Greedy Algorithms"^^xsd:string ;
+    ex:topicProvenance "Lecture 7"^^xsd:string .
+

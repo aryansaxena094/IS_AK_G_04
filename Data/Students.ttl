@@ -3,152 +3,135 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://example.org/vocab/student/S1001> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/1000>,
-        <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/1008>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10093> ;
-    ex:hasCompetency <http://example.org/vocab/course/1000>,
-        <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/1008>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10093> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5570> ;
+            ex:courseGrade "A"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "A-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5605> ;
+            ex:courseGrade "A"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5477> ;
+            ex:courseGrade "C+"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5409>,
+        <http://example.org/vocab/course/5411> ;
     ex:studentID "S1001"^^xsd:string ;
-    foaf:mbox "john.doe@example.edu"^^xsd:string ;
-    foaf:name "John Doe"^^xsd:string .
+    foaf:mbox "aryan.saxena@concordia.ca"^^xsd:string ;
+    foaf:name "Aryan Saxena"^^xsd:string .
 
 <http://example.org/vocab/student/S1002> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/10005>,
-        <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10091>,
-        <http://example.org/vocab/course/10097> ;
-    ex:hasCompetency <http://example.org/vocab/course/10005>,
-        <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10091>,
-        <http://example.org/vocab/course/10097> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "A-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5570> ;
+            ex:courseGrade "C+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5605> ;
+            ex:courseGrade "B"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5477> ;
+            ex:courseGrade "B"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5409>,
+        <http://example.org/vocab/course/5411> ;
     ex:studentID "S1002"^^xsd:string ;
-    foaf:mbox "jane.doe@example.edu"^^xsd:string ;
-    foaf:name "Jane Doe"^^xsd:string .
+    foaf:mbox "Garvit.doe@concordia.ca"^^xsd:string ;
+    foaf:name "Garvit Kataria"^^xsd:string .
 
 <http://example.org/vocab/student/S1003> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10082>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10097> ;
-    ex:hasCompetency <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10082>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10097> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5477> ;
+            ex:courseGrade "B"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5605> ;
+            ex:courseGrade "B+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5570> ;
+            ex:courseGrade "C+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5526> ;
+            ex:courseGrade "C"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5410>,
+        <http://example.org/vocab/course/5482> ;
     ex:studentID "S1003"^^xsd:string ;
-    foaf:mbox "michael.smith@example.edu"^^xsd:string ;
-    foaf:name "Michael Smith"^^xsd:string .
+    foaf:mbox "Saumya.smith@concordia.ca"^^xsd:string ;
+    foaf:name "Saumya Sharma"^^xsd:string .
 
 <http://example.org/vocab/student/S1004> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/1004>,
-        <http://example.org/vocab/course/1008>,
-        <http://example.org/vocab/course/10085>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10096> ;
-    ex:hasCompetency <http://example.org/vocab/course/1004>,
-        <http://example.org/vocab/course/1008>,
-        <http://example.org/vocab/course/10085>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10096> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "B+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5534> ;
+            ex:courseGrade "A"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5477> ;
+            ex:courseGrade "A-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5589> ;
+            ex:courseGrade "A-"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5409>,
+        <http://example.org/vocab/course/5410> ;
     ex:studentID "S1004"^^xsd:string ;
-    foaf:mbox "sarah.johnson@example.edu"^^xsd:string ;
-    foaf:name "Sarah Johnson"^^xsd:string .
+    foaf:mbox "Devanshi.johnson@concordia.ca"^^xsd:string ;
+    foaf:name "Devanshi Johnson"^^xsd:string .
 
 <http://example.org/vocab/student/S1005> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/10005>,
-        <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/1005>,
-        <http://example.org/vocab/course/10085> ;
-    ex:hasCompetency <http://example.org/vocab/course/10005>,
-        <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/1005>,
-        <http://example.org/vocab/course/10085> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5534> ;
+            ex:courseGrade "B+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5411> ;
+            ex:courseGrade "B-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "C+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5605> ;
+            ex:courseGrade "B"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5415>,
+        <http://example.org/vocab/course/5572> ;
     ex:studentID "S1005"^^xsd:string ;
-    foaf:mbox "william.brown@example.edu"^^xsd:string ;
-    foaf:name "William Brown"^^xsd:string .
+    foaf:mbox "Chintu.brown@concordia.ca"^^xsd:string ;
+    foaf:name "Chintu Brown"^^xsd:string .
 
 <http://example.org/vocab/student/S1006> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/10005>,
-        <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10087> ;
-    ex:hasCompetency <http://example.org/vocab/course/10005>,
-        <http://example.org/vocab/course/10015>,
-        <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10087> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5411> ;
+            ex:courseGrade "A-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5534> ;
+            ex:courseGrade "B-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5526> ;
+            ex:courseGrade "C"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5534> ;
+            ex:courseGrade "C+"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5406>,
+        <http://example.org/vocab/course/5482> ;
     ex:studentID "S1006"^^xsd:string ;
-    foaf:mbox "linda.davis@example.edu"^^xsd:string ;
-    foaf:name "Linda Davis"^^xsd:string .
+    foaf:mbox "Anni.davis@concordia.ca"^^xsd:string ;
+    foaf:name "Anni Singh"^^xsd:string .
 
 <http://example.org/vocab/student/S1007> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/10025>,
-        <http://example.org/vocab/course/10085>,
-        <http://example.org/vocab/course/10091>,
-        <http://example.org/vocab/course/10096> ;
-    ex:hasCompetency <http://example.org/vocab/course/10016>,
-        <http://example.org/vocab/course/10025>,
-        <http://example.org/vocab/course/10085>,
-        <http://example.org/vocab/course/10091>,
-        <http://example.org/vocab/course/10096> ;
+    ex:completedCourse [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5526> ;
+            ex:courseGrade "B-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5534> ;
+            ex:courseGrade "A"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5526> ;
+            ex:courseGrade "B+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5410> ;
+            ex:courseGrade "A-"^^xsd:string ] ;
+    ex:hasCompetency <http://example.org/vocab/course/5410>,
+        <http://example.org/vocab/course/5572> ;
     ex:studentID "S1007"^^xsd:string ;
-    foaf:mbox "david.miller@example.edu"^^xsd:string ;
-    foaf:name "David Miller"^^xsd:string .
-
-<http://example.org/vocab/student/S1008> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/1000>,
-        <http://example.org/vocab/course/1005>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10096> ;
-    ex:hasCompetency <http://example.org/vocab/course/1000>,
-        <http://example.org/vocab/course/1005>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10096> ;
-    ex:studentID "S1008"^^xsd:string ;
-    foaf:mbox "barbara.wilson@example.edu"^^xsd:string ;
-    foaf:name "Barbara Wilson"^^xsd:string .
-
-<http://example.org/vocab/student/S1009> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/1005>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10082>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10097> ;
-    ex:hasCompetency <http://example.org/vocab/course/1005>,
-        <http://example.org/vocab/course/1006>,
-        <http://example.org/vocab/course/10082>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10097> ;
-    ex:studentID "S1009"^^xsd:string ;
-    foaf:mbox "james.moore@example.edu"^^xsd:string ;
-    foaf:name "James Moore"^^xsd:string .
-
-<http://example.org/vocab/student/S1010> a ex:Student ;
-    ex:completedCourse <http://example.org/vocab/course/10009>,
-        <http://example.org/vocab/course/1004>,
-        <http://example.org/vocab/course/10085>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10097> ;
-    ex:hasCompetency <http://example.org/vocab/course/10009>,
-        <http://example.org/vocab/course/1004>,
-        <http://example.org/vocab/course/10085>,
-        <http://example.org/vocab/course/10087>,
-        <http://example.org/vocab/course/10097> ;
-    ex:studentID "S1010"^^xsd:string ;
-    foaf:mbox "patricia.taylor@example.edu"^^xsd:string ;
-    foaf:name "Patricia Taylor"^^xsd:string .
+    foaf:mbox "Asmita.miller@concordia.ca"^^xsd:string ;
+    foaf:name "Asmita Upadhyay"^^xsd:string .
 

@@ -1,21 +1,8 @@
-LectureNumber,LectureName,CourseNumber,LectureContent,ContentLink
-1,Introduction to Files and Databases,5531,Slides,http://example.org/lecture/5531/1/slides
-2,Advanced File Handling,5531,Worksheets,http://example.org/lecture/5531/2/worksheets
-3,Basic Database Design,5531,Readings,http://example.org/lecture/5531/3/readings
-4,Introduction to SW Engineering,5541,Slides,http://example.org/lecture/5541/1/slides
-5,Software Development Life Cycle,5541,Other Material,http://example.org/lecture/5541/2/videos
-6,Distributed Systems Overview,6231,Slides,http://example.org/lecture/6231/1/slides
-7,Fault Tolerance in Distributed Systems,6231,Worksheets,http://example.org/lecture/6231/2/worksheets
-8,Parallel Programming Basics,6281,Readings,http://example.org/lecture/6281/1/readings
-9,Concurrency Models,6281,Slides,http://example.org/lecture/6281/2/slides
-10,Introduction to Machine Learning,6321,Other Material,http://example.org/lecture/6321/1/videos
-11,Supervised vs Unsupervised Learning,6321,Slides,http://example.org/lecture/6321/2/slides
-12,Scientific Computing Concepts,6351,Readings,http://example.org/lecture/6351/1/readings
-13,Numerical Methods for Linear Equations,6361,Worksheets,http://example.org/lecture/6361/1/worksheets
-14,Programming Language Paradigms,6411,Slides,http://example.org/lecture/6411/1/slides
-15,Network Protocols,6461,Other Material,http://example.org/lecture/6461/1/videos
-16,Problem Solving Techniques,6481,Readings,http://example.org/lecture/6481/1/readings
-17,Database Technologies,6521,Slides,http://example.org/lecture/6521/1/slides
-18,Introduction to the Semantic Web,6531,Worksheets,http://example.org/lecture/6531/1/worksheets
-19,Knowledge Representation,6591,Other Material,http://example.org/lecture/6591/1/videos
-20,Computational Theory Fundamentals,6641,Readings,http://example.org/lecture/6641/1/readings
+LectureID,CourseID,LectureNumber,LectureName,ContentLink,SeeAlsoLink
+1,5598,1,"Introduction to Knowledge-Based Systems","slides://intro_kb_systems","http://example.org/lectures/kbs_intro"
+2,5598,2,"Fundamentals of Knowledge Representation","readings://knowledge_representation_basics","http://example.org/lectures/knowledge_representation"
+3,5603,1,"Introduction to Automata","slides://intro_to_automata","http://example.org/lectures/automata_intro"
+4,5603,2,"Computability and Complexity","readings://computability_complexity","http://example.org/lectures/computability_complexity"
+5,5605,1,"Algorithm Design and Analysis","slides://algorithm_design_analysis","http://example.org/lectures/algorithm_design"
+6,5607,1,"Graph Algorithms","slides://graph_algorithms","http://example.org/lectures/graph_algorithms"
+7,5607,2,"Greedy Algorithms","worksheets://greedy_algorithms","http://example.org/lectures/greedy_algorithms"

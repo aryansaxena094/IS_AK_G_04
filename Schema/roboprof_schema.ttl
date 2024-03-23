@@ -129,6 +129,17 @@ ex:topicLink a rdf:Property ;
     rdfs:domain ex:Topic ;
     rdfs:range rdfs:Literal .
 
+# Linking topics with Courses and Lectures
+ex:isTopicOfLecture a rdf:Property ;
+    rdfs:label "is Topic Of Lecture"@en ;
+    rdfs:domain ex:Topic ;
+    rdfs:range ex:Lecture .
+
+ex:isTopicOfCourse a rdf:Property ;
+    rdfs:label "is Topic Of Course"@en ;
+    rdfs:domain ex:Topic ;
+    rdfs:range ex:Course .
+
 ## Student properties
 ex:studentID a rdf:Property ;
     rdfs:label "student ID"@en ;
