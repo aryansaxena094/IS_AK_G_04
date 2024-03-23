@@ -44,6 +44,23 @@ WHERE {
 }
 
 5.
+PREFIX ex: <http://example.org/ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?materialType ?lectureContentLink
+WHERE {
+  ?course a ex:Course ;
+          ex:courseNumber "371"^^xsd:string . # Replace "371" with the actual course number
+  ?lecture a ex:Lecture ;
+           ex:isPartOfCourse ?course .
+  ?topic a ex:Topic ;
+         ex:topicName "Automata Theory"^^xsd:string ; # Replace "Automata Theory" with the actual topic name
+         ex:isTopicOfLecture ?lecture .
+  ?lecture ex:lectureContentLink ?lectureContentLink .
+  ?content a ?materialType .
+  FILTER(?materialType IN (ex:Slides, ex:Readings))
+}
+
 
 6.
 PREFIX ex: <http://example.org/vocab/>
@@ -69,8 +86,32 @@ WHERE {
 }
 
 8.
+PREFIX ex: <http://example.org/ns#>
+
+SELECT ?lectureContentLink
+WHERE {
+  ?course a ex:Course ;
+          ex:courseNumber "371" . # Replace "371" with the course number you're interested in
+  ?lecture a ex:Lecture ;
+           ex:isPartOfCourse ?course ;
+           ex:lectureNumber "1" ; # Replace "1" with the lecture number you're interested in
+           ex:lectureContentLink ?lectureContentLink .
+}
 
 9.
+PREFIX ex: <http://example.org/ns#>
+
+SELECT DISTINCT ?lectureContentLink
+WHERE {
+  ?topic a ex:Topic ;
+         ex:topicName "Automata Theory" . # Replace "Automata Theory" with the topic you're interested in
+  ?lecture a ex:Lecture ;
+           ex:isTopicOfLecture ?topic ;
+           ex:lectureContentLink ?lectureContentLink .
+  ?course a ex:Course ;
+          ex:courseNumber "371" ; # Replace "371" with the course number you're interested in
+          ex:offersCourse ?lecture .
+}
 
 10.
 PREFIX ex: <http://example.org/vocab/>
