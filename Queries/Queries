@@ -1,0 +1,118 @@
+1. 
+PREFIX ex: <http://example.org/ns#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT ?course WHERE {
+  dbr:Concordia_University dbo:offersCourse ?course .
+}
+
+2.
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?course ?courseName
+WHERE {
+  ?topic ex:topicName "Graph Theory"^^xsd:string .
+  ?topic ex:isTopicOfCourse ?course .
+  ?course ex:description ?courseName .
+}
+
+
+3. 
+PREFIX ex: <http://example.org/vocab/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?topicName
+WHERE {
+  ?topic ex:isTopicOfCourse <http://example.org/vocab/course/5603> ;
+         ex:isTopicOfLecture <http://example.org/vocab/lecture/4> ;
+         ex:topicName ?topicName .
+}
+
+4.
+PREFIX ex: <http://example.org/vocab/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?course ?subject ?number
+WHERE {
+  ?university dbo:offersCourse ?course .
+  ?course a ex:Course ;
+          ex:subject ?subject ;
+          ex:number ?number .
+  FILTER(?subject = "COMP" || ?subject = "SOEN")
+}
+
+5.
+
+6.
+PREFIX ex: <http://example.org/vocab/>
+
+SELECT ?credits
+WHERE {
+  ?course a ex:Course ;
+		ex:subject "COMP" ;
+          ex:number "371" ;
+          ex:credits ?credits .
+}
+
+7.
+PREFIX ex: <http://example.org/vocab/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?seeAlso
+WHERE {
+  ?lecture a ex:Lecture ;
+           ex:isPartOfCourse ?course ;
+           rdfs:seeAlso ?seeAlso .
+  ?course ex:number "371" .
+}
+
+8.
+
+9.
+
+10.
+PREFIX ex: <http://example.org/vocab/>
+
+SELECT ?topic
+WHERE {
+  ?student ex:completedCourse ?completedCourse .
+  ?completedCourse ex:course ?course .
+  ?course ex:number "6651" .
+  ?student ex:hasCompetency ?topic .
+}
+
+11.
+PREFIX ex: <http://example.org/vocab/>
+
+SELECT ?grade
+WHERE {
+  ?student ex:completedCourse ?completedCourse .
+  ?completedCourse ex:course ?course ;
+                   ex:courseGrade ?grade .
+  ?course ex:number "6651" .
+  FILTER(?student = <http://example.org/vocab/student/S1001>)
+}
+
+12.
+PREFIX ex: <http://example.org/vocab/>
+
+SELECT ?student
+WHERE {
+  ?student ex:completedCourse ?completedCourse .
+  ?completedCourse ex:course ?course .
+  ?course ex:number "6651" .
+}
+
+13.
+PREFIX ex: <http://example.org/vocab/>
+
+SELECT ?courseNumber ?grade
+WHERE {
+  ?student ex:completedCourse ?completedCourse .
+  ?completedCourse ex:course ?course ;
+                   ex:courseGrade ?grade .
+  ?course ex:number ?courseNumber .
+  FILTER(?student = <http://example.org/vocab/student/S1001>)
+}
