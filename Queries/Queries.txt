@@ -50,17 +50,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT ?materialType ?lectureContentLink
 WHERE {
   ?course a ex:Course ;
-          ex:courseNumber "371"^^xsd:string . # Replace "371" with the actual course number
+          ex:courseNumber "6651"^^xsd:string .
   ?lecture a ex:Lecture ;
            ex:isPartOfCourse ?course .
   ?topic a ex:Topic ;
-         ex:topicName "Automata Theory"^^xsd:string ; # Replace "Automata Theory" with the actual topic name
+         ex:topicName "Greedy Algorithms"^^xsd:string ; 
          ex:isTopicOfLecture ?lecture .
   ?lecture ex:lectureContentLink ?lectureContentLink .
   ?content a ?materialType .
   FILTER(?materialType IN (ex:Slides, ex:Readings))
 }
-
 
 6.
 PREFIX ex: <http://example.org/vocab/>
@@ -69,7 +68,7 @@ SELECT ?credits
 WHERE {
   ?course a ex:Course ;
 		ex:subject "COMP" ;
-          ex:number "371" ;
+          ex:number "6651" ;
           ex:credits ?credits .
 }
 
@@ -82,7 +81,7 @@ WHERE {
   ?lecture a ex:Lecture ;
            ex:isPartOfCourse ?course ;
            rdfs:seeAlso ?seeAlso .
-  ?course ex:number "371" .
+  ?course ex:number "6651" .
 }
 
 8.
@@ -91,10 +90,10 @@ PREFIX ex: <http://example.org/ns#>
 SELECT ?lectureContentLink
 WHERE {
   ?course a ex:Course ;
-          ex:courseNumber "371" . # Replace "371" with the course number you're interested in
+          ex:courseNumber "6651" .
   ?lecture a ex:Lecture ;
            ex:isPartOfCourse ?course ;
-           ex:lectureNumber "1" ; # Replace "1" with the lecture number you're interested in
+           ex:lectureNumber "1" ;
            ex:lectureContentLink ?lectureContentLink .
 }
 
@@ -104,12 +103,12 @@ PREFIX ex: <http://example.org/ns#>
 SELECT DISTINCT ?lectureContentLink
 WHERE {
   ?topic a ex:Topic ;
-         ex:topicName "Automata Theory" . # Replace "Automata Theory" with the topic you're interested in
+         ex:topicName "Automata Theory" . 
   ?lecture a ex:Lecture ;
            ex:isTopicOfLecture ?topic ;
            ex:lectureContentLink ?lectureContentLink .
   ?course a ex:Course ;
-          ex:courseNumber "371" ; # Replace "371" with the course number you're interested in
+          ex:courseNumber "6651" ; 
           ex:offersCourse ?lecture .
 }
 

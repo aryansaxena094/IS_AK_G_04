@@ -25,7 +25,6 @@ ex:Student a rdfs:Class ;
     rdfs:comment "An individual who is studying at a university or other place of higher education."@en .
 
 # Properties
-## General properties
 ex:hasName a rdf:Property ;
     rdfs:label "has Name"@en ;
     rdfs:domain rdfs:Resource ;
