@@ -11,16 +11,23 @@ def read_and_process_text(file_path, nlp):
         text = file.read()
     return nlp(text)
 
-def append_to_dataframe(course_id, doc_type, lecture_id, spacy_doc, dataframe):
-    for ent in spacy_doc.ents:
-        dataframe.append({
-            'CourseId': course_id,
-            'Type': doc_type,
-            'Identifier': lecture_id,
-            'Topic Name': ent.text,
-            'Topic Link': 'No link available',
-            'Entity Type': ent.label_
-        })
+def construct_dbpedia_uri(entity_name):
+    formatted_entity = entity_name.replace(' ', '_')
+    return f"http://dbpedia.org/resource/{formatted_entity}"
+
+def append_to_dataframe(course_id, doc_type, lecture_id, spacy_doc, data_entries):
+       allowed_types = {'PERSON', 'ORG', 'GPE'}      
+       for ent in spacy_doc.ents:
+        if ent.label_ in allowed_types:
+            dbpedia_uri = construct_dbpedia_uri(ent.text)
+            data_entries.append({
+                'CourseId': course_id,
+                'Type': doc_type,
+                'Identifier': lecture_id,
+                'Topic Name': ent.text,
+                'Topic Link': dbpedia_uri,
+                'Entity Type': ent.label_
+            })
 
 def process_directory(course_id, doc_type, directory, dataframe, nlp):
     for count, txtfile in enumerate(os.listdir(directory), start=1):

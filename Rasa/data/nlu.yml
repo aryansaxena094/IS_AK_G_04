@@ -90,9 +90,87 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-- intent: what_are_the_credits_for_[course]
+#####
+- intent: list_university_courses
   examples: |
-    - How many credits is [COMP_474] (course) worth?
-    - How many credits is [course] worth
-    - How many credits is [course]
-    - How many credits is [course] worth
+    - List all courses offered by [Concordia University](university).
+    - Show me all courses available at [Stanford](university).
+    - What courses does [MIT](university) offer?
+
+- intent: find_courses_by_topic
+  examples: |
+    - In which courses is [machine learning](topic) discussed?
+    - Show me courses that cover [artificial intelligence](topic).
+    - Which courses include discussions on [quantum computing](topic)?
+
+- intent: list_topics_in_course
+  examples: |
+    - Which topics are covered in [COMP 474](course) during [lecture 5](event)?
+    - What subjects does [SOEN 6011](course) cover in [lecture 10](event)?
+    - Detail the topics taught in [COMP 348](course) during [lecture 3](event).
+
+- intent: list_courses_by_subject
+  examples: |
+    - List all courses within the [COMP](subject) department at [Concordia University](university).
+    - Show me all [SOEN](subject) courses at [Concordia University](university).
+    - What [INSE](subject) courses are available at [Concordia University](university)?
+
+- intent: recommended_materials_for_topic
+  examples: |
+    - What materials (slides, readings) are recommended for [machine learning](topic) in [COMP 474](course) for [2021](year)?
+    - Which readings and resources should I use for [data structures](topic) in [COMP 352](course) for [2022](year)?
+
+- intent: course_credits
+  examples: |
+    - How many credits is [COMP 474](course) for [2021](year) worth?
+    - What's the credit value of [SOEN 6011](course) for [2022](year)?
+
+- intent: additional_course_resources
+  examples: |
+    - For [COMP 474](course) for [2021](year), what additional resources (links to web pages) are available?
+    - What extra materials can I find online for [SOEN 6011](course) for [2022](year)?
+
+- intent: detail_course_content
+  examples: |
+    - Detail the content (slides, worksheets, readings) available for [lecture 4](event) in [COMP 474](course) for [2021](year).
+    - What content is available for [lecture 8](event) in [SOEN 6011](course) for [2022](year)?
+
+- intent: recommended_reading_for_topic
+  examples: |
+    - What reading materials are recommended for studying [blockchain technology](topic) in [COMP 474](course)?
+    - Suggested readings for [cryptography](topic) in [COMP 352](course)?
+
+- intent: competencies_gained
+  examples: |
+    - What competencies do students gain after completing [COMP 474](course) for [2021](year)?
+    - What skills will I have after finishing [SOEN 6011](course) for [2022](year)?
+
+- intent: student_grades
+  examples: |
+    - What grades did [John Doe](person) achieve in [COMP 474](course) for [2021](year)?
+    - Can you tell me the grades for [Jane Smith](person) in [SOEN 6011](course) for [2022](year)?
+
+- intent: students_completed_course
+  examples: |
+    - Which students have completed [COMP 474](course) for [2021](year)?
+    - List all students who finished [SOEN 6011](course) for [2022](year).
+
+- intent: print_student_transcript
+  examples: |
+    - Print a transcript for [John Doe](person), listing all the courses taken with their grades.
+    - Can you generate a transcript for [Jane Smith](person)?
+
+- intent: query_course_description
+  examples: |
+    - What is [COMP 474](course) about?
+    - Can you give me the description for [COMP 474](course)?
+
+- intent: query_topics_in_course_event
+  examples: |
+    - Which topics are covered in [Lab #2](event) of [COMP 474](course)?
+    - What are the main subjects in [Lecture 10](event) of [COMP 474](course)?
+
+- intent: query_events_covering_topic
+  examples: |
+    - Which course events cover [deep learning](topic)?
+    - List all lectures and labs that include [artificial intelligence](topic).
