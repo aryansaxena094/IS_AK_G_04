@@ -32,3 +32,22 @@ responses:
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
+############################################
+intents:
+  - ask_course_description
+
+entities:
+  - course
+
+slots:
+  course:
+    type: text
+    influence_conversation: false
+
+actions:
+  - action_get_course_description
+
+responses:
+  utter_ask_course:
+    - text: "Which course are you interested in?"

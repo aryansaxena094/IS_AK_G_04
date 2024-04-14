@@ -11,3 +11,9 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+############################################
+- rule: Provide course description
+  steps:
+  - intent: ask_course_description
+  - action: action_get_course_description

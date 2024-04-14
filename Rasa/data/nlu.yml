@@ -89,3 +89,25 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+
+#########
+
+- intent: ask_course_description
+  examples: |
+    - What is [COMP 474](course) about?
+    - Give me details on [SOEN 341](course).
+    - Course description for [ANTH 307](course).
+    - Tell me about the course [COMP 352](course).
+
+- intent: ask_course_event_topics
+  examples: |
+    - Which topics are covered in [Lab #2](course_event) of [COMP 474](course)?
+    - What do we learn in [Lecture 10](course_event) of [COMP 352](course)?
+    - Topics included in [Seminar #1](course_event) for [SOEN 341](course)?
+
+- intent: ask_topic_coverage
+  examples: |
+    - Which course events cover [Deep Learning](topic)?
+    - Where is [Machine Learning](topic) discussed?
+    - List all lectures with [Artificial Intelligence](topic).
