@@ -1,0 +1,474 @@
+René Witte
+Introduction
+ImageNet
+AlexNet
+RNNs and LSTMs
+Recurrent Neural Networks
+(RNNs)
+Long Short-Term Memory
+Networks (LSTMs)
+Encoder-Decoder Models
+Transformers
+BERT
+Transformer Architecture
+GPT-2
+GPT-3 and GPT-4
+PaLM
+LangChain
+Conclusions
+Notes and Further
+Reading
+11.1
+Lecture 11
+Deep Learning for Intelligent Systems
+COMP 474/6741, Winter 2024
+Department of Computer Science
+and Software Engineering
+Concordia University
+11.2
+Outline
+1 Introduction
+2 RNNs and LSTMs
+3 Transformers
+4 Conclusions
+5 Notes and Further Reading
+11.3
+Single Neuron (Perceptron)
+Copyright 2019 by Manning Publications Co., [LHH19]
+11.4
+Multi-layer neural networks with hidden weights
+11.5
+Convolutional Neural Network
+Copyright 2019 Applied Data Science Partners Ltd., [Fos23]
+11.6
+ImageNet Large Scale Visual Recognition Challenge (ILSVRC)
+10,000,000 labeled images depicting 10,000+ object categories (2012)
+Krizhevsky, Alex; Sutskever, Ilya; Hinton, Geoffrey E. “ImageNet classification with deep convolutional neural networks”. Communications of the ACM. 60(6): 84–90. doi:10.1145/306538
+https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b- Paper.pdf
+https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf
+11.7
+AlexNet (8-layer CNN, 2012)
+60 million parameters, trained using two GPUs
+https://medium.com/coinmonks/paper- review- of- alexnet- caffenet- winner- in- ilsvrc- 2012- image- classification- b93598314160
+https://medium.com/coinmonks/paper-review-of-alexnet-caffenet-winner-in-ilsvrc-2012-image-classification-b93598314160
+11.8
+Recurrent Neural Networks (RNNs)
+Long Short-Term Memory Networks (LSTMs)
+11.9
+Remembering with recurrent networks
+Word history is important
+Consider:
+The stolen car sped into the arena.
+The clown car sped into the arena.
+Remembering past words
+• So far, we considered a sentence as whole
+• Now we allow a Neural Network to look at the sequence of words
+11.10
+Recurrent Neural Net (RNN)
+11.11
+Unrolled Recurrent Neural Net
+11.12
+Detailed recurrent neural net at time step t = 0
+11.13
+Detailed recurrent neural net at time step t = 1
+11.14
+Text fed into a convolutional network
+11.15
+Text fed into a recurrent network
+11.16
+Only last output matters here
+11.17
+RNN in Keras
+model.add(SimpleRNN(num_neurons,
+return_sequences=True,
+input_shape=(maxlen, embedding_dims)))
+11.18
+Bidirectional RNN
+11.19
+Adding Deeper Memory
+Example
+Consider the sentences:
+The young woman went to the movies with her friends.
+The young woman, having found a free ticket on the ground, went to the
+movies.
+Finding relationship between subject and verb
+• In the second sentence, “woman” and “went” are too far apart for either a CNN
+or RNN to pick up
+• Need some kind of “memory” to keep the core thought of the sentence
+• Use a Long Short-Term Memory (LSTM) network
+[Understanding LSTM Networks, https://colah.github.io/posts/2015-08-Understanding-LSTMs/]
+https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+11.20
+A LSTM Network with Memory
+11.21
+An LSTM Cell
+11.22
+Using an LSTM to Generate Text
+Task
+• Train LSTM on a text corpus (here: Aesop’s Fables)
+• Goal: predict next word after a given sequence of words
+11.23
+Step 1: Preprocessing
+Tokenization
+Can use basic tokenizer from Keras
+11.24
+Step 2: Generate the Dataset
+Goal: Sequences
+• We want the LSTM to learn the next word in a sequence
+• E.g., The fast and the ... (cat? at? house? ...)
+• Here, use 20-word sequences from input text
+• Expected output for input sequence is a one-hot vector with the next word
+See
+https://github.com/davidADSP/GDL_code/blob/master/06_01_lstm_text_train.ipynb
+11.25
+The Embedding Layer
+11.26
+The Recurrent Layer
+11.27
+Implementation in Keras
+from keras.layers import Dense, LSTM, Input, Embedding, Dropout
+from keras.models import Model
+from keras.optimizers import RMSprop
+n_units = 256
+embedding_size = 100
+text_in = Input(shape = (None,))
+x = Embedding(total_words, embedding_size)(text_in)
+x = LSTM(n_units)(x)
+x = Dropout(0.2)(x)
+text_out = Dense(total_words, activation = ’softmax’)(x)
+model = Model(text_in, text_out)
+opti = RMSprop(lr = 0.001)
+model.compile(loss=’categorical_crossentropy’, optimizer=opti)
+epochs = 100
+batch_size = 32
+model.fit(X, y, epochs=epochs, batch_size=batch_size, shuffle = True)
+11.28
+Our Model
+_________________________________________________________________
+Layer (type) Output Shape Param #
+=================================================================
+input_20 (InputLayer) (None, None) 0
+embedding_4 (Embedding) (None, None, 100) 443800
+lstm_4 (LSTM) (None, 256) 365568
+dense_41 (Dense) (None, 4438) 1140566
+Total params: 1,949,934
+Trainable params: 1,949,934
+Non-trainable params: 0
+11.29
+Distribution of word probabilities following various sequences
+11.30
+Generating New Text
+Algorithm
+• Provide some input text to the LSTM
+• Let it predict the next word
+• Output vector (softmax) provides probabilities for next word
+• Pick one using a stochastic approach (rather than always the maximum)
+• We use a temperature parameter; lower temperature means more
+deterministic choice
+11.31
+Output Examples
+11.32
+Improvements
+More advanced networks
+• Use multiple stacked LSTM layers to learn deeper features
+11.33
+Other tasks
+Not just predicting next word:
+Translation: from one language into another (e.g., English→ German)
+Question generation: input text, generate question that could be asked about the
+text
+Summarization: condense a longer text into a shorter one
+Encoder-Decoder
+For this type of problem, we use an encoder-decoder network
+11.34
+Encoder-Decoder Network for Translation
+11.35
+Question and Answer Generator
+Given an input text
+The winning goal was scored by 23-year-old striker Joe Bloggs during the match
+between Arsenal and Barcelona . Arsenal recently signed the striker for 50 million
+pounds . The next match is in two weeks time, on July 31st 2005 . "
+Answer Generation Network
+"Joe Bloggs"
+"Arsenal"
+"Barcelona"
+"50 million pounds"
+"July 31st 2005"
+Question Generation Network
+"Who scored the winning goal?"
+"Who won the match?"
+"Who were Arsenal playing?"
+"How much did the striker cost?"
+"When is the next match?"
+11.37
+Model in Keras for generating question-answer pairs
+from keras.layers import Input, Embedding, GRU, Bidirectional, Dense, Lambda
+from keras.models import Model, load_model
+import keras.backend as K
+from qgen.embedding import glove
+#### PARAMETERS ####
+VOCAB_SIZE = glove.shape[0] # 9984
+EMBEDDING_DIMENS = glove.shape[1] # 100
+GRU_UNITS = 100
+DOC_SIZE = None
+ANSWER_SIZE = None
+Q_SIZE = None
+document_tokens = Input(shape=(DOC_SIZE,), name="document_tokens")
+embedding = Embedding(input_dim = VOCAB_SIZE, output_dim = EMBEDDING_DIMENS,
+weights=[glove], mask_zero = True, name = ’embedding’)
+document_emb = embedding(document_tokens)
+answer_outputs = Bidirectional(GRU(GRU_UNITS, return_sequences=True),
+name = ’answer_outputs’)(document__emb)
+answer_tags = Dense(2, activation = ’softmax’,
+name = ’answer_tags’)(answer_outputs)
+11.39
+11.40
+https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf
+11.41
+LLMs: BERT, GPT, PaLM, LLaMA ...
+https://www.infoq.com/presentations/nlp-practitioners/
+11.42
+Open Source BERT
+https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html
+11.43
+BERT Transfer Learning
+[The Illustrated BERT, ELMo, and co., https://jalammar.github.io/illustrated-bert/
+https://jalammar.github.io/illustrated-bert/
+11.44
+Transformers in NLP
+Encoder Models
+• Focus on understanding input text
+• Generate a context-rich
+representation
+• Examples: BERT, RoBERTa
+Decoder Models
+• Excel at generating text
+• Use context to produce output
+sequence
+• Examples: GPT-3, GPT-4, CTRL
+• Combine encoding and decoding capabilities
+• Ideal for translation, summarization
+• Examples: BART, T5, PaLM, LaMDA, Megatron-Turing NLG, LLaMA
+11.45
+BERT Pre-trained Variants
+https://towardsdatascience.com/bert- for-dummies-step-by-step-tutorial- fb90890ffe03
+https://towardsdatascience.com/bert-for-dummies-step-by-step-tutorial-fb90890ffe03
+11.46
+The Stanford Question Answering Dataset (SQuAD)
+https://rajpurkar.github.io/SQuAD-explorer/
+11.47
+BERT Performance on SQuAD
+11.48
+BERT in Google Search (I)
+https://www.blog.google/products/search/search-language-understanding-bert
+11.49
+BERT in Google Search (II)
+Started rollout for English Google search in October 21, 2019
+11.50
+The Illustrated Transformer, http://jalammar.github.io/illustrated- transformer/
+http://jalammar.github.io/illustrated-transformer/
+11.51
+Transformer Architecture (II)
+11.52
+Transformer Architecture (III)
+11.53
+Transformer Architecture (IV)
+11.54
+Transformer Architecture (V)
+[The Illustrated Transformer, http://jalammar.github.io/illustrated-transformer/]
+11.55
+Transformers, explained: Understand the model behind GPT, BERT, and T5
+https://www.youtube.com/watch?v=SZorAJ4I-sA
+11.56
+Model size comparison
+https://devblogs.nvidia.com/training-bert-with-gpus/
+11.57
+GPT-2: The “unicorn” example
+Human Input
+“In a shocking finding, scientist discovered a herd of unicorns living in a remote,
+previously unexplored valley, in the Andes Mountains. Even more surprising to the
+researchers was the fact that the unicorns spoke perfect English.”
+GPT-2 Generated Output
+“The scientist named the population, after their distinctive horn, Ovid’s Unicorn.
+These four-horned, silver-white unicorns were previously unknown to science.
+Now, after almost two centuries, the mystery of what sparked this odd phenomenon
+is finally solved.
+Dr. Jorge Pérez, an evolutionary biologist from the University of La Paz, and several
+companions, were exploring the Andes Mountains when they found a small valley,
+with no other animals or humans. Pérez noticed that the valley had what appeared
+to be a natural fountain, surrounded by two peaks of rock and silver snow.
+Pérez and the others then ventured further into the valley. “By the time we reached
+the top of one peak, the water looked blue, with some crystals on top,” said Pérez.”
+...
+See https://openai.com/blog/better-language-models/#sample1
+https://openai.com/blog/better-language-models/#sample1
+11.58
+GPT-2 Release Controversy
+Initial Announcement
+• OpenAI announced GPT-2 in February 14, 2019
+https://openai.com/blog/better-language-models/
+• They initially refused to make the model or training data public, saying that it is
+too dangerous, with potential misuse for generating fake news or for phishing
+purposes, identity theft, manipulation of social media content, etc.
+• This was harshly criticized by many members of the research community
+https://anima-ai.org/2019/02/18/an-open-and-shut-case-on-openai/
+GPT-2 Release
+GPT-2 was finally released on November 5, 2019:
+https://openai.com/blog/gpt-2-1-5b-release/
+11.59
+GPT-3
+OpenAI’s GPT-3 & ChatGPT
+Introduced in a July 2020 paper (https://arxiv.org/pdf/2005.14165.pdf)
+• 96 layers and 175 billion parameters
+• cost to train: est. $5 million
+• cost to run (yearly cloud costs): est. $87,000
+See https://bdtechtalks.com/2020/09/21/gpt-3-economy-business-model/
+Now fully commercial
+• OpenAI moved from non-profit to for-profit in 2019
+• GPT-3 is only available via paid cloud API
+• Microsoft exclusively licensed the GPT-3 source code
+https://openai.com/blog/openai-licenses-gpt-3-technology-to-microsoft/
+https://arxiv.org/pdf/2005.14165.pdf
+https://bdtechtalks.com/2020/09/21/gpt-3-economy-business-model/
+11.60
+https://towardsdatascience.com/gpt-3-the-new-mighty-language-model-from-openai-a74ff35346fc
+11.61
+GPT-3 vs GPT-4: Technical Comparison
+Key Technical Specifications
+• Model Size: 175 billion parameters
+• Context Window: 2048 tokens
+• Training Data: Up to October 2019
+• Cost to train: est. $5 million
+• Capabilities: Text generation,
+translation, Q&A, etc.
+• Current “free” model in ChatGPT
+GPT-4
+• Model Size: Significantly larger
+(est. to be ∼1.8 trillion parameters)
+• but these are split over 16 “experts”
+for different question types
+• Context Window: 8000 to 32000
+tokens
+• Training Data: est. ∼13 trillion tokens
+• Capabilities: Enhanced language
+understanding, reasoning, etc.
+• Current “pro” model in ChatGPT
+https://the-decoder.com/gpt-4-architecture-datasets-costs-and-more-leaked/
+11.62
+Build your own ChatGPT (January 2024)
+https://chat.openai.com/gpts
+11.63
+Google’s PaLM (April 2022)
+Pathways Language Model (PaLM): Scaling to 540 Billion Parameters for Breakthrough Performance
+https://ai.googleblog.com/2022/04/pathways-language-model-palm-scaling-to.html
+11.64
+PaLM2 (May 2023)
+https://ai.google/discover/palm2/
+11.65
+Palm used in Bard Gemini
+https://gemini.google.com/
+11.66
+https://github.com/langchain-ai
+11.67
+Key Features
+• Framework for LLM-enhanced applications
+• Modular architecture for flexibility
+• Integrates LLMs with databases and APIs
+Open-Source Components
+• Core LangChain library
+• Connectors for APIs and databases
+• Pre-built modules for common tasks
+11.68
+LangChain “Hello World” Example
+Using Python Interface with OpenAI API
+from langchain.llms import OpenAI
+# Initialize the language model
+llm = OpenAI(api_key="your_openai_api_key")
+# Using the LLM to generate a response
+response = llm.generate("Hello, world! How are you today?")
+# Print the generated response
+print(response)
+Switching to an Open Source LLM
+from langchain.llms import HuggingFace
+llm = HuggingFace(model_name="gpt2")
+11.69
+Main Components of LangChain
+Models
+• Language models for generating text
+• Examples: OpenAI’s GPT, Hugging Face models
+Prompts
+• Templates or questions to elicit information from models
+• Examples: Question answering, content generation
+Indexes
+• Data structures to efficiently search and retrieve information
+• Examples: Document Loaders, Vector Databases
+Chains
+• Sequences of processing steps combining different components
+• Examples: Data retrieval followed by text generation
+Agents
+• Autonomous entities that interact with environments or APIs
+• Examples: Chatbots, automated information retrieval agents
+11.70
+11.71
+Our Intelligent Systems course...
+Theory
+• Knowledge Graphs
+• Machine Learning
+• Neural Networks
+• Natural Language Processing
+• Deep Learning Concepts
+(Word2Vec, CNNs, ...)
+Tools
+• Python, scikit-learn
+• Apache Fuseki, SPARQL, RDFlib
+• spaCy, GloVe
+• Rasa
+• TensorFlow
+• Hugging Face
+Applications
+• Recommender Systems
+• Semantic Search and Enterprise Data Integration
+• Chatbots and Virtual Assistants
+• Text Mining Systems
+• Sentiment Analysis
+• Text Analysis and Generation
+— Explore AI, shape tomorrow. Goodbye for now! —
+11.72
+11.73
+Reading Material
+Supplemental
+• [Fos23, Chapter 5] (LSTM)
+• [Fos23, Chapter 9] (Transformers)
+• https://www.deeplearning.ai/short-courses/
+(Hands-on courses for LangChain and others)
+https://www.deeplearning.ai/short-courses/
+11.74
+References
+[Fos23] David Foster.
+Generative Deep Learning: Teaching Machines to Paint, Write, Compose,
+and Play.
+O’Reilly, 2nd edition, 2023.
+https://concordiauniversity.on.worldcat.org/oclc/1378390519.
+[LHH19] Hobson Lane, Cole Howard, and Hannes Max Hapke.
+Natural Language Processing in Action.
+Manning Publications Co., 2019.
+https://concordiauniversity.on.worldcat.org/oclc/1102387045.
+https://concordiauniversity.on.worldcat.org/oclc/1378390519
+https://concordiauniversity.on.worldcat.org/oclc/1102387045
+Deep Learning
+Introduction
+ImageNet
+AlexNet
+RNNs and LSTMs
+Recurrent Neural Networks (RNNs)
+Long Short-Term Memory Networks (LSTMs)
+Encoder-Decoder Models
+Transformers
+BERT
+Transformer Architecture
+GPT-2
+GPT-3 and GPT-4
+PaLM
+LangChain
+Conclusions
+Notes and Further Reading

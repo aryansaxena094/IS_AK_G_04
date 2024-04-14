@@ -1,0 +1,88 @@
+COMP474/6741 Intelligent Systems (Winter 2024)
+Worksheet #8: Neural Networks & Word Embeddings
+Task 1. Word analogy questions often appear on standardized tests, like the SSAT, to test language aptitude
+and reasoning. Here’s a simple one (fill in the blank): Japan is to Sushi what Germany is to
+Can we solve this type of question with an AI? Stay tuned for the answer!
+Task 2. Calculate your first neuron activation for the Perceptron (only 100 billion−1 more to go!):
+Your input vector ~x = [0, 1, 1] and your
+weights are ~w = [0.25, 0.5, 0.75].
+Activation function:
+f(~x) =
+{
+1, if ~x · ~w ≥ threshold
+0, otherwise
+(use a threshold of 0.5):
+Task 3. Let’s train our Perceptron to learn the logical and function. Here, we have a two-dimensional
+input vector and four labeled training examples l0, . . . , l3:
+x0 x1 x0 ∧ x1
+l0 1 1 1
+l1 1 0 0
+l2 0 1 0
+l3 0 0 0
+Epoch Input w0 w1 w2 f(~x) ok?
+0
+l0 0 0.2 0.2
+l1
+l2
+l3
+1
+l0
+Note that x2 is our bias (input always 1). Use a threshold for the activation function of 0.5 and set the
+learning rate η = 0.1. Train the Perceptron by checking the output for each training sample. Update the
+weights if there is an error: w′i = wi + η · (label − predicted) · xi.
+Task 4. Let’s compute the loss of the Perceptron above at each epoch using mean squared error (MSE) as
+the cost function:
+MSE(x) =
+n
+n∑
+i=1
+(yi − f(xi))
+2
+Loss at end of Epoch 0: Epoch 1:
+COMP474/6741 Worksheet: Neural Networks & Word Embeddings Winter 2024
+Task 5. Here are three words in one-hot vector representation (three words, so three dimensions):
+What is the distance between the one-
+hot word vectors for (cat, dog) and
+(cat, house):
+Using the Euclidian distance,
+d(~p, ~q) =
+√∑n
+i=1(pi − qi)2
+Task 6. Ok, now re-write the question from Task 1 in form of a word vector calculation:
+Verify with https://www.cs.cmu.edu/∼dst/WordEmbeddingDemo/
+Task 7. Consider the following sentence: “the cat drinks the milk”. We will use this sentence to train a
+Word2Vec model using the skip-gram approach. Assume that you use a context window of size 1 (1 word
+before and 1 word after the input word), and your vocabulary only contains the words in the sentence
+above.
+Using only the sentence above, create the training instances using the skip-gram method:
+Instance Input Word To Predict Instance Input Word To Predict
+1 5
+2 6
+3 7
+4 8
+Task 8. Now, (a) encode the vocabulary using one-hot vectors, assuming alphabetical ordering, no stop-word
+filtering (left) and (b) using these vectors, encode the first three training instances above as input vectors for
+the network:
+Word One-Hot Vector
+cat 1
+drinks
+milk
+the
+Instance Context Word One-Hot Vector
+Input
+Output
+3
+Task 9. Compute the softmax function σ on the vector v below:
+σ(v)j =
+evj∑K
+k=1 e
+vk
+v =
+0.5
+0.9
+0.2
+ , σ(v) =
+
+
+(e = Euler’s number ≈ 2.71828)
+https://www.cs.cmu.edu/~dst/WordEmbeddingDemo/
