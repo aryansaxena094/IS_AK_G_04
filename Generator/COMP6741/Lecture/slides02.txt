@@ -75,6 +75,7 @@ A1
 A2
 E2
 E3
+Aryan Saxena
 2.10
 Example knowledge graph
 21
@@ -658,24 +659,5 @@ https://concordiauniversity.on.worldcat.org/oclc/897466408.
 http://www.w3.org/People/Ivan/CorePresentations/RDFTutorial/
 http://www.w3.org/TR/rdf11-primer/
 https://concordiauniversity.on.worldcat.org/oclc/897466408
-Introduction
-Motivation
-Why Knowledge Graphs?
-History
-Knowledge Representation
-Semantic Web
-Knowledge Graphs
-The Resource Description Framework (RDF)
-RDF Triples
-Literals
-Blank Nodes
-Knowledge Bases: DBpedia, Wikidata
-Namespaces
-Serialization
-Programming
 Example: Data Integration with Knowledge Graphs
-Conclusions
-Architecture
-Examples
-Knowledge Graphs and Large Language Models
 Notes and Further Reading

@@ -537,18 +537,4 @@ https://concordiauniversity.on.worldcat.org/oclc/772977853
 https://concordiauniversity.on.worldcat.org/oclc/1102387045
 https://concordiauniversity.on.worldcat.org/oclc/359890490
 Chatbots
-Introduction
-Intelligent Conversational Agents
-Examples
-Design process
-Search-Based Bots
-Pattern-Matching Bots
-Grounding-Based Bots
-Question Classification
-NLP Pipelines
-Designing the Knowledge Base
-Linking Documents and Knowledge Graphs
-Conclusions
-Example: Watson
-Summary
 Notes and Further Reading

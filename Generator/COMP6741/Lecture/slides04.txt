@@ -56,6 +56,7 @@ Photo credit “Indy Reading Coalition”, Wordpress.com
 •  “an author is also a Person…”, “historical fiction is a narrower
 term than fiction”
 •  ie, new relationships can be deduced
+Aryan Saxena
 4.7
 (224) 224
 }  There is a need for “languages” to define such
@@ -429,7 +430,6 @@ Content-Type: application/sparql-results+xml
 <results>
 <result ordered="false" distinct="false">
 <binding name="a"><uri>http:…</uri></binding>
-...
 </result>
 <result> ... </result>
 </results>
@@ -631,7 +631,6 @@ RDF Data
 RDFS/OWL/RIF
 data
 Query
-result
 SPARQL Engine with entailment
 4.81
 Freebase, DBpedia & Wikidata
@@ -674,7 +673,6 @@ dbterm:longs "32" ;
 dbterm:website <http://www.amsterdam.nl> ;
 dbterm:populationUrban "1364422" ;
 dbterm:areaTotalKm "219" ;
-...
 dbpedia:ABN_AMRO
 dbterm:location dbpedia:Amsterdam ;
 4.87
@@ -686,7 +684,6 @@ owl:sameAs <http://dbpedia.org/resource/Amsterdam>
 wgs84_pos:lat "52.3666667" ;
 wgs84_pos:long "4.8833333";
 geo:inCountry <http://www.geonames.org/countries/#NL> ;
-...
 Processors can switch automatically from one to the other…
 4.88
 (176) 176 Courtesy of Richard Cyganiak and Anja Jentzsch
@@ -759,7 +756,6 @@ LOD-compliant format:
 2 Create URIs following the
 guidelines
 3 Select appropriate
-vocabularies
 4 Extend existing vocabularies
 if necessary
 5 Link your data to other
@@ -847,25 +843,5 @@ https://concordiauniversity.on.worldcat.org/oclc/897466408.
 https://link.springer.com/chapter/10.1007/978-3-030-59833-4_1
 https://concordiauniversity.on.worldcat.org/oclc/871683907
 https://concordiauniversity.on.worldcat.org/oclc/897466408
-Introduction
-Review
-OWL
-Queries
-SPARQL Queries
-Describe
-Select
-Construct
-Ask
-Other SPARQL Features
-SPARQL Protocol
-Named Graphs
-Serving Knowledge Graphs
-Inferencing
 Linked Open Data (LOD)
-The LOD Initiative
-DBpedia
-The LOD Cloud
-Linked Data Design Issues
-Freebase, DBpedia & Wikidata
-Publishing Options and Workflows
 Notes and Further Reading

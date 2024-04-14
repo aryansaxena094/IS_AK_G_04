@@ -75,6 +75,7 @@ xn
 Visualization
 We can visualize vectors, e.g., in 2D:
 ~v
+Aryan Saxena
 5.13
 So what?
 Vectors of words, users, products, . . .
@@ -526,21 +527,4 @@ https://concordiauniversity.on.worldcat.org/oclc/954339855.
 https://concordiauniversity.on.worldcat.org/oclc/314121652
 http://informationretrieval.org
 https://concordiauniversity.on.worldcat.org/oclc/954339855
-Recommender Systems
-Introduction
-Modeling Users
-Netflix Recommendations
-Collaborative Filtering
-Computing with Words
-Item Recommendation
-Items Related to other Items
-Items of Interest to a User
-Relevant Users for an Item
-Semantic User Profiles
-Evaluation
-Content-based Recommendations
-Motivation
-TF*IDF weighting
-Term Vector Space Model
-Summary
 Notes and Further Reading

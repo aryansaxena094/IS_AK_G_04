@@ -456,19 +456,4 @@ https://concordiauniversity.on.worldcat.org/oclc/1102387045.
 https://concordiauniversity.on.worldcat.org/oclc/1378390519
 https://concordiauniversity.on.worldcat.org/oclc/1102387045
 Deep Learning
-Introduction
-ImageNet
-AlexNet
-RNNs and LSTMs
-Recurrent Neural Networks (RNNs)
-Long Short-Term Memory Networks (LSTMs)
-Encoder-Decoder Models
-Transformers
-BERT
-Transformer Architecture
-GPT-2
-GPT-3 and GPT-4
-PaLM
-LangChain
-Conclusions
 Notes and Further Reading

@@ -464,19 +464,6 @@ Manning Publications Co., 2019.
 https://concordiauniversity.on.worldcat.org/oclc/1102387045.
 https://concordiauniversity.on.worldcat.org/oclc/1136155457
 https://concordiauniversity.on.worldcat.org/oclc/1102387045
-Introduction to Deep Learning
-Introduction
 Perceptron and Feed-Forward Networks
-Image Classification
-CIFAR-10
-Data as Tensors
-Feed-forward Network for CIFAR-10
-A note on loss functions
-Cross-Entropy Loss
-Training the CIFAR-10 model
-Results
 Deep Learning Architectures
-Convolutional Neural Networks (CNNs)
-CNN for Text
-Sentiment Analysis
 Notes and Further Reading

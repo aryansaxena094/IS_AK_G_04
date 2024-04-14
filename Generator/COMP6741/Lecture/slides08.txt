@@ -426,7 +426,6 @@ Garden Paths The old man the boat.
 8.46
 POS tags & dependencies
 doc = nlp(u"Apple is looking at buying U.K. startup")
-for token in doc:
 print(token.text, token.pos_, token.tag_)
 8.47
 Dependency Parsing vs. Constituent-based Parse Tree
@@ -636,24 +635,5 @@ https://concordiauniversity.on.worldcat.org/oclc/801812987.
 https://web.stanford.edu/~jurafsky/slp3/
 https://concordiauniversity.on.worldcat.org/oclc/1102387045
 https://concordiauniversity.on.worldcat.org/oclc/801812987
-Text Mining
-Introduction
-Text Mining in Science
-Text Mining Applications
-Language Technology (LT)
-Development Frameworks
-Example GATE Pipeline
 Natural Language Processing (NLP)
-Language Models
-Tokenization
-Sentence Splitting
-Morphology
-Part-of-Speech (POS) Tagging
-Chunking and Parsing
-Named Entity Recognition
-Entity Linking
-Pipelines
-Example: Scientific Literature Mining
-Mining Health Documents
-Summary
 Notes and Further Reading

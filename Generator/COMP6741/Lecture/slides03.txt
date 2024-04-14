@@ -65,6 +65,7 @@ or a literal
 machine readable formats like RDF/XML, Turtle,
 N3, RDFa, Json, …)
 (<http://…isbn…6682>, <http://…/original>, <http://…isbn…409X>)
+Aryan Saxena
 3.8
 (51) 51
 <http://…/isbn/2020386682>
@@ -417,7 +418,6 @@ dc:title
 <http://…/isbn/000651409X>
 dc:title "The Glass Palace"@en;
 dc:subject <http://id.loc.gov/authorities/sh85061165#concept>;
-...
 <http://id.loc.gov/authorities/sh85061165#concept>
 a    skos:Concept;
 skos:prefLabel "Historical Fiction"@en;
@@ -465,9 +465,7 @@ More authoritative vocabularies
 <div itemscope itemtype="http://schema.org/Review">
 <h1 itemprop="name">Oscars 2012: The Artist, review</h1>
 <h2 itemprop="description">The Artist, an utterly beguiling…</h2>
-...
 <span itemprop="ratingValue" class="hidden">5</span>
-...
 3.64
 (126) 126
 [ rdf:type schema:Review ;
@@ -511,20 +509,4 @@ http://www.w3.org/People/Ivan/CorePresentations/RDFTutorial/
 http://www.w3.org/TR/rdf11-primer/
 https://concordiauniversity.on.worldcat.org/oclc/871683907
 https://concordiauniversity.on.worldcat.org/oclc/897466408
-Introduction
-Review
-Anatomy of a URI
-Back to the bookstore example
-RDF Schema
-Class and Instance
-Label & Comment
-Subclass
-Property
-RDFS Utility Vocabulary
-Summary
-Vocabularies
-FOAF
-Dublin Core
-SKOS
-Example: schema.org
 Notes and Further Reading

@@ -1,20 +1,53 @@
-from tika import parser
 import os
-def parse_and_save_files(input_directory, output_directory, file_prefix):
-    tika.initVM() # type: ignore
-    for i, filename in enumerate(os.listdir(input_directory), start=1):
-        input_file_path = os.path.join(input_directory, filename)
-        output_file_path = os.path.join(output_directory, f'{file_prefix}{i}.txt')
-        print(f'Processing file: {filename}')
-        parsed = parser.from_file(input_file_path)
-        content = parsed.get("content", "").strip()
-        lines = list(filter(None, content.split("\n")))
-        unique_lines = "\n".join(sorted(set(lines), key=lines.index))
-        with open(output_file_path, 'w', encoding='UTF-8') as f_out:
-            f_out.write(unique_lines)
+from tika import parser
+from pathlib import Path
+
+base_dir = Path.cwd()
+base_dir = base_dir / "Generator/"
+
+def init_tika_vm():
+    from tika import initVM
+    initVM()
+
+def clean_text(raw_text):
+    """Remove blank lines and duplicate lines from the text."""
+    lines = raw_text.strip().split("\n")
+    unique_lines = set()
+    cleaned_text = ""
+    for line in lines:
+        stripped_line = line.strip()
+        if stripped_line and stripped_line not in unique_lines:
+            cleaned_text += stripped_line + "\n"
+            unique_lines.add(stripped_line)
+    return cleaned_text
+
+def process_pdf_files(directory_path, output_directory):
+    directory_path = Path(directory_path)
+    output_directory = Path(output_directory)
+    output_directory.mkdir(parents=True, exist_ok=True)  # Ensure output directory exists
+
+    for i, file_path in enumerate(directory_path.iterdir(), start=1):
+        if file_path.suffix.lower() == '.pdf':
+            try:
+                parsed = parser.from_file(str(file_path))
+                content = parsed["content"]
+                if content:
+                    cleaned_content = clean_text(content)
+                    output_file_path = output_directory / f'{file_path.stem}.txt'
+                    with open(output_file_path, 'w', encoding='UTF-8') as f:
+                        f.write(cleaned_content)
+                    print(f"Processed {file_path.name} to {output_file_path.name}")
+            except Exception as e:
+                print(f"Failed to process {file_path.name}: {e}")
+
 if __name__ == "__main__":
-    IS_base_directory = "TextConv/COMP6741"
-    worksheet_directory = os.path.join(IS_base_directory, "Worksheet")
-    lecture_directory = os.path.join(IS_base_directory, "Lecture")
-    parse_and_save_files(worksheet_directory, worksheet_directory, 'worksheet')
-    parse_and_save_files(lecture_directory, lecture_directory, 'slide')
+    init_tika_vm()
+    # Define directories
+    worksheet_directory = "/Users/aryansaxena/Desktop/Intelligent Systems/2-WORKSHEETS"
+    lecture_directory = "/Users/aryansaxena/Desktop/Intelligent Systems/1-SLIDES"
+    save_worksheet_directory = base_dir / "COMP6741/Worksheet"
+    save_lecture_directory = base_dir / "COMP6741/Lecture"
+
+    # Process PDFs
+    process_pdf_files(worksheet_directory, save_worksheet_directory)
+    process_pdf_files(lecture_directory, save_lecture_directory)

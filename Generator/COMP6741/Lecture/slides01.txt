@@ -63,6 +63,7 @@ Task II
 Please find all Persons mentioned in our documents
 What you need
 Requires Information Extraction (IE) – an example for a Text Mining task
+Aryan Saxena
 1.8
 Natural Language Processing (NLP)
 Definition
@@ -457,28 +458,6 @@ Natural Language Processing in Action.
 Manning Publications Co., 2019.
 https://concordiauniversity.on.worldcat.org/oclc/1102387045.
 https://concordiauniversity.on.worldcat.org/oclc/1102387045
-Introduction
-Motivation
-A First Architecture
-Text Mining
-Foundations
-Named Entity Detection
-Recommender Systems
-Sentiment Analysis
-Risks
-Summary
-Knowledge Graphs
-Architecture
-Linked Open Data
-Automated Reasoning
-Technology
-Vocabularies
-Summary II
 The Agents are coming
-History
 Agent AI: From Dumb to Deep
-Rule-Based
-Grounding-Based
-Retrieval-Based
-Generative-Based
 Notes and Further Reading

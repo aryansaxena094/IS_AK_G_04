@@ -567,23 +567,7 @@ Manning Publications Co., 2019.
 https://concordiauniversity.on.worldcat.org/oclc/1102387045.
 https://concordiauniversity.on.worldcat.org/oclc/1102387045
 Neural Networks
-Introduction
-Neural Networks 101
-Perceptron
-Backpropagation
-TensorFlow & Keras
-Word Embeddings
-Bag-of-Words Model
-One-Hot Vectors
-Word Embeddings with Word2vec
-Word Vectors with spaCy
-fastText
 Hello, Text Processing Neural Network
-Task and Data
-Input Representation using Word Vectors
-Network Architecture
-Applying the Trained Model
 Document Vectors and Vector Databases
 Document Vectors with Doc2vec
-Vector Databases
 Notes and Further Reading

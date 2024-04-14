@@ -18,6 +18,7 @@ Note that the prefix abbreviations geo and xsd are pre-defined in the query inte
 http://dbpedia.org/resource/Concordia_University
 https://dbpedia.org/sparql/
 https://dbpedia.org/sparql/?help=nsdecl
+Aryan Saxena
 COMP474/6741 Worksheet: Knowledge Base Queries & Linked Open Data Winter 2024
 Task 4. Now find all predicates and objects that have dbr:Concordia University as the subject :Ï
 SELECT . . .

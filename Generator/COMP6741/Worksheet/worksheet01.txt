@@ -23,6 +23,7 @@ to /wiki/...), not the raw RDF data that would be consumed by a program (/entity
 determined by the extension, e.g., https://www.wikidata.org/wiki/Special:EntityData/Q326342.rdf for raw RDF data.
 https://wikidata.org
 https://www.wikidata.org/wiki/Special:EntityData/Q326342.rdf
+Aryan Saxena
 COMP474/6741 Worksheet: Knowledge Graphs Winter 2024
 Task 6. Ok, now let’s go back to the graph from Task 1. Replace the string “Concordia” with the URI
 you obtained in the previous step in your graph above. Note: To obtain a complete RDF graph, you’d
