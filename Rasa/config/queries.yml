@@ -25,11 +25,10 @@ queries:
     query: >
       PREFIX ex: <http://example.org/vocab/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
       SELECT ?topicName
       WHERE {
         ?topic ex:isTopicOfCourse <http://example.org/vocab/course/{course_id}> ;
-              ex:isTopicOfLecture <http://example.org/vocab/lecture/4> ;
+              ex:isTopicOfLecture <http://example.org/vocab/lecture/{lecture_id}> ;
               ex:topicName ?topicName .
       }
 
@@ -37,7 +36,6 @@ queries:
     query: >
       PREFIX ex: <http://example.org/vocab/>
       PREFIX dbo: <http://dbpedia.org/ontology/>
-
       SELECT ?course ?subject ?number
       WHERE {
         ?university dbo:offersCourse ?course .
@@ -62,33 +60,109 @@ queries:
               ex:topicName "{topic}"^^xsd:string ; 
               ex:isTopicOfLecture ?lecture .
         ?lecture ex:lectureContentLink ?lectureContentLink .
-        ?content a ?materialType .
-        FILTER(?materialType IN (ex:Slides, ex:Readings))
+        FILTER(?materialType IN ("{materialType1}", "{materialType2}"))  # Adjust as necessary
       }
       
   course_credits:
     query: >
-      
+      PREFIX ex: <http://example.org/vocab/>
+      SELECT ?credits
+      WHERE {
+        ?course a ex:Course ;
+          ex:subject "{course_subject}" ;
+                ex:number "{course_number}" ;
+                ex:credits ?credits .
+      }
+
+
   additional_course_resources:
     query: >
+      PREFIX ex: <http://example.org/vocab/>
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+      SELECT ?seeAlso
+      WHERE {
+        ?lecture a ex:Lecture ;
+                ex:isPartOfCourse ?course ;
+                rdfs:seeAlso ?seeAlso .
+        ?course ex:number "{course_number}" .
+      }
       
   detail_course_content:
     query: >
+      PREFIX ex: <http://example.org/ns#>
+      SELECT ?lectureContentLink
+      WHERE {
+        ?course a ex:Course ;
+                ex:courseNumber "{course_number}" .
+        ?lecture a ex:Lecture ;
+                ex:isPartOfCourse ?course ;
+                ex:lectureNumber "1" ;
+                ex:lectureContentLink ?lectureContentLink .
+      }
       
   recommended_reading_for_topic:
     query: >
+      PREFIX ex: <http://example.org/ns#>
+      SELECT DISTINCT ?lectureContentLink
+      WHERE {
+        ?topic a ex:Topic ;
+              ex:topicName "{topic_name}" . 
+        ?lecture a ex:Lecture ;
+                ex:isTopicOfLecture ?topic ;
+                ex:lectureContentLink ?lectureContentLink .
+        ?course a ex:Course ;
+                ex:courseNumber "{course_number}" ; 
+                ex:offersCourse ?lecture .
+      }
       
   competencies_gained:
     query: >
+      PREFIX ex: <http://example.org/vocab/>
+      SELECT ?topic
+      WHERE {
+        ?student ex:completedCourse ?completedCourse .
+        ?completedCourse ex:course ?course .
+        ?course ex:number "{course_number}" .
+        ?student ex:hasCompetency ?topic .
+      }
+
       
   student_grades:
     query: >
+      PREFIX ex: <http://example.org/vocab/>
+      SELECT ?grade
+      WHERE {
+        ?student ex:completedCourse ?completedCourse .
+        ?completedCourse ex:course ?course ;
+                        ex:courseGrade ?grade .
+        ?course ex:number "{course_number}" .
+        FILTER(?student = <http://example.org/vocab/student/{students_id}>)
+      }
       
   students_completed_course:
     query: >
+      PREFIX ex: <http://example.org/vocab/>
+      SELECT ?student
+      WHERE {
+        ?student ex:completedCourse ?completedCourse .
+        ?completedCourse ex:course ?course .
+        ?course ex:number "{course_number}" .
+      }
       
   print_student_transcript:
     query: >
+      PREFIX ex: <http://example.org/vocab/>
+
+      SELECT ?courseNumber ?grade
+      WHERE {
+        ?student ex:completedCourse ?completedCourse .
+        ?completedCourse ex:course ?course ;
+                        ex:courseGrade ?grade .
+        ?course ex:number ?courseNumber .
+        FILTER(?student = <http://example.org/vocab/student/S1001>)
+      }
+
       
   query_course_description:
     query: >
