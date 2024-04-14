@@ -42,9 +42,9 @@ def process_pdf_files(directory_path, output_directory):
 
 if __name__ == "__main__":
     init_tika_vm()
-    worksheet_directory = "/Users/aryansaxena/Desktop/Intelligent Systems/2-WORKSHEETS"
-    lecture_directory = "/Users/aryansaxena/Desktop/Intelligent Systems/1-SLIDES"
-    save_worksheet_directory = base_dir / "COMP6741/Worksheet"
-    save_lecture_directory = base_dir / "COMP6741/Lecture"
+    worksheet_directory = "/Users/aryansaxena/Desktop/Applied AI/LABS"
+    lecture_directory = "/Users/aryansaxena/Desktop/Applied AI/SLIDES"
+    save_worksheet_directory = base_dir / "COMP6721/Worksheet"
+    save_lecture_directory = base_dir / "COMP6721/Lecture"
     process_pdf_files(worksheet_directory, save_worksheet_directory)
     process_pdf_files(lecture_directory, save_lecture_directory)

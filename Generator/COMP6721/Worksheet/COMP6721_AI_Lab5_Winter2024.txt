@@ -1,0 +1,332 @@
+COMP6721 Applied Artificial Intelligence (Winter 2024)
+Assignment #5: Decision Trees & K-means
+Solutions
+Question 1 Given the training instances below, use information theory to find whether
+‘Outlook’ or ‘Windy’ is the best feature to decide when to play a game of golf.
+Outlook Temperature Humidity Windy Play / Don’t Play
+sunny 85 85 false Don’t Play
+sunny 80 90 true Don’t Play
+overcast 83 78 false Play
+rain 70 96 false Play
+rain 68 80 false Play
+rain 65 70 true Don’t Play
+overcast 64 65 true Play
+sunny 72 95 false Don’t Play
+sunny 69 70 false Play
+rain 75 80 false Play
+sunny 75 70 true Play
+overcast 72 90 true Play
+overcast 81 75 false Play
+rain 71 80 true Don’t Play
+1
+H(Output) = H
+( 5
+14 ,
+9
+14
+)
+= −
+14 log2
+5
+14 + 9
+= 0.94
+H(Output|sunny) = H
+(3
+5 ,
+2
+5 log2
+3
+5 + 2
+= 0.97
+H(Output|overcast) = H (0, 1) = − (0 log2 0 + 1 log2 1) = 0
+H(Output|rain) = H
+(2
+5 + 3
+H(Output|Outlook) = 5
+14H(Output|sunny) + 4
+14H(Output|overcast) + 5
+14H(Output|rain)
+140.97 + 4
+140 + 5
+140.97 = 0.69
+gain(Outlook) = H(Output)−H(Output|Outlook) = 0.94− 0.69 = 0.25
+H(Output|Windy = true) = H
+(1
+2 ,
+= 1
+H(Output|Windy = false) = H
+4 ,
+4
+= 0.81
+H(Output|Windy) = 6
+141 + 8
+140.81 = 0.89
+gain(Windy) = H(Output)−H(Output|Windy) = 0.94− 0.89 = 0.05
+⇒ ‘Outlook’ is a better feature because it has a bigger information gain.
+Question 2 It’s time to leave the calculations to your computer: Write a Python program
+that uses scikit-learn’s Decision Tree Classifier:1
+import numpy as np
+from sklearn import tree
+from sklearn import preprocessing
+Here is the training data from the first question:
+dataset = np.array([
+['sunny', 85, 85, 0, 'Don\'t Play'],
+['sunny', 80, 90, 1, 'Don\'t Play'],
+['overcast', 83, 78, 0, 'Play'],
+['rain', 70, 96, 0, 'Play'],
+['rain', 68, 80, 0, 'Play'],
+['rain', 65, 70, 1, 'Don\'t Play'],
+['overcast', 64, 65, 1, 'Play'],
+['sunny', 72, 95, 0, 'Don\'t Play'],
+['sunny', 69, 70, 0, 'Play'],
+['rain', 75, 80, 0, 'Play'],
+['sunny', 75, 70, 1, 'Play'],
+['overcast', 72, 90,1, 'Play'],
+['overcast', 81, 75, 0, 'Play'],
+['rain', 71, 80, 1, 'Don\'t Play'],
+])
+Note that we changed True and False into 1 and 0.
+For our feature vectors, we need the first four columns:
+X = dataset[:, 0:4]
+and for the training labels, we use the last column from the dataset:
+y = dataset[:, 4]
+However, you will not be able to use the data as-is: All features must be
+numerical for training the classifier, so you have to transform the strings into
+numbers. Fortunately, scikit-learn has a preprocessing class for label encoding
+that we can use:2
+le = preprocessing.LabelEncoder()
+X[:, 0] = le.fit_transform(X[:, 0])
+(Note: you will need to transform y as well.)
+1See https://scikit-learn.org/stable/modules/tree.html#classification
+2See https://scikit-learn.org/stable/modules/preprocessing_targets.html#preprocessing-targets
+https://scikit-learn.org/stable/modules/tree.html#classification
+https://scikit-learn.org/stable/modules/preprocessing_targets.html#preprocessing-targets
+Now you can create a classifier object:
+dtc = tree.DecisionTreeClassifier(criterion="entropy")
+Note that we are using the entropy option for building the tree, which is the
+method we’ve studied in class. Train the classifier to build the tree:
+dtc.fit(X, y)
+Now you can predict a new value using dtc.predict(test), just like you did for
+the Naïve Bayes classifier last week. Note: if you want the string output that
+you transformed above, you can use the inverse_transform(predict) function
+of a label encoder to change the predicted result back into a string.
+You can also print the tree:
+tree.plot_tree(dtc)
+but this can be a bit hard to read; to get a prettier version you can use the
+Graphviz visualization software,3 which you can call from Python like this:
+# print a nicer tree using graphviz
+import graphviz
+dot_data = tree.export_graphviz(dtc, out_file=None,
+feature_names=['Outlook', 'Temperature', 'Humidity', 'Windy'],
+class_names=['Don\'t Play', 'Play'],
+filled=True, rounded=True)
+graph = graphviz.Source(dot_data)
+graph.render("mytree")
+The result will be stored in a file mytree.pdf and should look like Figure 1.
+Most of the code is provided above. For transforming the labels, you can use
+the same label encoder:
+y = le.fit_transform(dataset[:, 4])
+To predict a label for a new feature vector:
+y_pred = dtc.predict([[2, 81, 95, 1]])
+print("Predicted output: ", le.inverse_transform(y_pred))
+To print the tree using the encoded class names:
+class_names=le.classes_,
+3See https://www.graphviz.org/
+https://www.graphviz.org/
+Outlook <= 0.5
+entropy = 0.94
+samples = 14
+value = [5, 9]
+class = Play
+entropy = 0.0
+samples = 4
+value = [0, 4]
+True
+Temperature <= 77.5
+entropy = 1.0
+samples = 10
+value = [5, 5]
+class = Don't Play
+False
+Temperature <= 73.5
+entropy = 0.954
+samples = 8
+value = [3, 5]
+samples = 2
+value = [2, 0]
+Temperature <= 70.5
+samples = 6
+value = [3, 3]
+value = [0, 2]
+Temperature <= 66.5
+entropy = 0.811
+value = [1, 3]
+samples = 1
+value = [1, 0]
+samples = 3
+value = [0, 3]
+Figure 1: Generated Decision Tree using scikit-learn: Note that the string values for Outlook
+have been changed into numerical values (‘overcast’= 0, ‘rain’= 1, ‘sunny’ = 2)
+Question 3 Let’s start working with some “real” data: scikit-learn comes with a number of
+example datasets, including the Iris flower dataset. If you do not know this
+dataset, start by reading https://en.wikipedia.org/wiki/Iris_flower_data_
+set.4
+(a) Change your program from the previous question to work with this new
+dataset:
+from sklearn.datasets import load_iris
+X, y = load_iris(return_X_y=True)
+Train a decision tree and print it out like before.
+Here is a minimal solution:
+# load the Iris dataset
+iris = load_iris()
+X, y = iris.data, iris.target
+# create and print the decision tree
+For a nicer tree plot, again use graphviz:
+feature_names=iris.feature_names,
+class_names=iris.target_names,
+filled=True, rounded=True,
+special_characters=True)
+graph.render("iristree")
+(b) Now you have to evaluate the performance of your classifier. Use scikit-
+learn’s train_test_split helper function5 to split the Iris dataset into
+a training and testing subset, as discussed in the lecture. Now run an
+evaluation to compute the Precision, Recall, F1-measure, and Accuracy
+of your classifier using the evaluation tools in scikit-learn.6
+4Also see https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html for the
+scikit-learn documentation of this dataset.
+5See https://scikit-learn.org/stable/modules/cross_validation.html
+6See https://scikit-learn.org/stable/modules/model_evaluation.html
+6
+https://en.wikipedia.org/wiki/Iris_flower_data_set
+https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html
+https://scikit-learn.org/stable/modules/cross_validation.html
+https://scikit-learn.org/stable/modules/model_evaluation.html
+To create an 80%/20% split of the training/testing data, use:
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=0)
+scikit-learn has a helper function to produce a report for all the metrics,
+classification_report:7
+y_pred = dtc.predict(X_test)
+from sklearn.metrics import classification_report
+print(classification_report(y_test, y_pred))
+Which should result in a report like this:
+precision recall f1-score support
+0 1.00 1.00 1.00 11
+1 1.00 1.00 1.00 13
+2 1.00 1.00 1.00 6
+accuracy 1.00 30
+macro avg 1.00 1.00 1.00 30
+weighted avg 1.00 1.00 1.00 30
+As you can see, the data was easy to learn and your classifier has a perfect
+score. Try decreasing the training data to just 50% of the dataset to see
+some errors.
+Note: Since we have more than two classes, the above metrics are an
+average of the values for each individual class.
+(c) Finally, compute and print out the confusion matrix.8
+This is easy using the helper function confusion_matrix:
+from sklearn.metrics import confusion_matrix
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+which results in
+Confusion Matrix:
+[[11 0 0]
+[ 0 13 0]
+[ 0 0 6]]
+7See https://scikit-learn.org/stable/modules/model_evaluation.html#classification-report
+8See https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
+7
+https://scikit-learn.org/stable/modules/model_evaluation.html#classification-report
+https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html
+Question 4 Consider the following data set with two attributes for each of seven individuals.
+a1 a2
+Data1 1.0 1.0
+Data2 1.5 2.0
+Data3 3.0 4.0
+Data4 5.0 7.0
+Data5 3.5 5.0
+Data6 4.5 5.0
+Data7 3.5 4.5
+(a) The data set is to be grouped into two clusters. Initialize the clusters using
+Data1 and Data4 as initial centroids to the two clusters. That is, allocate
+the remaining individual to one of the two clusters using the Euclidean
+distance.
+Individuals Centroid
+Group 1 1 (1.0, 1.0)
+Group 2 4 (5.0, 7.0)
+For Data2:
+Distance to Centroid 1:
+√
+(1.5− 1.0)2 + (2.0− 1.0)2 ≈ 1.1
+Distance to Centroid 2:
+(1.5− 5.0)2 + (2.0− 7.0)2 ≈ 6.1
+Distance to Centroid 1 Distance to Centroid 2
+Data1 0.0 7.2
+Data2 1.1 6.1
+Data3 3.6 3.6
+Data4 7.2 0.0
+Data5 4.7 2.5
+Data6 5.3 2.1
+Data7 4.3 2.9
+(b) Recalculate the centroids based on the current partition, reassign the in-
+dividuals based on the new centroids. Which individuals (if any) changed
+clusters as a result?
+For Group 1:
+1.0 + 1.5 + 3.0
+3 = 1.83
+8
+1.0 + 2.0 + 4.0
+3 ≈ 2.33
+Group 1 1, 2, 3 (1.83, 2.33)
+Group 2 4, 5, 6, 7 (4.125, 5.375)
+Data1 1.6 5.4
+Data2 0.5 4.3
+Data3 2.0 1.8
+Data4 5.6 1.9
+Data5 3.1 0.7
+Data6 3.8 0.5
+Data7 2.7 1.1
+Data3 changed from Group 1 to Group 2. All the other individuals remained
+in the same cluster.
+Question 5 scikit-learn also has an implementation for K-means.9
+(a) Complete clustering the data from the previous question using scikit-learn’s
+K-means implementation:
+[1.0, 1.0],
+[1.5, 2.0],
+[3.0, 4.0],
+[5.0, 7.0],
+[3.5, 5.0],
+[4.5, 5.0],
+[3.5, 4.5]])
+Note that with K-means, you do not need any labels, since we are doing
+unsupervised learning:
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(dataset)
+To print the results, you can use:
+print(kmeans.labels_)
+This will show you for each element in the dataset which cluster it belongs
+to.
+(b) Now cluster the Iris flower dataset: How well do the clusters represent
+the three species of Iris?
+Using Matplotlib,10 you can create a 3D-plot of your clusters:
+# Plot the results using matplotlib
+import matplotlib.pyplot as plt
+fig = plt.figure(figsize=(10, 8))
+plot = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
+plot.set_xlabel('Petal width')
+plot.set_ylabel('Sepal length')
+plot.set_zlabel('Petal length')
+plot.scatter(X[:, 3], X[:, 0], X[:, 2], c=kmeans.labels_, edgecolor='k')
+The result should look similar to Figure 2.
+9See https://scikit-learn.org/stable/modules/clustering.html#k-means
+10See https://matplotlib.org/
+10
+https://scikit-learn.org/stable/modules/clustering.html#k-means
+https://matplotlib.org/
+Here is a minimal, complete program to cluster the Iris flower dataset:
+X = iris.data
+# use k-means to cluster the dataset
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(X)
+Plotting the results using Matplotlib works just as described above.
+Figure 2: Plotting the results of clustering with K-means on the Iris dataset with Matplotlib
+11

@@ -1,0 +1,167 @@
+Artificial Intelligence
+1
+Artificial Intelligence:
+Introduction to Neural Networks
+Perceptron, Backpropagation
+2
+Today
+◼ Neural Networks
+❑ Perceptrons
+❑ Backpropagation
+https://www.linkedin.com/pulse/goedels-incompleteness-theorem-emergence-ai-eberhard-schoeneburg/
+3
+Neural Networks
+◼ Radically different approach to reasoning and
+learning
+◼ Inspired by biology
+❑ the neurons in the human brain
+◼ Set of many simple processing units (neurons)
+connected together
+◼ Behavior of each neuron is very simple
+❑ but a collection of neurons can have sophisticated
+behavior and can be used for complex tasks
+◼ In a neural network, the behavior depends on
+weights on the connection between the neurons
+◼ The weights will be learned given training data
+Aryan Saxena
+4
+Biological Neurons
+◼ Human brain =
+❑ 100 billion neurons
+❑ each neuron may be connected to
+10,000 other neurons
+❑ passing signals to each other via
+1,000 trillion synapses
+◼ A neuron is made of:
+❑ Dendrites: filaments that
+provide input to the neuron
+❑ Axon: sends an output signal
+❑ Synapses: connection with other
+neurons – releases
+neurotransmitters to other
+neurons
+Source: http://www.human-memory.net/brain_neurons.html
+5
+Behavior of a Neuron
+◼ A neuron receives inputs from its neighbors
+◼ If enough inputs are received at the same time:
+❑ the neuron is activated
+❑ and fires an output to its neighbors
+◼ Repeated firings across a synapse increases its
+sensitivity and the future likelihood of its firing
+◼ If a particular stimulus repeatedly causes activity in a
+group of neurons, they become strongly associated
+6
+Feature Vector Representation
+◼ Sources of Feature Vector x
+❑ Encoded image
+❑ Tabulated data
+❑ Embedded words
+❑ …
+source: Luger (2005)
+7
+E
+n
+c
+o
+d
+e
+r
+𝑵𝟐 × 𝟏
+𝑵
+8
+9
+10
+11
+A Perceptron Network
+◼ Goal: Map Input Feature Vector x into Output Feature Vector y
+12
+13
+14
+15
+j’th Cell
+16
+j’th Cell?
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+Fully Connected (FC) Network
+FC
+𝑐1
+𝑐2
+.
+𝑐𝑀
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+Applications of Neural Networks
+◼ Handwritten digit recognition
+❑ Training set = set of handwritten digits (0…9)
+❑ Task: given a bitmap, determine what digit it represents
+❑ Input: 1 feature for each pixel of the bitmap
+❑ Output: 1 output unit for each possible character (only 1 should
+be activated)
+❑ After training, network should work for fonts (handwriting)
+never encountered
+◼ Related pattern recognition
+applications:
+❑ recognize postal codes
+❑ recognize signatures
+48
+◼ Speech synthesis
+❑ Learning to pronounce English words
+❑ Difficult task for a rule-based system because English
+pronunciation is highly irregular
+❑ Examples:
+◼ letter “c” can be pronounced [k] (cat) or [s] (cents)
+◼ Woman vs Women
+❑ NETtalk:
+◼ uses the context and the letters around a letter to learn how to
+pronounce a letter
+◼ Input: letter and its surrounding letters
+◼ Output: phoneme
+49
+NETtalk Architecture
+◼ Network is made of 3 layers of units
+◼ input unit corresponds to a 7 character window in the text
+◼ each position in the window is represented by 29 input units
+(26 letters + 3 for punctuation and spaces)
+◼ 26 output units – one for each possible phoneme
+Ex:  a cat  → c is pronounced K
+Listen to the output through iterations: https://www.youtube.com/watch?v=gakJlr3GecE
+https://www.youtube.com/watch?v=gakJlr3GecE
+50
+◼ Disadvantage:
+❑ result is not easy to understand by humans (set of
+weights compared to decision tree)… it is a black box
+◼ Advantage:
+❑ robust to noise in the input (small changes in input do not
+normally cause a change in output) and graceful
+degradation
+52
+◼ Introduction to Neural Networks

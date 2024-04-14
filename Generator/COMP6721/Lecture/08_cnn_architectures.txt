@@ -1,0 +1,325 @@
+COMP 6721: AI
+Artificial Intelligence:
+Convolutional Neural Network
+(CNN) Architectures
+portion of slides from:  Fei Fei Li
+1
+Today
+1. Applications
+2. Backbone Models
+1. Serial Cascading
+2. Serial/Parallel Cascading
+3. Residual Connection
+4. Depthwise/Separable Convolutions
+5. Squeeze-Excitation
+2
+History of AI
+3
+How Computers Recognize Objects?
+4
+Question: Objects are anywhere in the scene (in any orientation,
+color hue, perspectives, illumination, etc), so how can we
+recognize them?
+Answer: Learn a ton of features (millions) from the bottom up,
+by learning convolutional filters rather than pre-computing them
+Feature Invariance to Perturbation is Hard
+5
+Viewpoint Variation
+(Perspective Geometry)
+Scale Variation Deformation
+Illumination Conditions Background Clutter Intra-Class Variation
+ImageNet Large Scale Visual Recognition
+Challenge (ILSVRC)
+6
+ImageNet-1K Class
+Dog
+7
+8
+ImageNet-1K Class ImageNet-20K Class
+Serial Cascade: AlexNet
+9
+• 5 Conv and 3 FC layers
+• ReLU Activation
+• Training on Multiple GPUs (GTX 580 with 3GB memory)
+• Response Normalization
+• Overlapping Pooling
+• Heavy data augmentation
+• Image translation/horizontal reflection
+• Altering intensities of RGB channels using PCA
+10
+C
+o
+n
+v
+lu
+ti
+…
+Width
+(𝑾)
+Height
+(𝑯)
+#Input Channel
+(𝑵𝑰)
+(𝑾′)
+(𝑯′)
+#Output Channel
+(𝑵𝑶)
+𝑭𝑶 : , : , 𝒋 = ෍
+𝒊=𝟏
+𝑵𝑰
+𝑭𝑰 : , : , 𝒊 ∗ 𝑲(: , : , 𝒊, 𝒋) + 𝒃𝒋
+𝑭𝑰 ∈ ℝ𝑯×𝑾×𝑵𝑰 𝑭𝑶 ∈ ℝ𝑯′×𝑾′×𝑵𝑶
+𝑲 ∈ ℝ𝒉×𝒘×𝑵𝑰×𝑵𝑶
+Reminder from Convolution Feature mapping
+11
+• Feature mapping via cascaded convolutional layers
+12
+• AlexNet was the coming out party for CNNs in the computer
+vision community. This was the first time a model performed
+so well on a historically difficult ImageNet dataset.
+• How did the learned kernels responses look like?
+13
+• Further analysis on AlexNet pretrained kernels (e.g. in 1st
+layer) reveals that convolution kernels encode features in
+different orientations, frequencies, and colors
+14
+15
+Serial Cascade: Going Deeper with VGG
+16
+• Investigate the effect of the
+convolutional network depth
+• Great boost is achieved by increasing
+#layers to 16-19
+• Won ILSVRC2014 challenge
+• Key design choice
+• 3x3 kernel size
+• Stack of conv layers w/o pooling
+• Conv stride=1 (no skipping)
+• ReLU activation
+• 5 Max-pooling (x2 downsampling)
+• 3 FC layers
+• Later designs added Batch Normalization
+17
+18
+19
+20
+21
+22
+23
+Serial Cascade: Going Deeper with VGG—
+Training Phase
+24
+• Input training image: fixed size of 224x224 crop
+• Images have varying size, so upscale to e.g. 384x(N>384)
+• Random crop 224x224
+• Standard augmentation: random flip and RGB shift
+• SGD-Momentum (next lecture)
+• Regularization: dropout and weight decay
+• Fast convergence (74 training epochs)
+• Initialization (some sort of transfer-learning)
+• Deeper networks are prone to vanishing-gradients
+• 11-layer net: random initialization from N(0;0.01)
+• Deeper nets: Top & bottom layers initialized with 11-layer. Other
+layers: random initialization
+Testing Phase (ImageNet-1k)
+25
+• Evaluation on variable size images
+• Testing on multiple 224x224 crops [AlexNet]
+• Multiple scales are tested (256xN, 384xN, 512xN) and class score averaged
+• Error decreases with depth
+• Using multiple scales is important
+• Multi-scale training outperforms single scale training =
+• Multi-scale testing further improves the results
+Serial/Parallel Cascade: Inception Net
+26
+• Multiple scales are encoded in parallel and cascaded to next
+layers
+Residual Connection: ResNet Architecture
+27
+• Is learning better networks as easy as stacking more layers?
+• Obstacle: deeper networks are difficult to train because of the
+notorious problem of vanishing/exploding gradients
+• Early solutions were proposed by introducing
+• normalized initialization
+• intermediate normalization layer
+• Still accuracy gets saturated with increasing depth and then degrades
+rapidly (this is not caused by overfitting!)
+• Adding more layers leads to higher training error
+28
+• Residual learning: instead of hoping each few stacked layers
+directly fit a desired underling mapping, we explicitly let these
+layers fit a residual mapping
+• Define underlying forward mapping by H(x) := F(x) + x
+• Why this should help?
+29
+• Corresponding gradient back-propagation:
+𝜕𝜖
+𝜕𝑥
+=
+𝜕𝐻(𝑥)
+∙
+𝜕𝐻 𝑥
+𝜕𝐹
++ 1 =
++
+• Gradient from output layer transfers directly to the input layer and avoids
+vanishing
+30
+• Plain baseline is inspired by VGG nets
+• Shortcuts introduced on plain baseline
+• Same number of filters are used for the
+same output feature map size
+• If the feature map size is halved, the
+number of filters is doubled
+• Down-sampling by stride=2
+• Network ends with global-average-pooling
+• 1000-way FC layer with softmax
+• ResNet34 has 3.6 BFLOPS (18% of
+VGG19 i.e. 19.6 BFLOPS)
+31
+• Different ResNet architectures of ResNet18, ResNet34,
+ResNet50, ResNet101, ResNet152
+32
+• ResNet performance on ImageNet
+Depthwise/Separable Convolutions
+33
+• Keep input channel convolution separate from mapping
+to output feature map S
+e
+p
+-C
+∗
+34
+∗ ∗
+35
+∗ ∗∗
+36
+∗ ∗∗ ∗
+𝑤3,1
+37
+Ʃ
+𝑤2,1
+𝑤1,1
+𝑤𝑁𝐼,1
+𝑤3,2
+38
+S
+𝑤2,2
+𝑤1,2
+𝑤𝑁𝐼,2
+to output feature map
+𝑤3,3
+39
+𝑤2,3
+𝑤1,3
+𝑤𝑁𝐼,3
+𝑤3,𝑁𝑂
+40
+……
+𝑤2,𝑁𝑂
+𝑤1,𝑁𝑂
+𝑤𝑁𝐼,𝑁𝑂
+41
+𝑭𝑰 ∈ ℝ𝑯×𝑾×𝑵𝑰
+42
+… …
+𝑭𝑰 ∈ ℝ𝑯×𝑾×𝑵𝑰 ഥ𝑭𝑰 ∈ ℝ𝑯′×𝑾′×𝑵𝑰
+ഥ𝑲 ∈ ℝ𝒉×𝒘×𝟏×𝑵𝑰
+43
+… ……
+𝑭𝑰 ∈ ℝ𝑯×𝑾×𝑵𝑰 ഥ𝑭𝑰 ∈ ℝ𝑯′×𝑾′×𝑵𝑰 𝑭𝑶 ∈ ℝ𝑯′×𝑾′×𝑵𝑶
+ഥ𝑲 ∈ ℝ𝟏×𝟏×𝑵𝑰×𝑵𝑶
+44
+• What are the benefits?
+• Standard convolution has the computation cost of
+• Depthwise-separable convolution has the computation cost of
+• Reduction in computation ratio
+𝑶 𝒉 ∙ 𝒘 ∙ 𝑵𝑰 ∙ 𝑵𝑶 ∙ 𝑯 ∙ 𝑾
+Convolution
+Kernel
+Input
+Feature Map
+𝑶 𝒉 ∙ 𝒘 ∙ 𝑵𝑰 ∙ 𝑯 ∙ 𝑾 + 𝑵𝑰 ∙ 𝑵𝑶 ∙ 𝑯 ∙ 𝑾
+Conv
+Kernel-1
+Feature
+Kernel-2
+𝒓 =
+𝒉𝒘𝑵𝑰𝑯𝑾 + 𝑵𝑰𝑵𝑶𝑯𝑾
+𝒉𝒘𝑵𝑰𝑵𝑶𝑯𝑾
+𝟏
+𝑵𝑶
+𝒉𝒘
+𝒉
+𝒓
+45
+• Activation and Batch-Normalization are used in between
+• 1x1 convolution also referred by Pointwise Convolution
+MobileNet by Depthwise Separable
+Convolutions
+46
+• All layers are followed
+by BN and ReLU
+• MobileNet has 28
+separate layers
+47
+• Significant parameter reduction while maintaining performance
+accuracy
+Squeeze-Excitation Block
+48
+• The idea is to boost the representation power of the network
+• SE: channel relationships are adaptively recalibrated in
+channel-wise feature response by explicit modelling of
+interdependencies between channels
+49
+50
+Slide 1
+Slide 2
+Slide 3
+Slide 4
+Slide 5
+Slide 6
+Slide 7
+Slide 8
+Slide 9
+Slide 10
+Slide 11
+Slide 12
+Slide 13
+Slide 14
+Slide 15
+Slide 16
+Slide 17
+Slide 18
+Slide 19
+Slide 20
+Slide 21
+Slide 22
+Slide 23
+Slide 24
+Slide 25
+Slide 26
+Slide 27
+Slide 28
+Slide 29
+Slide 30
+Slide 31
+Slide 32
+Slide 33
+Slide 34
+Slide 35
+Slide 36
+Slide 37
+Slide 38
+Slide 39
+Slide 40
+Slide 41
+Slide 42
+Slide 43
+Slide 44
+Slide 45
+Slide 46
+Slide 47
+Slide 48
+Slide 49
+Slide 50

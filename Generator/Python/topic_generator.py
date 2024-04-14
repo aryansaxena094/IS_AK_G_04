@@ -2,53 +2,55 @@ import os
 import pandas as pd
 import spacy
 from pathlib import Path
-base_dir = Path.cwd()
-base_dir = base_dir / "Generator/"
 
-def generate_topics(course_id, type, lecture_id, file_path):
-    try:
-        nlp = spacy.load('en_core_web_sm')
-        with open(file_path, 'r', encoding="UTF-8") as file:
-            text = file.read()
-        print(f"Reading from {file_path}, content size: {len(text)}")
-        doc = nlp(text)
-        spacy_dic = {ent.text: ent.label_ for ent in doc.ents}
-        print(f"Spacy detected entities: {spacy_dic}")
-        for term, label in spacy_dic.items():
-            # Append entity to the list with a placeholder link if no DBpedia link exists
-            append_to_dup(course_id, type, lecture_id, term, "No link available", label)
-    except Exception as e:
-        print(f"Error processing file {file_path}: {e}")
-def append_to_dup(course_id, type, lecture_id, topic_name, topic_link, entity_type):
-    dup['CourseId'].append(course_id)
-    dup['Type'].append(type)
-    dup['Identifier'].append(lecture_id)
-    dup['Topic Name'].append(topic_name)
-    dup['Topic Link'].append(topic_link)
-    dup['Entity Type'].append(entity_type)
-    print(f"Appending: {topic_name}, {entity_type}")
+def load_nlp_model():
+    return spacy.load('en_core_web_sm')
 
-if __name__ == "__main__":
-    IS_lecture_directory = base_dir / "COMP6741/Lecture"
-    IS_worksheet_directory =  base_dir / "COMP6741/Worksheet"
-    dup = {
-        'CourseId': [],
-        'Type': [],
-        'Identifier': [],
-        'Topic Name': [],
-        'Topic Link': [],
-        'Entity Type': []
+def read_and_process_text(file_path, nlp):
+    with open(file_path, 'r', encoding="UTF-8") as file:
+        text = file.read()
+    return nlp(text)
+
+def append_to_dataframe(course_id, doc_type, lecture_id, spacy_doc, dataframe):
+    for ent in spacy_doc.ents:
+        dataframe.append({
+            'CourseId': course_id,
+            'Type': doc_type,
+            'Identifier': lecture_id,
+            'Topic Name': ent.text,
+            'Topic Link': 'No link available',
+            'Entity Type': ent.label_
+        })
+
+def process_directory(course_id, doc_type, directory, dataframe, nlp):
+    for count, txtfile in enumerate(os.listdir(directory), start=1):
+        file_path = directory / txtfile
+        try:
+            spacy_doc = read_and_process_text(file_path, nlp)
+            append_to_dataframe(course_id, doc_type, count, spacy_doc, dataframe)
+            print(f"Processed {txtfile}")
+        except Exception as e:
+            print(f"Error processing {txtfile}: {e}")
+
+def main():
+    base_dir = Path.cwd() / "Generator"
+    courses = {
+        'COMP6741': {'CourseId': '40355', 'Directories': ['Lecture', 'Worksheet']},
+        'COMP6721': {'CourseId': '40353', 'Directories': ['Lecture', 'Worksheet']}
     }
-    count = 1
-    for txtfile in os.listdir(IS_lecture_directory):
-        print(str(txtfile))
-        generate_topics('40355', 'Lecture', count, os.path.join(IS_lecture_directory, txtfile))
-        count += 1
-    count = 1
-    for txtfile in os.listdir(IS_worksheet_directory):
-        print(str(txtfile))
-        generate_topics('40355', 'Worksheet', count, os.path.join(IS_worksheet_directory, txtfile))
-        count += 1
-    df = pd.DataFrame(dup)
+
+    # Initialize Spacy NLP model
+    nlp = load_nlp_model()
+    data_entries = []
+
+    for course, details in courses.items():
+        for directory in details['Directories']:
+            full_dir = base_dir / course / directory
+            process_directory(details['CourseId'], directory, full_dir, data_entries, nlp)
+
+    df = pd.DataFrame(data_entries)
     print(df.head())
     df.to_csv(base_dir / 'Topic.csv', index=False)
+
+if __name__ == "__main__":
+    main()
