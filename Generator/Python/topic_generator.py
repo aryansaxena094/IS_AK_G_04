@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import spacy
 from pathlib import Path
-
 base_dir = Path.cwd()
 base_dir = base_dir / "Generator/"
 
