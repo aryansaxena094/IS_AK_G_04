@@ -1,0 +1,17 @@
+﻿CourseId,Identifier,Event,Topic
+40355,1,WORKSHEET,Knowledge_Graphs
+40355,2,WORKSHEET,Vocabularies_Ontologies
+40355,3,WORKSHEET,Knowledge_Base_Queries_Linked_Open_Data
+40355,4,WORKSHEET,Recommender_Systems
+40355,5,WORKSHEET,Machine_Learning
+40355,6,WORKSHEET,Intelligent_Agents
+40355,7,WORKSHEET,NLP
+40355,8,WORKSHEET,Neural_Networks 
+40355,9,WORKSHEET,Deep_Learning
+40353,1,WORKSHEET,NLP
+40353,2,WORKSHEET,NLP_Solution
+40353,3,WORKSHEET,Decision_Trees
+40353,4,WORKSHEET,NLP_VSM_NER
+40353,5,WORKSHEET,State_Space_Search
+40353,6,WORKSHEET,Naïve_Bayes_Classification
+40353,7,WORKSHEET,MiniMax_Alpha-Beta_SPruning
