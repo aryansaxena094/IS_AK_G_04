@@ -115,9 +115,11 @@ nlu:
 
 - intent: list_courses_by_subject
   examples: |
-    - List all courses within the [COMP](subject) department at [Concordia University](university).
-    - Show me all [SOEN](subject) courses at [Concordia University](university).
-    - What [INSE](subject) courses are available at [Concordia University](university)?
+    - List all courses within [COMP](subject).
+    - Show me all [SOEN](subject) courses.
+    - What [INSE](subject) courses are available?
+    - List all courses in [ENGR](subject).
+    - Show me all [MATH](subject) courses.
 
 - intent: recommended_materials_for_topic
   examples: |
@@ -126,8 +128,11 @@ nlu:
 
 - intent: course_credits
   examples: |
-    - How many credits is [COMP 474](course) for [2021](year) worth?
-    - What's the credit value of [SOEN 6011](course) for [2022](year)?
+    - How many credits is [COMP 474](course)?
+    - What's the credit value of [SOEN 6011](course)?
+    - Credits of [COMP 352](course)?
+    - How many credits is [COMP 348](course)?
+    - [COMP 352](course) credits?
 
 - intent: additional_course_resources
   examples: |
@@ -146,13 +151,19 @@ nlu:
 
 - intent: competencies_gained
   examples: |
-    - What competencies do students gain after completing [COMP 474](course) for [2021](year)?
-    - What skills will I have after finishing [SOEN 6011](course) for [2022](year)?
+    - What competencies do students gain after completing [COMP 474](course)?
+    - What skills will I have after finishing [SOEN 6011](course)?
+    - Competencies gained from [COMP 352](course)?
+    - What will I learn from [COMP 348](course)
+    - Skills acquired from [COMP 352](course)
 
 - intent: student_grades
   examples: |
-    - What grades did [John Doe](person) achieve in [COMP 474](course) for [2021](year)?
-    - Can you tell me the grades for [Jane Smith](person) in [SOEN 6011](course) for [2022](year)?
+    - What grades did [Aryan Saxena](person) achieve in [COMP 474](course)?
+    - Can you tell me the grades for [Jane Smith](person) in [SOEN 6011](course)?
+    - Grades of [Anni Singh](person) in [COMP 6651](course)?
+    - What grades did [Asmita Upadhyay](person) get in [COMP 348](course)
+    - [Garvit Kataria](person) grades in [COMP 6721](course)
 
 - intent: students_completed_course
   examples: |

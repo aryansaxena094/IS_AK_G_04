@@ -118,19 +118,43 @@ class ActionListTopicsInCourse(Action):
         dispatcher.utter_message(text=message)
         return []
 
-# class ActionListCoursesBySubject(Action):
-#     def name(self):
-#         return "action_list_courses_by_subject"
 
-#     def run(self, dispatcher, tracker, domain):
-#         subject = tracker.get_slot('subject')
-#         query = queries['list_courses_by_subject']['query']
-#         results = run_query(query, subject=subject)
+class ActionListTopicsInSubject(Action):
+    def name(self):
+        return "action_list_courses_by_subject"
 
-#         courses = [result['course']['value'] for result in results['results']['bindings']]
-#         message = f"The following courses are related to the subject {subject}: " + ", ".join(courses)
-#         dispatcher.utter_message(text=message)
-#         return []
+    def run(self, dispatcher, tracker, domain):
+        subject = tracker.get_slot('subject')  # e.g., "SOEN"
+        print("Subject: ", subject)
+        if subject:
+            query = f"""
+                PREFIX ex: <http://example.org/vocab/>
+                PREFIX dbo: <http://dbpedia.org/ontology/>
+
+                SELECT ?subject ?number ?description
+                WHERE {{
+                  ?university dbo:offersCourse ?course .
+                  ?course a ex:Course ;
+                          ex:subject ?subject ;
+                          ex:number ?number ;
+                          ex:description ?description .
+                  FILTER(?subject = "{subject}")
+                }}
+            """
+            
+            result = run_query(query)
+            if result and result['results']['bindings']:
+                courses_info = [(r['subject']['value'], r['number']['value'], r['description']['value']) for r in result['results']['bindings']]
+                message = "The following courses are offered by universities and have the subject code {}:\n".format(subject)
+                for course_info in courses_info:
+                    message += f"Subject: {course_info[0]}, Number: {course_info[1]}, Description: {course_info[2]}\n"
+            else:
+                message = f"No courses were found for the subject {subject}."
+        else:
+            message = "Please provide the subject code to list the courses."
+        
+        dispatcher.utter_message(text=message)
+        return []
 
 # class ActionRecommendedMaterialsForTopic(Action):
 #     def name(self):
@@ -145,6 +169,36 @@ class ActionListTopicsInCourse(Action):
 #         message = f"Here are some recommended materials for the topic {topic}: " + ", ".join(materials)
 #         dispatcher.utter_message(text=message)
 #         return []
+
+
+class ActionCourseCredits(Action):
+    def name(self):
+        return "action_course_credits"
+    
+    def run(self, dispatcher, tracker, domain):
+        course = tracker.get_slot('course')
+        course_split = course.split(" ")
+        subject = course_split[0]
+        number = course_split[1]
+        print(f"Subject: {subject}, Number: {number}")
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            SELECT ?credits
+            WHERE {{
+            ?course a ex:Course ;
+                    ex:subject "{subject}" ;
+                    ex:number "{number}";
+                    ex:credits ?credits .
+            }}
+        """
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            credits = results['results']['bindings'][0]['credits']['value']
+            message = f"The course {course} is worth {credits} credits."
+        else:
+            message = f"An error occurred while fetching course credits."
+        dispatcher.utter_message(text=message)
+        return []
 
 # class ActionCourseCredits(Action):
 #     def name(self):
@@ -202,33 +256,76 @@ class ActionListTopicsInCourse(Action):
 #         dispatcher.utter_message(text=message)
 #         return []
 
-# class ActionCompetenciesGained(Action):
-#     def name(self):
-#         return "action_competencies_gained"
+class ActionCompetenciesGained(Action):
+    def name(self):
+        return "action_competencies_gained"
     
-#     def run(self, dispatcher, tracker, domain):
-#         course = tracker.get_slot('course')
-#         query = queries['competencies_gained']['query']
-#         results = run_query(query, course=course)
+    def run(self, dispatcher, tracker, domain):
+        course = tracker.get_slot('course')
+        course_split = course.split(" ")
+        subject = course_split[0]
+        number = course_split[1]
+        print(f"Subject: {subject}, Number: {number}")
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
 
-#         competencies = [result['competency']['value'] for result in results['results']['bindings']]
-#         message = f"Upon completion of the course {course}, you will have gained the following competencies: " + ", ".join(competencies)
-#         dispatcher.utter_message(text=message)
-#         return []
+            SELECT ?topic ?subject ?number
+            WHERE {{
+            ?student ex:completedCourse ?completedCourse .
+            ?completedCourse ex:course ?course .
+            ?course ex:subject "{subject}" .  
+            ?course ex:number "{number}" .
+            ?student ex:hasCompetency ?competency .
+            ?competency ex:subject ?subject .
+            ?competency ex:number ?number .
+            }}
+        """
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            competencies = []
+            for r in results['results']['bindings']:
+                competency_subject = r['subject']['value']
+                competency_number = r['number']['value']
+                competencies.append(f"{competency_subject} {competency_number}")
+            message = f"Upon completion of the course {course}, you will have gained the following competencies: " + ", ".join(competencies)
+        else:
+            message = f"An error occurred while fetching competencies gained."
+        dispatcher.utter_message(text=message)
+        return []
 
-# class ActionStudentGrades(Action):
-#     def name(self):
-#         return "action_student_grades"
+class ActionStudentGrades(Action):
+    def name(self):
+        return "action_student_grades"
     
-#     def run(self, dispatcher, tracker, domain):
-#         student = tracker.get_slot('student')
-#         query = queries['student_grades']['query']
-#         results = run_query(query, student=student)
-
-#         grades = [result['grade']['value'] for result in results['results']['bindings']]
-#         message = f"Here are the grades for student {student}: " + ", ".join(grades)
-#         dispatcher.utter_message(text=message)
-#         return []
+    def run(self, dispatcher, tracker, domain):
+        person = tracker.get_slot('person')
+        coursev = tracker.get_slot('course')
+        course_split = coursev.split(" ")
+        subject = course_split[0]
+        number = course_split[1]
+        print(f"Person: {person}, Subject: {subject}, Number: {number}")
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+            PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+            SELECT ?grade
+            WHERE {{
+                ?student ex:completedCourse ?compCourse .
+                ?compCourse ex:course ?course ;
+                            ex:courseGrade ?grade .
+                ?course ex:number "{number}"^^xsd:string ;
+                        ex:subject "{subject}"^^xsd:string .
+                ?student foaf:name "{person}"^^xsd:string .
+            }}
+        """
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            grades = [r['grade']['value'] for r in results['results']['bindings']]
+            message = f"The grades for {person} in course {coursev} are: " + ", ".join(grades)
+        else:
+            message = f"An error occurred while fetching grades."
+        dispatcher.utter_message(text=message)
+        return []
 
 # class ActionStudentCompletedCourses(Action):
 #     def name(self):
