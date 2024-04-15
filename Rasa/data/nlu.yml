@@ -109,9 +109,9 @@ nlu:
 
 - intent: list_topics_in_course
   examples: |
-    - Which topics are covered in [COMP 474](course) during [lecture 5](event)?
-    - What subjects does [SOEN 6011](course) cover in [lecture 10](event)?
-    - Detail the topics taught in [COMP 348](course) during [lecture 3](event).
+    - Which topics are covered in [COMP](subject) [474](course_number) during [lecture 5](event)?
+    - What subjects does [SOEN](subject) [6011](course_number) cover in [lecture 10](event)?
+    - Detail the topics taught in [COMP](subject) [348](course_number) during [lecture 3](event).
 
 - intent: list_courses_by_subject
   examples: |
@@ -123,52 +123,52 @@ nlu:
 
 - intent: recommended_materials_for_topic
   examples: |
-    - What materials (slides, readings) are recommended for [machine learning](topic) in [COMP 474](course) for [2021](year)?
-    - Which readings and resources should I use for [data structures](topic) in [COMP 352](course) for [2022](year)?
+    - What materials (slides, readings) are recommended for [machine learning](topic) in [COMP](subject) [474](course_number) for [2021](year)?
+    - Which readings and resources should I use for [data structures](topic) in [COMP](subject) [352](course_number) for [2022](year)?
 
 - intent: course_credits
   examples: |
-    - How many credits is [COMP 474](course)?
-    - What's the credit value of [SOEN 6011](course)?
-    - Credits of [COMP 352](course)?
-    - How many credits is [COMP 348](course)?
-    - [COMP 352](course) credits?
+    - How many credits is [COMP](subject) [474](course_number)?
+    - What's the credit value of [SOEN](subject) [6011](course_number)?
+    - Credits of [COMP](subject) [352](course_number)?
+    - How many credits is [COMP](subject) [348](course_number)?
+    - [COMP](subject) [352](course_number) credits?
 
 - intent: additional_course_resources
   examples: |
-    - For [COMP 474](course) for [2021](year), what additional resources (links to web pages) are available?
-    - What extra materials can I find online for [SOEN 6011](course) for [2022](year)?
+    - For [COMP](subject) [474](course_number), what additional resources are available?
+    - What extra materials can I find online for [SOEN](subject) [6011](course_number)?
 
 - intent: detail_course_content
   examples: |
-    - Detail the content (slides, worksheets, readings) available for [lecture 4](event) in [COMP 474](course) for [2021](year).
-    - What content is available for [lecture 8](event) in [SOEN 6011](course) for [2022](year)?
+    - Detail the content (slides, worksheets, readings) available for [lecture 4](event) in [COMP](subject) [474](course_number)
+    - What content is available for [lecture 8](event) in [SOEN](subject) [6011](course_number)?
 
 - intent: recommended_reading_for_topic
   examples: |
-    - What reading materials are recommended for studying [blockchain technology](topic) in [COMP 474](course)?
-    - Suggested readings for [cryptography](topic) in [COMP 352](course)?
+    - What reading materials are recommended for studying [blockchain technology](topic) in [COMP](subject) [474](course_number)?
+    - Suggested readings for [cryptography](topic) in [COMP](subject) [352](course_number)?
 
 - intent: competencies_gained
   examples: |
-    - What competencies do students gain after completing [COMP 474](course)?
-    - What skills will I have after finishing [SOEN 6011](course)?
-    - Competencies gained from [COMP 352](course)?
-    - What will I learn from [COMP 348](course)
-    - Skills acquired from [COMP 352](course)
+    - What competencies do students gain after completing [COMP](subject) [474](course_number)?
+    - What skills will I have after finishing [SOEN](subject) [6011](course_number)?
+    - Competencies gained from [COMP](subject) [352](course_number)?
+    - What will I learn from [COMP](subject) [348](course_number)
+    - Skills acquired from [COMP](subject) [352](course_number)
 
 - intent: student_grades
   examples: |
-    - What grades did [Aryan Saxena](person) achieve in [COMP 474](course)?
-    - Can you tell me the grades for [Jane Smith](person) in [SOEN 6011](course)?
-    - Grades of [Anni Singh](person) in [COMP 6651](course)?
-    - What grades did [Asmita Upadhyay](person) get in [COMP 348](course)
-    - [Garvit Kataria](person) grades in [COMP 6721](course)
+    - What grades did [Aryan Saxena](person) achieve in [COMP](subject) [474](course_number)?
+    - Can you tell me the grades for [Jane Smith](person) in [SOEN](subject) [6011](course_number)?
+    - Grades of [Anni Singh](person) in [COMP](subject) [6651](course_number)?
+    - What grades did [Asmita Upadhyay](person) get in [COMP](subject) [348](course_number)
+    - [Garvit Kataria](person) grades in [COMP](subject) [6721](course_number)
 
 - intent: students_completed_course
   examples: |
-    - Which students have completed [COMP 474](course) for [2021](year)?
-    - List all students who finished [SOEN 6011](course) for [2022](year).
+    - Which students have completed [COMP](subject) [474](course_number) for [2021](year)?
+    - List all students who finished [SOEN](subject) [6011](course_number) for [2022](year).
 
 - intent: print_student_transcript
   examples: |
@@ -177,13 +177,13 @@ nlu:
 
 # - intent: query_course_description
 #   examples: |
-#     - What is [COMP 474](course) about?
-#     - Can you give me the description for [COMP 474](course)?
+#     - What is [COMP](subject) [474](course_number) about?
+#     - Can you give me the description for [COMP](subject) [474](course_number)?
 
 # - intent: query_topics_in_course_event
 #   examples: |
-#     - Which topics are covered in [Lab #2](event) of [COMP 474](course)?
-#     - What are the main subjects in [Lecture 10](event) of [COMP 474](course)?
+#     - Which topics are covered in [Lab #2](event) of [COMP](subject) [474](course_number)?
+#     - What are the main subjects in [Lecture 10](event) of [COMP](subject) [474](course_number)?
 
 # - intent: query_events_covering_topic
 #   examples: |

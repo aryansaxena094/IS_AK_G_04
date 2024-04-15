@@ -77,14 +77,11 @@ class ActionListTopicsInCourse(Action):
         return "action_list_topics_in_course"
 
     def run(self, dispatcher, tracker, domain):
-        course_code = tracker.get_slot('course')  # e.g., "COMP 6641"
+        number = tracker.get_slot('course_code')  # e.g., "COMP 6641"
+        subject = tracker.get_slot('subject')
         lecture_number = tracker.get_slot('event')  # e.g., "lecture 2"
-
-        if course_code and lecture_number:
-            # Splitting course_code into subject and number parts
-            parts = course_code.split()  # Assuming the slot value comes as "COMP 6641"
-            if len(parts) == 2:
-                subject, number = parts
+        print(f"Subject: {subject}, Number: {number}, Lecture Number: {lecture_number}")
+        if lecture_number:
                 lecture_number = ''.join(filter(str.isdigit, lecture_number))
                 print(f"Subject: {subject}, Number: {number}, Lecture Number: {lecture_number}")
                 query = f"""
@@ -107,23 +104,21 @@ class ActionListTopicsInCourse(Action):
                 result = run_query(query)
                 if result and result['results']['bindings']:
                     topics = [f"{r['topicName']['value']}" for r in result['results']['bindings']]
-                    message = f"The course {course_code} in lecture {lecture_number} covers the following topics: " + ", ".join(topics)
+                    message = f"The course {subject}{number} in lecture {lecture_number} covers the following topics: " + ", ".join(topics)
                 else:
-                    message = f"No topics were found for the course {course_code} in lecture {lecture_number}."
-            else:
-                message = "The course information is incomplete. Please provide both the subject code and number."
+                    message = f"No topics were found for the course {subject}{number} in lecture {lecture_number}."
         else:
-            message = "Please provide both course and lecture information to find topics."
-
+            message = "No information found."
         dispatcher.utter_message(text=message)
         return []
 
 
-class ActionListTopicsInSubject(Action):
+class ActionListTopicsBySubject(Action):
     def name(self):
         return "action_list_courses_by_subject"
 
     def run(self, dispatcher, tracker, domain):
+        print("Action triggered: action_list_courses_by_subject")
         subject = tracker.get_slot('subject')  # e.g., "SOEN"
         print("Subject: ", subject)
         if subject:
@@ -200,19 +195,6 @@ class ActionCourseCredits(Action):
         dispatcher.utter_message(text=message)
         return []
 
-# class ActionCourseCredits(Action):
-#     def name(self):
-#         return "action_course_credits"
-    
-#     def run(self, dispatcher, tracker, domain):
-#         course = tracker.get_slot('course')
-#         query = queries['course_credits']['query']
-#         results = run_query(query, course=course)
-
-#         credits = results['results']['bindings'][0]['credits']['value']
-#         message = f"The course {course} is worth {credits} credits."
-#         dispatcher.utter_message(text=message)
-#         return []
 
 # class ActionAdditionalCourseResources(Action):
 #     def name(self):
