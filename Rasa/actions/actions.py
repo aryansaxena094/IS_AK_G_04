@@ -18,6 +18,7 @@ def run_query(query, **kwargs):
         return None
     return results
 
+# 1. List Universities Query
 class ActionListUniversityCourses(Action):
     def name(self):
         return "action_list_university_courses"
@@ -44,6 +45,7 @@ class ActionListUniversityCourses(Action):
         dispatcher.utter_message(text=message)
         return []
 
+# 2. List Courses Query Using A Topic
 class ActionFindCoursesByTopic(Action):
     def name(self):
         return "action_find_courses_by_topic"
@@ -72,6 +74,7 @@ class ActionFindCoursesByTopic(Action):
         dispatcher.utter_message(text=message)
         return []
 
+# 3. List Topics In A Course Query
 class ActionListTopicsInCourse(Action):
     def name(self):
         return "action_list_topics_in_course"
@@ -112,7 +115,7 @@ class ActionListTopicsInCourse(Action):
         dispatcher.utter_message(text=message)
         return []
 
-
+# 4. List Courses By Subject Query
 class ActionListTopicsBySubject(Action):
     def name(self):
         return "action_list_courses_by_subject"
@@ -151,6 +154,7 @@ class ActionListTopicsBySubject(Action):
         dispatcher.utter_message(text=message)
         return []
 
+# 5. Distinct Lecture Name for a Course for a TOPIC
 # class ActionRecommendedMaterialsForTopic(Action):
 #     def name(self):
 #         return "action_recommended_materials_for_topic"
@@ -158,7 +162,7 @@ class ActionListTopicsBySubject(Action):
 #     def run(self, dispatcher, tracker, domain):
 #         topic = tracker.get_slot('subject')
 
-
+# 6. Getting Course Credits
 class ActionCourseCredits(Action):
     def name(self):
         return "action_course_credits"
@@ -189,6 +193,7 @@ class ActionCourseCredits(Action):
         return []
 
 
+# 7. Getting Additional Course Resources using seeAlso, querying course using subject+number
 class ActionAdditionalCourseResources(Action):
     def name(self):
         return "action_additional_course_resources"
@@ -217,17 +222,18 @@ class ActionAdditionalCourseResources(Action):
         else:
             message = f"No additional resources were found for the course {subject} {number}."
 
-
+# 8. Getting MATERIALS (name, link, type) for a course in a lecture
 # class ActionDetailCourseContent(Action):
 #     def name(self):
 #         return "action_detail_course_content"
     
 
+# 9. Getting lecture Number, and material type for a course for a topic
 # class ActionRecommendedReadingForTopic(Action):
 #     def name(self):
 #         return "action_recommended_reading_for_topic"
 
-
+# 10. Gettting Competencies Gained for a course
 class ActionCompetenciesGained(Action):
     def name(self):
         return "action_competencies_gained"
@@ -265,6 +271,7 @@ class ActionCompetenciesGained(Action):
         dispatcher.utter_message(text=message)
         return []
 
+# 11. Getting Grades of person in a course
 class ActionStudentGrades(Action):
     def name(self):
         return "action_student_grades"
@@ -299,8 +306,15 @@ class ActionStudentGrades(Action):
         dispatcher.utter_message(text=message)
         return []
 
+# 12. Getting students who have completed a particular course
 # class ActionStudentCompletedCourses(Action):
 #     def name(self):
 #         return "action_student_completed_courses"
     
 #     def run(self, dispatcher, tracker, domain):
+
+# 13. Getting transcript of a student
+
+# 14.
+# 15.
+# 16.
