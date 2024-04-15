@@ -101,9 +101,11 @@ nlu:
 
 - intent: find_courses_by_topic
   examples: |
-    - In which courses is [machine learning](topic) discussed?
-    - Show me courses that cover [artificial intelligence](topic).
-    - Which courses include discussions on [quantum computing](topic)?
+    - In which courses is [Graph Theory](topic) discussed?
+    - Where can I find information on [machine learning](topic)?
+    - Is [data science](topic) covered in any courses?
+    - Do any courses discuss [cryptography](topic)?
+    - Can you tell me about courses dealing with [neural networks](topic)?
 
 - intent: list_topics_in_course
   examples: |
