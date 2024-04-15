@@ -96,6 +96,8 @@ nlu:
     - List all courses offered by [Concordia University](university).
     - Show me all courses available at [Stanford](university).
     - What courses does [MIT](university) offer?
+    - List all courses at [Harvard](university).
+    - Show me all courses at [McGill University](university).
 
 - intent: find_courses_by_topic
   examples: |
@@ -160,17 +162,17 @@ nlu:
     - Print a transcript for [John Doe](person), listing all the courses taken with their grades.
     - Can you generate a transcript for [Jane Smith](person)?
 
-- intent: query_course_description
-  examples: |
-    - What is [COMP 474](course) about?
-    - Can you give me the description for [COMP 474](course)?
+# - intent: query_course_description
+#   examples: |
+#     - What is [COMP 474](course) about?
+#     - Can you give me the description for [COMP 474](course)?
 
-- intent: query_topics_in_course_event
-  examples: |
-    - Which topics are covered in [Lab #2](event) of [COMP 474](course)?
-    - What are the main subjects in [Lecture 10](event) of [COMP 474](course)?
+# - intent: query_topics_in_course_event
+#   examples: |
+#     - Which topics are covered in [Lab #2](event) of [COMP 474](course)?
+#     - What are the main subjects in [Lecture 10](event) of [COMP 474](course)?
 
-- intent: query_events_covering_topic
-  examples: |
-    - Which course events cover [deep learning](topic)?
-    - List all lectures and labs that include [artificial intelligence](topic).
+# - intent: query_events_covering_topic
+#   examples: |
+#     - Which course events cover [deep learning](topic)?
+#     - List all lectures and labs that include [artificial intelligence](topic).

@@ -1,6 +1,6 @@
 queries:
   list_university_courses:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/ns#>
       PREFIX dbo: <http://dbpedia.org/ontology/>
       PREFIX dbr: <http://dbpedia.org/resource/>
@@ -164,12 +164,12 @@ queries:
       }
 
       
-  query_course_description:
-    query: >
+  # query_course_description:
+  #   query: >
       
-  query_topics_in_course_event:
-    query: >
+  # query_topics_in_course_event:
+  #   query: >
       
-  query_events_covering_topic:
-    query: >
+  # query_events_covering_topic:
+  #   query: >
       

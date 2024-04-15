@@ -3,34 +3,64 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from SPARQLWrapper import SPARQLWrapper, JSON
 from pathlib import Path
+from SPARQLWrapper import SPARQLWrapper, JSON
+from string import Template
 
 # Load SPARQL queries from the YAML file
 def load_queries():
-    with open('/Users/aryansaxena/Desktop/Intelligent Systems/IS_AK_G_04/Rasa/config/queries.yml', 'r') as file:
-        return yaml.safe_load(file)
+    # Define the correct path by going up one level from `actions.py` and then into the `config` directory
+    file_path = Path(__file__).parent.parent / 'config' / 'queries.yml'
+    with open(file_path, 'r') as file:
+        loaded_queries = yaml.safe_load(file)
+    print("Loaded queries:", loaded_queries)
+    return loaded_queries['queries']  # Access the nested dictionary
 
 queries = load_queries()
 
 # Function to execute SPARQL queries
-def run_query(query, **kwargs):
+def run_query(query_template_str, **kwargs):
+    # Create a Template object with the query template string
+    query_template = Template(query_template_str)
+
+    # Substitute the placeholders with actual values from kwargs
+    formatted_query = query_template.substitute(**kwargs)
+    print("Formatted query:", formatted_query)  # Debug print
+
     sparql = SPARQLWrapper("http://localhost:3030/Roboprof/sparql")
-    sparql.setQuery(query.format(**kwargs))
+    sparql.setQuery(formatted_query)
     sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+    
+    try:
+        results = sparql.query().convert()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        # Handle exception or return a suitable response
+        return None
+    
     return results
 
 # Example action using loaded queries
 class ActionListUniversityCourses(Action):
     def name(self):
         return "action_list_university_courses"
-
+    
     def run(self, dispatcher, tracker, domain):
         university = tracker.get_slot('university')
-        query = queries['list_university_courses']['query']
-        results = run_query(query, university=university)
-
-        courses = [result['course']['value'] for result in results['results']['bindings']]
-        message = f"{university} offers the following courses: " + ", ".join(courses)
+        university_formatted = university.replace(" ", "_")  # Replace spaces with underscores
+        query_template_str = queries['list_university_courses']['query']  # Retrieve the query template
+        formatted_query = query_template_str.format(university=university_formatted)
+        # Execute the SPARQL query
+        results = run_query(formatted_query)
+        # Check if results are valid
+        if results:
+            try:
+                courses = [result['course']['value'] for result in results['results']['bindings']]
+                message = f"{university} offers the following courses: " + ", ".join(courses)
+            except KeyError:
+                message = "Sorry, I couldn't find information on that subject."
+        else:
+            message = "An error occurred while fetching university courses. Please try again later."
+        
         dispatcher.utter_message(text=message)
         return []
     
@@ -105,7 +135,7 @@ class ActionCourseCredits(Action):
         return []
 
 class ActionAdditionalCourseResources(Action):
-    def Name(self):
+    def name(self):
         return "action_additional_course_resources"
     
     def run(self, dispatcher, tracker, domain):
