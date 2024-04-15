@@ -28,3 +28,83 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: University courses listing
+  steps:
+  - intent: list_university_courses
+  - action: action_list_university_courses
+
+- story: Find courses by topic
+  steps:
+  - intent: find_courses_by_topic
+  - action: action_find_courses_by_topic
+
+- story: List topics in a course
+  steps:
+  - intent: list_topics_in_course
+  - action: action_list_topics_in_course
+
+- story: Courses by subject listing
+  steps:
+  - intent: list_courses_by_subject
+  - action: action_list_courses_by_subject
+
+- story: Recommended materials for a topic
+  steps:
+  - intent: recommended_materials_for_topic
+  - action: action_recommended_materials_for_topic
+
+- story: Course credits inquiry
+  steps:
+  - intent: course_credits
+  - action: action_course_credits
+
+- story: Additional resources for a course
+  steps:
+  - intent: additional_course_resources
+  - action: action_additional_course_resources
+
+- story: Detailed course content inquiry
+  steps:
+  - intent: detail_course_content
+  - action: action_detail_course_content
+
+- story: Recommended reading for a topic
+  steps:
+  - intent: recommended_reading_for_topic
+  - action: action_recommended_reading_for_topic
+
+- story: Competencies gained from a course
+  steps:
+  - intent: competencies_gained
+  - action: action_competencies_gained
+
+- story: Student grades inquiry
+  steps:
+  - intent: student_grades
+  - action: action_student_grades
+
+- story: Students who completed a course
+  steps:
+  - intent: students_completed_course
+  - action: action_student_completed_courses
+
+- story: Print student transcript
+  steps:
+  - intent: print_student_transcript
+  - action: action_print_student_transcript
+
+- story: Course description inquiry
+  steps:
+  - intent: query_course_description
+  - action: action_query_course_description
+
+- story: Topics covered in a course event
+  steps:
+  - intent: query_topics_in_course_event
+  - action: action_query_topics_in_course_event
+
+- story: Events covering a specific topic
+  steps:
+  - intent: query_events_covering_topic
+  - action: action_query_events_covering_topic

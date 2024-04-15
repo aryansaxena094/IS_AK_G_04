@@ -9,6 +9,47 @@ intents:
   - mood_unhappy
   - bot_challenge
 
+  - list_university_courses
+  - find_courses_by_topic
+  - list_topics_in_course
+  - list_courses_by_subject
+  - recommended_materials_for_topic
+  - course_credits
+  - additional_course_resources
+  - detail_course_content
+  - recommended_reading_for_topic
+  - competencies_gained
+  - student_grades
+  - students_completed_course
+  - print_student_transcript
+  - query_course_description
+  - query_topics_in_course_event
+  - query_events_covering_topic
+
+entities:
+  - university
+  - topic
+  - course
+  - event
+  - subject
+  - year
+  - person
+
+actions:
+  - ActionListUniversityCourses
+  - ActionFindCoursesByTopic
+  - ActionListTopicsInCourse
+  - ActionListCoursesBySubject
+  - ActionRecommendedMaterialsForTopic
+  - ActionCourseCredits
+  - ActionAdditionalCourseResources
+  - ActionDetailCourseContent
+  - ActionRecommendedReadingForTopic
+  - ActionCompetenciesGained
+  - ActionStudentGrades
+  - ActionStudentCompletedCourses
+  - ActionPrintStudentTranscript
+
 responses:
   utter_greet:
   - text: "Hey! How are you?"

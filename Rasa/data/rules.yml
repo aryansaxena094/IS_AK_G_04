@@ -12,8 +12,98 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-############################################
-- rule: Provide course description
+# Rule for listing university courses
+- rule: List University Courses
   steps:
-  - intent: ask_course_description
-  - action: action_get_course_description
+  - intent: list_university_courses
+  - action: action_list_university_courses
+
+  # Rule for finding courses by topic
+- rule: Find Courses by Topic
+  steps:
+    - intent: find_courses_by_topic
+    - action: action_find_courses_by_topic
+
+  # Rule for listing topics in a course
+- rule: List Topics in a Course
+  steps:
+    - intent: list_topics_in_course
+    - action: action_list_topics_in_course
+
+  # Rule for listing courses by subject
+- rule: List Courses by Subject
+  steps:
+    - intent: list_courses_by_subject
+    - action: action_list_courses_by_subject
+
+  # Rule for recommending materials for a topic
+- rule: Recommend Materials for a Topic
+  steps:
+    - intent: recommended_materials_for_topic
+    - action: action_recommended_materials_for_topic
+
+  # Rule for inquiring about course credits
+- rule: Inquire About Course Credits
+  steps:
+    - intent: course_credits
+    - action: action_course_credits
+
+  # Rule for additional course resources
+- rule: Provide Additional Course Resources
+  steps:
+    - intent: additional_course_resources
+    - action: action_additional_course_resources
+
+  # Rule for detailing course content
+- rule: Detail Course Content
+  steps:
+    - intent: detail_course_content
+    - action: action_detail_course_content
+
+  # Rule for recommending reading for a topic
+- rule: Recommend Reading for a Topic
+  steps:
+    - intent: recommended_reading_for_topic
+    - action: action_recommended_reading_for_topic
+
+  # Rule for describing competencies gained from a course
+- rule: Describe Competencies Gained from a Course
+  steps:
+    - intent: competencies_gained
+    - action: action_competencies_gained
+
+  # Rule for querying student grades
+- rule: Query Student Grades
+  steps:
+    - intent: student_grades
+    - action: action_student_grades
+
+  # Rule for listing students who completed a course
+- rule: List Students Who Completed a Course
+  steps:
+    - intent: students_completed_course
+    - action: action_student_completed_courses
+
+  # Rule for printing student transcripts
+- rule: Print Student Transcript
+  steps:
+    - intent: print_student_transcript
+    - action: action_print_student_transcript
+
+  # Rule for course description inquiry
+- rule: Course Description Inquiry
+  steps:
+    - intent: query_course_description
+    - action: action_query_course_description
+
+  # Rule for topics covered in a course event
+- rule: Topics Covered in a Course Event
+  steps:
+    - intent: query_topics_in_course_event
+    - action: action_query_topics_in_course_event
+
+  # Rule for events covering a specific topic
+- rule: Events Covering a Specific Topic
+  steps:
+    - intent: query_events_covering_topic
+    - action: action_query_events_covering_topic

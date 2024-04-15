@@ -2,17 +2,18 @@ import yaml
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from SPARQLWrapper import SPARQLWrapper, JSON
+from pathlib import Path
 
 # Load SPARQL queries from the YAML file
 def load_queries():
-    with open('queries.yml', 'r') as file:
+    with open('/Users/aryansaxena/Desktop/Intelligent Systems/IS_AK_G_04/Rasa/config/queries.yml', 'r') as file:
         return yaml.safe_load(file)
 
 queries = load_queries()
 
 # Function to execute SPARQL queries
 def run_query(query, **kwargs):
-    sparql = SPARQLWrapper("http://localhost:3030/dataset/query")
+    sparql = SPARQLWrapper("http://localhost:3030/Roboprof/sparql")
     sparql.setQuery(query.format(**kwargs))
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
