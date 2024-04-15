@@ -4,17 +4,17 @@
 
 <http://example.org/vocab/student/S1001> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5477> ;
-            ex:courseGrade "C+"^^xsd:string ],
+            ex:course <http://example.org/vocab/course/5570> ;
+            ex:courseGrade "A"^^xsd:string ],
         [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5605> ;
             ex:courseGrade "A"^^xsd:string ],
         [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5527> ;
-            ex:courseGrade "A-"^^xsd:string ],
+            ex:course <http://example.org/vocab/course/5477> ;
+            ex:courseGrade "C+"^^xsd:string ],
         [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5570> ;
-            ex:courseGrade "A"^^xsd:string ] ;
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "A-"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5409>,
         <http://example.org/vocab/course/5411> ;
     ex:studentID "S1001"^^xsd:string ;
@@ -23,8 +23,8 @@
 
 <http://example.org/vocab/student/S1002> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5570> ;
-            ex:courseGrade "C+"^^xsd:string ],
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "A-"^^xsd:string ],
         [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5605> ;
             ex:courseGrade "B"^^xsd:string ],
@@ -32,8 +32,8 @@
             ex:course <http://example.org/vocab/course/5477> ;
             ex:courseGrade "B"^^xsd:string ],
         [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5527> ;
-            ex:courseGrade "A-"^^xsd:string ] ;
+            ex:course <http://example.org/vocab/course/5570> ;
+            ex:courseGrade "C+"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5409>,
         <http://example.org/vocab/course/5411> ;
     ex:studentID "S1002"^^xsd:string ;
@@ -42,17 +42,17 @@
 
 <http://example.org/vocab/student/S1003> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5605> ;
-            ex:courseGrade "B+"^^xsd:string ],
-        [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5477> ;
-            ex:courseGrade "B"^^xsd:string ],
-        [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5526> ;
             ex:courseGrade "C"^^xsd:string ],
         [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5570> ;
-            ex:courseGrade "C+"^^xsd:string ] ;
+            ex:courseGrade "C+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5477> ;
+            ex:courseGrade "B"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5605> ;
+            ex:courseGrade "B+"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5410>,
         <http://example.org/vocab/course/5482> ;
     ex:studentID "S1003"^^xsd:string ;
@@ -61,8 +61,8 @@
 
 <http://example.org/vocab/student/S1004> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5527> ;
-            ex:courseGrade "B+"^^xsd:string ],
+            ex:course <http://example.org/vocab/course/5534> ;
+            ex:courseGrade "A"^^xsd:string ],
         [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5589> ;
             ex:courseGrade "A-"^^xsd:string ],
@@ -70,8 +70,8 @@
             ex:course <http://example.org/vocab/course/5477> ;
             ex:courseGrade "A-"^^xsd:string ],
         [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5534> ;
-            ex:courseGrade "A"^^xsd:string ] ;
+            ex:course <http://example.org/vocab/course/5527> ;
+            ex:courseGrade "B+"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5409>,
         <http://example.org/vocab/course/5410> ;
     ex:studentID "S1004"^^xsd:string ;
@@ -80,17 +80,17 @@
 
 <http://example.org/vocab/student/S1005> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5411> ;
-            ex:courseGrade "B-"^^xsd:string ],
-        [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5605> ;
-            ex:courseGrade "B"^^xsd:string ],
-        [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5527> ;
             ex:courseGrade "C+"^^xsd:string ],
         [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5534> ;
-            ex:courseGrade "B+"^^xsd:string ] ;
+            ex:courseGrade "B+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5411> ;
+            ex:courseGrade "B-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5605> ;
+            ex:courseGrade "B"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5415>,
         <http://example.org/vocab/course/5572> ;
     ex:studentID "S1005"^^xsd:string ;
@@ -99,17 +99,17 @@
 
 <http://example.org/vocab/student/S1006> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5411> ;
-            ex:courseGrade "A-"^^xsd:string ],
-        [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5534> ;
             ex:courseGrade "B-"^^xsd:string ],
         [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5526> ;
-            ex:courseGrade "C"^^xsd:string ],
-        [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5534> ;
-            ex:courseGrade "C+"^^xsd:string ] ;
+            ex:courseGrade "C+"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5411> ;
+            ex:courseGrade "A-"^^xsd:string ],
+        [ a ex:CompletedCourse ;
+            ex:course <http://example.org/vocab/course/5526> ;
+            ex:courseGrade "C"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5406>,
         <http://example.org/vocab/course/5482> ;
     ex:studentID "S1006"^^xsd:string ;
@@ -118,8 +118,8 @@
 
 <http://example.org/vocab/student/S1007> a ex:Student ;
     ex:completedCourse [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5410> ;
-            ex:courseGrade "A-"^^xsd:string ],
+            ex:course <http://example.org/vocab/course/5526> ;
+            ex:courseGrade "B+"^^xsd:string ],
         [ a ex:CompletedCourse ;
             ex:course <http://example.org/vocab/course/5526> ;
             ex:courseGrade "B-"^^xsd:string ],
@@ -127,8 +127,8 @@
             ex:course <http://example.org/vocab/course/5534> ;
             ex:courseGrade "A"^^xsd:string ],
         [ a ex:CompletedCourse ;
-            ex:course <http://example.org/vocab/course/5526> ;
-            ex:courseGrade "B+"^^xsd:string ] ;
+            ex:course <http://example.org/vocab/course/5410> ;
+            ex:courseGrade "A-"^^xsd:string ] ;
     ex:hasCompetency <http://example.org/vocab/course/5410>,
         <http://example.org/vocab/course/5572> ;
     ex:studentID "S1007"^^xsd:string ;

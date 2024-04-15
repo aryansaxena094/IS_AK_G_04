@@ -13,7 +13,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 SELECT ?course ?courseName
 WHERE {
-  ?topic ex:topicName "Graph Theory"^^xsd:string .
+  ?topic ex:topicName "CNN"^^xsd:string .
   ?topic ex:isTopicOfCourse ?course .
   ?course ex:description ?courseName .
 }
@@ -25,8 +25,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?topicName
 WHERE {
-  ?topic ex:isTopicOfCourse <http://example.org/vocab/course/5603> ;
-         ex:isTopicOfLecture <http://example.org/vocab/lecture/4> ;
+  ?topic ex:isTopicOfCourse <http://example.org/vocab/course/40355> ;
+         ex:isTopicOfLecture <http://example.org/vocab/lecture/7> ;
          ex:topicName ?topicName .
 }
 
@@ -44,21 +44,26 @@ WHERE {
 }
 
 5.
-PREFIX ex: <http://example.org/ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ex: <http://example.org/vocab/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-SELECT ?materialType ?lectureContentLink
+
+SELECT DISTINCT ?lectureName
 WHERE {
-  ?course a ex:Course ;
-          ex:courseNumber "6651"^^xsd:string .
-  ?lecture a ex:Lecture ;
-           ex:isPartOfCourse ?course .
-  ?topic a ex:Topic ;
-         ex:topicName "Greedy Algorithms"^^xsd:string ; 
-         ex:isTopicOfLecture ?lecture .
-  ?lecture ex:lectureContentLink ?lectureContentLink .
-  ?content a ?materialType .
-  FILTER(?materialType IN (ex:Slides, ex:Readings))
+  # Select the specific course by subject and number
+  ?course a ex:Course;
+          ex:subject "COMP"^^xsd:string;
+          ex:number "6741"^^xsd:string.
+
+  # Find topics that are part of this course
+  ?topic a ex:Topic;
+         ex:isTopicOfCourse ?course;
+         ex:topicName "Amazon"^^xsd:string.  # Adjust topic name as necessary
+
+  # Find lectures that include this topic
+  ?topic ex:isTopicOfLecture ?lecture.
+  
+  # Get the names of these lectures
+  ?lecture ex:lectureName ?lectureName.
 }
 
 6.
@@ -79,37 +84,57 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?seeAlso
 WHERE {
   ?lecture a ex:Lecture ;
-           ex:isPartOfCourse ?course ;
+           ex:lectureOfCourse ?course ;
            rdfs:seeAlso ?seeAlso .
-  ?course ex:number "6651" .
+  ?course ex:number "6721" ;
+          ex:subject "COMP" .
 }
 
 8.
-PREFIX ex: <http://example.org/ns#>
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?lectureContentLink
+SELECT ?topicName ?topicLink ?materialType
 WHERE {
-  ?course a ex:Course ;
-          ex:courseNumber "6651" .
-  ?lecture a ex:Lecture ;
-           ex:isPartOfCourse ?course ;
-           ex:lectureNumber "1" ;
-           ex:lectureContentLink ?lectureContentLink .
+  ?course a ex:Course;
+          ex:subject "COMP"^^xsd:string;  
+          ex:number "6741"^^xsd:string.   
+
+  ?lecture a ex:Lecture;
+           ex:lectureOfCourse ?course;
+           BIND (IRI(CONCAT("http://example.org/vocab/lecture/", "7")) AS ?specificLecture)
+
+  ?topic ex:isTopicOfLecture ?specificLecture;
+         a ex:Topic;
+         ex:topicName ?topicName;
+         ex:materialType ?materialType. 
+
+  BIND (IRI(?topic) AS ?topicLink)
 }
 
-9.
-PREFIX ex: <http://example.org/ns#>
 
-SELECT DISTINCT ?lectureContentLink
+9.
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?lectureNumber ?materialType
 WHERE {
-  ?topic a ex:Topic ;
-         ex:topicName "Automata Theory" . 
-  ?lecture a ex:Lecture ;
-           ex:isTopicOfLecture ?topic ;
-           ex:lectureContentLink ?lectureContentLink .
-  ?course a ex:Course ;
-          ex:courseNumber "6651" ; 
-          ex:offersCourse ?lecture .
+  # Identifying the specific course by subject and number
+  ?course a ex:Course;
+          ex:subject "COMP"^^xsd:string;  # Specify the course subject
+          ex:number "6741"^^xsd:string.   # Specify the course number
+
+  # Finding topics associated with this course and matching a specified topic name
+  ?topic a ex:Topic;
+         ex:topicName "Amazon"^^xsd:string;  # Specify the topic of interest
+         ex:isTopicOfCourse ?course.
+
+  # Getting lecture numbers and material types linked to the topic
+  ?topic ex:isTopicOfLecture ?lecture;
+         ex:materialType ?materialType.
+
+  # Extracting lecture number from the lecture URI
+  BIND(REPLACE(STR(?lecture), "http://example.org/vocab/lecture/", "") AS ?lectureNumber)
 }
 
 10.
