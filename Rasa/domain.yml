@@ -28,10 +28,9 @@ intents:
 entities:
   - university
   - topic
-  - course
+  - course_number
   - event
   - subject
-  - year
   - person
 
 actions:
@@ -60,11 +59,11 @@ slots:
     mappings:
     - type: from_entity
       entity: topic
-  course:
+  course_number:
     type: text
     mappings:
     - type: from_entity
-      entity: course
+      entity: course_number
   event:
     type: text
     mappings:
@@ -75,11 +74,6 @@ slots:
     mappings:
     - type: from_entity
       entity: subject
-  year:
-    type: text
-    mappings:
-    - type: from_entity
-      entity: year
   person:
     type: text
     mappings:
