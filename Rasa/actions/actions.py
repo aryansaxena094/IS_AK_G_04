@@ -222,29 +222,11 @@ class ActionAdditionalCourseResources(Action):
 #     def name(self):
 #         return "action_detail_course_content"
     
-#     def run(self, dispatcher, tracker, domain):
-#         course = tracker.get_slot('course')
-#         query = queries['detail_course_content']['query']
-#         results = run_query(query, course=course)
-
-#         content = results['results']['bindings'][0]['content']['value']
-#         message = f"Here is the detailed content for the course {course}: {content}"
-#         dispatcher.utter_message(text=message)
-#         return []
 
 # class ActionRecommendedReadingForTopic(Action):
 #     def name(self):
 #         return "action_recommended_reading_for_topic"
-    
-#     def run(self, dispatcher, tracker, domain):
-#         topic = tracker.get_slot('topic')
-#         query = queries['recommended_reading_for_topic']['query']
-#         results = run_query(query, topic=topic)
 
-#         readings = [result['reading']['value'] for result in results['results']['bindings']]
-#         message = f"Here is some recommended reading material for the topic {topic}: " + ", ".join(readings)
-#         dispatcher.utter_message(text=message)
-#         return []
 
 class ActionCompetenciesGained(Action):
     def name(self):
@@ -317,8 +299,8 @@ class ActionStudentGrades(Action):
         dispatcher.utter_message(text=message)
         return []
 
-class ActionStudentCompletedCourses(Action):
-    def name(self):
-        return "action_student_completed_courses"
+# class ActionStudentCompletedCourses(Action):
+#     def name(self):
+#         return "action_student_completed_courses"
     
-    def run(self, dispatcher, tracker, domain):
+#     def run(self, dispatcher, tracker, domain):
