@@ -156,14 +156,7 @@ class ActionListTopicsBySubject(Action):
 #         return "action_recommended_materials_for_topic"
     
 #     def run(self, dispatcher, tracker, domain):
-#         topic = tracker.get_slot('topic')
-#         query = queries['recommended_materials_for_topic']['query']
-#         results = run_query(query, topic=topic)
-
-#         materials = [result['material']['value'] for result in results['results']['bindings']]
-#         message = f"Here are some recommended materials for the topic {topic}: " + ", ".join(materials)
-#         dispatcher.utter_message(text=message)
-#         return []
+#         topic = tracker.get_slot('subject')
 
 
 class ActionCourseCredits(Action):
@@ -196,19 +189,34 @@ class ActionCourseCredits(Action):
         return []
 
 
-# class ActionAdditionalCourseResources(Action):
-#     def name(self):
-#         return "action_additional_course_resources"
+class ActionAdditionalCourseResources(Action):
+    def name(self):
+        return "action_additional_course_resources"
     
-#     def run(self, dispatcher, tracker, domain):
-#         course = tracker.get_slot('course')
-#         query = queries['additional_course_resources']['query']
-#         results = run_query(query, course=course)
+    def run(self, dispatcher, tracker, domain):
+        number = tracker.get_slot('course_number')
+        subject = tracker.get_slot('subject')
+        print(f"Subject: {subject}, Number: {number}")
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-#         resources = [result['resource']['value'] for result in results['results']['bindings']]
-#         message = f"Here are some additional resources for the course {course}: " + ", ".join(resources)
-#         dispatcher.utter_message(text=message)
-#         return []
+            SELECT ?lectureName
+            WHERE {{
+            ?lecture a ex:Lecture ;
+                    ex:isPartOfCourse ?course ;
+                    ex:lectureName ?lectureName .
+            ?course ex:subject "{subject}"^^xsd:string ;
+                    ex:number "{number}"^^xsd:string .
+            }}
+        """
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            resources = [result['lectureName']['value'] for result in results['results']['bindings']]
+            message = f"Here are some additional resources(lectures) for the course {subject} {number}: " + ", ".join(resources)
+        else:
+            message = f"No additional resources were found for the course {subject} {number}."
+
 
 # class ActionDetailCourseContent(Action):
 #     def name(self):
@@ -309,31 +317,8 @@ class ActionStudentGrades(Action):
         dispatcher.utter_message(text=message)
         return []
 
-# class ActionStudentCompletedCourses(Action):
-#     def name(self):
-#         return "action_student_completed_courses"
+class ActionStudentCompletedCourses(Action):
+    def name(self):
+        return "action_student_completed_courses"
     
-#     def run(self, dispatcher, tracker, domain):
-#         student = tracker.get_slot('student')
-#         query = queries['student_completed_courses']['query']
-#         results = run_query(query, student=student)
-
-#         courses = [result['course']['value'] for result in results['results']['bindings']]
-#         message = f"Here are the courses completed by student {student}: " + ", ".join(courses)
-#         dispatcher.utter_message(text=message)
-#         return []
-
-# class ActionPrintStudentTranscript(Action):
-#     def name(self):
-#         return "action_print_student_transcript"
-    
-#     # We just return the course Number and the grade of the student
-#     def run(self, dispatcher, tracker, domain):
-#         student = tracker.get_slot('student')
-#         query = queries['student_transcript']['query']
-#         results = run_query(query, student=student)
-
-#         transcript = [f"{result['course']['value']} - {result['grade']['value']}" for result in results['results']['bindings']]
-#         message = f"Here is the transcript for student {student}: " + ", ".join(transcript)
-#         dispatcher.utter_message(text=message)
-#         return []
+    def run(self, dispatcher, tracker, domain):

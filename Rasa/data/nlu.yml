@@ -123,7 +123,7 @@ nlu:
 
 - intent: recommended_materials_for_topic
   examples: |
-    - What materials (slides, readings) are recommended for [machine learning](topic) in [COMP](subject) [474](course_number) for [2021](year)?
+    - What materials are recommended for [COMP](subject) [474](course_number) for [2021](year)?
     - Which readings and resources should I use for [data structures](topic) in [COMP](subject) [352](course_number) for [2022](year)?
 
 - intent: course_credits
@@ -138,6 +138,8 @@ nlu:
   examples: |
     - For [COMP](subject) [474](course_number), what additional resources are available?
     - What extra materials can I find online for [SOEN](subject) [6011](course_number)?
+    - Additional resources for [COMP](subject) [352](course_number)?
+    - Lectures for [COMP](subject) [348](course_number)?
 
 - intent: detail_course_content
   examples: |
