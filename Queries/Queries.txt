@@ -162,22 +162,41 @@ WHERE {
 
 12.
 PREFIX ex: <http://example.org/vocab/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?student
+SELECT ?studentName
 WHERE {
-  ?student ex:completedCourse ?completedCourse .
-  ?completedCourse ex:course ?course .
-  ?course ex:number "6651" .
+  ?student a ex:Student;
+           ex:completedCourse ?completedCourse.
+  ?completedCourse ex:course ?course.
+  ?course ex:number "6651"^^xsd:string;
+          ex:subject "COMP".
+  ?student foaf:name ?studentName.
 }
 
 13.
 PREFIX ex: <http://example.org/vocab/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?courseNumber ?grade
+SELECT ?courseName ?courseID ?grade
 WHERE {
-  ?student ex:completedCourse ?completedCourse .
-  ?completedCourse ex:course ?course ;
-                   ex:courseGrade ?grade .
-  ?course ex:number ?courseNumber .
-  FILTER(?student = <http://example.org/vocab/student/S1001>)
+  # Find the student by name
+  ?student a ex:Student;
+           foaf:name "Aryan Saxena"^^xsd:string.
+
+  # Find completed courses and corresponding grades
+  ?student ex:completedCourse ?compCourse .
+  ?compCourse ex:course ?course ;
+              ex:courseGrade ?grade .
+  
+  # Retrieve course details
+  ?course ex:subject ?subject ;
+          ex:number ?number ;
+          ex:description ?description .
+  
+  # Bind variables for course name and course ID
+  BIND (?description AS ?courseName)
+  BIND (CONCAT(?subject, ?number) AS ?courseID)
 }

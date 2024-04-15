@@ -155,12 +155,48 @@ class ActionListTopicsBySubject(Action):
         return []
 
 # 5. Distinct Lecture Name for a Course for a TOPIC
-# class ActionRecommendedMaterialsForTopic(Action):
-#     def name(self):
-#         return "action_recommended_materials_for_topic"
+class ActionRecommendedMaterialsForTopic(Action):
+    def name(self):
+        return "action_recommended_materials_for_topic"
     
-#     def run(self, dispatcher, tracker, domain):
-#         topic = tracker.get_slot('subject')
+    def run(self, dispatcher, tracker, domain):
+        topic = tracker.get_slot('topic')
+        number = tracker.get_slot('course_number')
+        subject = tracker.get_slot('subject')
+        print("Running function: action_recommended_materials_for_topic")
+        print(f"Topic: {topic}, Subject: {subject}, Number: {number}")
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT DISTINCT ?lectureName
+            WHERE {{
+            # Select the specific course by subject and number
+            ?course a ex:Course;
+                    ex:subject "{subject}"^^xsd:string;
+                    ex:number "{number}"^^xsd:string.
+
+            # Find topics that are part of this course
+            ?topic a ex:Topic;
+                    ex:isTopicOfCourse ?course;
+                    ex:topicName "{topic}"^^xsd:string.  # Adjust topic name as necessary
+
+            # Find lectures that include this topic
+            ?topic ex:isTopicOfLecture ?lecture.
+            
+            # Get the names of these lectures
+            ?lecture ex:lectureName ?lectureName.
+            }}
+        """
+        # Result will be like: Lecture name - "Lecture 1", "Lecture 2", etc.
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            lectures = [result['lectureName']['value'] for result in results['results']['bindings']]
+            message = f"The following lectures cover the topic {topic}: " + ", ".join(lectures)
+        else:
+            message = f"No lectures were found for the topic {topic}."
+        dispatcher.utter_message(text=message)
+        return []
 
 # 6. Getting Course Credits
 class ActionCourseCredits(Action):
@@ -223,15 +259,96 @@ class ActionAdditionalCourseResources(Action):
             message = f"No additional resources were found for the course {subject} {number}."
 
 # 8. Getting MATERIALS (name, link, type) for a course in a lecture
-# class ActionDetailCourseContent(Action):
-#     def name(self):
-#         return "action_detail_course_content"
+class ActionDetailCourseContent(Action):
+    def name(self):
+        return "action_detail_course_content"
+    
+    def run(self, dispatcher, tracker, domain):
+        number = tracker.get_slot('course_number')
+        subject = tracker.get_slot('subject')
+        lecture = tracker.get_slot('lecture')
+        lecture_number = ''.join(filter(str.isdigit, lecture))
+        print("Running function: action_detail_course_content")
+        print(f"Subject: {subject}, Number: {number}, Lecture: {lecture}, Lecture Number: {lecture_number}")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?topicName ?topicLink ?materialType
+            WHERE {{
+            ?course a ex:Course;
+                    ex:subject "{subject}"^^xsd:string;  
+                    ex:number "{number}"^^xsd:string.   
+
+            ?lecture a ex:Lecture;
+                    ex:lectureOfCourse ?course;
+                    BIND (IRI(CONCAT("http://example.org/vocab/lecture/", "{lecture_number}")) AS ?specificLecture)
+
+            ?topic ex:isTopicOfLecture ?specificLecture;
+                    a ex:Topic;
+                    ex:topicName ?topicName;
+                    ex:materialType ?materialType. 
+
+            BIND (IRI(?topic) AS ?topicLink)
+            }}
+        """
+
+        # Result will be like: 00038(topicName) <http://dbpedia.org/resource/00038>(topicLink) Lecture (materialType)
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            materials = [(result['topicName']['value'], result['topicLink']['value'], result['materialType']['value']) for result in results['results']['bindings']]
+            message = f"Here are the materials for the lecture {lecture} in course {subject} {number}: \n"
+            for material in materials:
+                message += f"Topic: {material[0]}, Link: {material[1]}, Type: {material[2]}\n"
+        else:
+            message = f"No materials were found for the lecture {lecture} in course {subject} {number}."
     
 
 # 9. Getting lecture Number, and material type for a course for a topic
-# class ActionRecommendedReadingForTopic(Action):
-#     def name(self):
-#         return "action_recommended_reading_for_topic"
+class ActionRecommendedReadingForTopic(Action):
+    def name(self):
+        return "action_recommended_reading_for_topic"
+    
+    def run(self, dispatcher, tracker, domain):
+        topic = tracker.get_slot('topic')
+        number = tracker.get_slot('course_number')
+        subject = tracker.get_slot('subject')
+        print("Running function: action_recommended_reading_for_topic")
+        print(f"Topic: {topic}, Subject: {subject}, Number: {number}")
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?lectureNumber ?materialType
+            WHERE {{
+            # Identifying the specific course by subject and number
+            ?course a ex:Course;
+                    ex:subject "{subject}"^^xsd:string;  # Specify the course subject
+                    ex:number "{number}"^^xsd:string.   # Specify the course number
+
+            # Finding topics associated with this course and matching a specified topic name
+            ?topic a ex:Topic;
+                    ex:topicName "{topic}"^^xsd:string;  # Specify the topic of interest
+                    ex:isTopicOfCourse ?course.
+
+            # Getting lecture numbers and material types linked to the topic
+            ?topic ex:isTopicOfLecture ?lecture;
+                    ex:materialType ?materialType.
+
+            # Extracting lecture number from the lecture URI
+            BIND(REPLACE(STR(?lecture), "http://example.org/vocab/lecture/", "") AS ?lectureNumber)
+            }}
+        """
+        # Result will be like: 1(lectureNumber) Lecture(materialType)
+        results = run_query(query)
+        if results and results['results']['bindings']:
+            lectures = [(result['lectureNumber']['value'], result['materialType']['value']) for result in results['results']['bindings']]
+            message = f"The following lectures cover the topic {topic}: \n"
+            for lecture in lectures:
+                message += f"Lecture {lecture[0]} - {lecture[1]}\n"
+        else:
+            message = f"No lectures were found for the topic {topic}."
 
 # 10. Gettting Competencies Gained for a course
 class ActionCompetenciesGained(Action):
@@ -307,13 +424,88 @@ class ActionStudentGrades(Action):
         return []
 
 # 12. Getting students who have completed a particular course
-# class ActionStudentCompletedCourses(Action):
-#     def name(self):
-#         return "action_student_completed_courses"
+class ActionStudentCompletedCourses(Action):
+    def name(self):
+        return "action_student_completed_courses"
     
-#     def run(self, dispatcher, tracker, domain):
+    def run(self, dispatcher, tracker, domain):
+        number = tracker.get_slot('course_number')
+        subject = tracker.get_slot('subject')
+        print("Running function: action_student_completed_courses")
+        print(f"Subject: {subject}, Number: {number}")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?studentName
+            WHERE {{
+            ?student a ex:Student;
+                    ex:completedCourse ?completedCourse.
+            ?completedCourse ex:course ?course.
+            ?course ex:number "{number}"^^xsd:string;
+                    ex:subject "{subject}".
+            ?student foaf:name ?studentName.
+            }}
+        """
+        # Result will be the names of the students who have completed the course
+        result = run_query(query)
+        if result and result['results']['bindings']:
+            students = [r['studentName']['value'] for r in result['results']['bindings']]
+            message = f"The following students have completed the course {subject} {number}: " + ", ".join(students)
+        else:
+            message = f"No students were found who have completed the course {subject} {number}."
 
 # 13. Getting transcript of a student
+class ActionStudentTranscript(Action):
+    def name(self):
+        return "print_student_transcript"
+    
+    def run(self, dispatcher, tracker, domain):
+        person = tracker.get_slot('person')
+        print("Running function: print_student_transcript")
+        print(f"Person: {person}")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?courseName ?courseID ?grade
+            WHERE {{
+            # Find the student by name
+            ?student a ex:Student;
+                    foaf:name "{person}"^^xsd:string.
+
+            # Find completed courses and corresponding grades
+            ?student ex:completedCourse ?compCourse .
+            ?compCourse ex:course ?course ;
+                        ex:courseGrade ?grade .
+            
+            # Retrieve course details
+            ?course ex:subject ?subject ;
+                    ex:number ?number ;
+                    ex:description ?description .
+            
+            # Bind variables for course name and course ID
+            BIND (?description AS ?courseName)
+            BIND (CONCAT(?subject, ?number) AS ?courseID)
+            }}
+        """
+        # Result will be like : OPERATING SYSTEMS(courseName) COMP5461(courseID) B+(grade)
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            transcript = [(result['courseName']['value'], result['courseID']['value'], result['grade']['value']) for result in results['results']['bindings']]
+            message = f"Transcript for {person}:\n"
+            for course in transcript:
+                message += f"Course: {course[0]}, Course ID: {course[1]}, Grade: {course[2]}\n"
+        else:
+            message = f"No transcript was found for {person}."
+        dispatcher.utter_message(text=message)
+        return []
+
 
 # 14.
 # 15.
