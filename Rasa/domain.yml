@@ -8,7 +8,6 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
-
   - list_university_courses
   - find_courses_by_topic
   - list_topics_in_course
@@ -22,9 +21,9 @@ intents:
   - student_grades
   - students_completed_course
   - print_student_transcript
-  - query_course_description
-  - query_topics_in_course_event
-  - query_events_covering_topic
+  # - query_course_description
+  # - query_topics_in_course_event
+  # - query_events_covering_topic
 
 entities:
   - university
@@ -36,19 +35,56 @@ entities:
   - person
 
 actions:
-  - ActionListUniversityCourses
-  - ActionFindCoursesByTopic
-  - ActionListTopicsInCourse
-  - ActionListCoursesBySubject
-  - ActionRecommendedMaterialsForTopic
-  - ActionCourseCredits
-  - ActionAdditionalCourseResources
-  - ActionDetailCourseContent
-  - ActionRecommendedReadingForTopic
-  - ActionCompetenciesGained
-  - ActionStudentGrades
-  - ActionStudentCompletedCourses
-  - ActionPrintStudentTranscript
+  - action_list_university_courses
+  - action_find_courses_by_topic
+  - action_list_topics_in_course
+  - action_list_courses_by_subject
+  - action_recommended_materials_for_topic
+  - action_course_credits
+  - action_additional_course_resources
+  - action_detail_course_content
+  - action_recommended_reading_for_topic
+  - action_competencies_gained
+  - action_student_grades
+  - action_student_completed_courses
+  - action_print_student_transcript
+
+slots:
+  university:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: university
+  topic:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: topic
+  course:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: course
+  event:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: event
+  subject:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: subject
+  year:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: year
+  person:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: person
 
 responses:
   utter_greet:

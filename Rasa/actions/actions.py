@@ -3,34 +3,44 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from SPARQLWrapper import SPARQLWrapper, JSON
 from pathlib import Path
+from SPARQLWrapper import SPARQLWrapper, JSON
+from string import Template
 
-# Load SPARQL queries from the YAML file
-def load_queries():
-    with open('/Users/aryansaxena/Desktop/Intelligent Systems/IS_AK_G_04/Rasa/config/queries.yml', 'r') as file:
-        return yaml.safe_load(file)
-
-queries = load_queries()
-
-# Function to execute SPARQL queries
+# Utility function to run SPARQL queries
 def run_query(query, **kwargs):
     sparql = SPARQLWrapper("http://localhost:3030/Roboprof/sparql")
-    sparql.setQuery(query.format(**kwargs))
+    sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+    try:
+        results = sparql.query().convert()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
     return results
 
-# Example action using loaded queries
 class ActionListUniversityCourses(Action):
     def name(self):
         return "action_list_university_courses"
 
     def run(self, dispatcher, tracker, domain):
-        university = tracker.get_slot('university')
-        query = queries['list_university_courses']['query']
-        results = run_query(query, university=university)
-
-        courses = [result['course']['value'] for result in results['results']['bindings']]
-        message = f"{university} offers the following courses: " + ", ".join(courses)
+        university = tracker.get_slot('university').replace(" ", "_")
+        query = f"""
+        PREFIX ex: <http://example.org/vocab/>
+        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX dbr: <http://dbpedia.org/resource/>
+        SELECT ?course ?subject ?number WHERE {{
+            dbr:{university} dbo:offersCourse ?course .
+            ?course ex:subject ?subject ;
+                    ex:number ?number .
+        }}
+        """
+        results = run_query(query)
+        if results:
+            courses = [f"{result['subject']['value']} {result['number']['value']}" for result in results['results']['bindings']]
+            message = f"{university.replace('_', ' ')} offers the following courses: " + ", ".join(courses)
+        else:
+            message = "An error occurred while fetching university courses. Please try again later."
+        
         dispatcher.utter_message(text=message)
         return []
     
@@ -105,7 +115,7 @@ class ActionCourseCredits(Action):
         return []
 
 class ActionAdditionalCourseResources(Action):
-    def Name(self):
+    def name(self):
         return "action_additional_course_resources"
     
     def run(self, dispatcher, tracker, domain):

@@ -94,17 +94,17 @@ stories:
   - intent: print_student_transcript
   - action: action_print_student_transcript
 
-- story: Course description inquiry
-  steps:
-  - intent: query_course_description
-  - action: action_query_course_description
+# - story: Course description inquiry
+#   steps:
+#   - intent: query_course_description
+#   - action: action_query_course_description
 
-- story: Topics covered in a course event
-  steps:
-  - intent: query_topics_in_course_event
-  - action: action_query_topics_in_course_event
+# - story: Topics covered in a course event
+#   steps:
+#   - intent: query_topics_in_course_event
+#   - action: action_query_topics_in_course_event
 
-- story: Events covering a specific topic
-  steps:
-  - intent: query_events_covering_topic
-  - action: action_query_events_covering_topic
+# - story: Events covering a specific topic
+#   steps:
+#   - intent: query_events_covering_topic
+#   - action: action_query_events_covering_topic
