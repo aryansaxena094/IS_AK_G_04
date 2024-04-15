@@ -10,7 +10,7 @@ queries:
       }
 
   find_courses_by_topic:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -22,7 +22,7 @@ queries:
       }
 
   list_topics_in_course:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?topicName
@@ -33,7 +33,7 @@ queries:
       }
 
   list_courses_by_subject:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       PREFIX dbo: <http://dbpedia.org/ontology/>
       SELECT ?course ?subject ?number
@@ -46,7 +46,7 @@ queries:
       }
 
   recommended_materials_for_topic:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/ns#>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -64,7 +64,7 @@ queries:
       }
       
   course_credits:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       SELECT ?credits
       WHERE {
@@ -76,7 +76,7 @@ queries:
 
 
   additional_course_resources:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -89,7 +89,7 @@ queries:
       }
       
   detail_course_content:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/ns#>
       SELECT ?lectureContentLink
       WHERE {
@@ -102,7 +102,7 @@ queries:
       }
       
   recommended_reading_for_topic:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/ns#>
       SELECT DISTINCT ?lectureContentLink
       WHERE {
@@ -117,7 +117,7 @@ queries:
       }
       
   competencies_gained:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       SELECT ?topic
       WHERE {
@@ -129,7 +129,7 @@ queries:
 
       
   student_grades:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       SELECT ?grade
       WHERE {
@@ -141,7 +141,7 @@ queries:
       }
       
   students_completed_course:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
       SELECT ?student
       WHERE {
@@ -151,7 +151,7 @@ queries:
       }
       
   print_student_transcript:
-    query: >
+    query: |
       PREFIX ex: <http://example.org/vocab/>
 
       SELECT ?courseNumber ?grade
@@ -165,11 +165,11 @@ queries:
 
       
   # query_course_description:
-  #   query: >
+  #   query: |
       
   # query_topics_in_course_event:
-  #   query: >
+  #   query: |
       
   # query_events_covering_topic:
-  #   query: >
+  #   query: |
       
