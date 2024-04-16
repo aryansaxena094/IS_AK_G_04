@@ -637,3 +637,96 @@ class ActionEventsCoveringTopic(Action):
             message = f"No events were found for the topic {topic}."
         dispatcher.utter_message(text=message)
         return []
+    
+# 17.
+class ActionListTopicsInCourse(Action):
+    def name(self):
+        return "action_list_topics_in_course"
+    
+    def run(self, dispatcher, tracker, domain):
+        number = tracker.get_slot('course_number')
+        subject = tracker.get_slot('subject')
+        print("Running function: action_list_topics_in_course")
+        print(f"Subject: {subject}, Number: {number}")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT DISTINCT ?topicName ?lectureUri ?resourceUri
+            WHERE {{
+            ?course a ex:Course;
+                    ex:number "{number}";   
+                    ex:subject "{subject}".  
+            ?topicUri a ex:Topic;
+                        ex:topicName ?topicName;
+                        ex:isTopicOfCourse ?course;
+                        ex:materialType ?material;
+                        ex:isTopicOfLecture ?lectureUri.
+            ?lectureUri ex:lectureNumber ?lectureNum.
+            BIND(CONCAT(?material, STR(?lectureNum)) AS ?resourceUri)
+            }}
+        """
+
+        # Result will be - TopicName, LectureUri, ResourceUri
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            topics = [(result['topicName']['value'], result['lectureUri']['value'], result['resourceUri']['value']) for result in results['results']['bindings']]
+            message = f"The topics covered in the course {subject} {number} are: \n"
+            for topic in topics:
+                message += f"Topic: {topic[0]}, Lecture: {topic[1]}, Resource: {topic[2]}\n"
+        else:
+            message = f"No topics were found for the course {subject} {number}."
+        dispatcher.utter_message(text=message)
+        return []
+
+# 18.
+class ActionCountTopicOccurances(Action):
+    def name(self):
+        return "action_count_topic_occurances"
+    
+    def run(self, dispatcher, tracker, domain):
+        topic = tracker.get_slot('topic')
+        subject = tracker.get_slot('subject')
+        number = tracker.get_slot('course_number')
+        print("Running function: action_count_topic_occurances")
+        print(f"Topic: {topic}, Subject: {subject}, Number: {number}")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?course ?courseDescription (COUNT(?lecture) AS ?numberOfOccurrences)
+            WHERE {{
+            ?topic a ex:Topic;
+            ex:topicName "{topic}".
+            ?topic ex:isTopicOfCourse ?course.
+            ?topic ex:isTopicOfLecture ?lecture.
+            ?course a ex:Course;
+                    ex:subject "{subject}";
+                    ex:number "{number}";
+                    ex:description ?courseDescription.
+            }}
+            GROUP BY ?course ?courseDescription
+            ORDER BY DESC(?numberOfOccurrences)
+        """
+        # result will be - <http://example.org/vocab/course/40353>(course) Deep Learning for Intelligent Systems(courseDescription) 2(numberOfOccurrences)
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            occurrences = [(result['course']['value'], result['courseDescription']['value'], result['numberOfOccurrences']['value']) for result in results['results']['bindings']]
+            message = f"The topic {topic} occurs in the following courses: \n"
+            for occurrence in occurrences:
+                message += f"Course: {occurrence[0]}, Description: {occurrence[1]}, Number of Occurrences: {occurrence[2]}\n"
+        else:
+            message = f"No occurrences were found for the topic {topic}."
+        dispatcher.utter_message(text=message)
+        return []
+    
+# 19.
+class ActionListDescriptionAndInfoForTopic(Action):
+    
+# 20.

@@ -57,3 +57,81 @@ WHERE {
           ex:description ?courseDescription.
 }
 ORDER BY DESC(?materialType) # Sort by material type assuming you want to prioritize certain types
+
+OTHER QUERIES - 
+
+1
+PREFIX ex: <http://example.org/vocab/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?topicName ?lectureUri ?resourceUri
+WHERE {
+  ?course a ex:Course;
+          ex:number "6721";   
+          ex:subject "COMP".  
+  ?topicUri a ex:Topic;
+            ex:topicName ?topicName;
+            ex:isTopicOfCourse ?course;
+            ex:materialType ?material;
+            ex:isTopicOfLecture ?lectureUri.
+  ?lectureUri ex:lectureNumber ?lectureNum.
+  BIND(CONCAT(?material, STR(?lectureNum)) AS ?resourceUri)
+}
+
+2
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?course ?courseDescription (COUNT(?lecture) AS ?numberOfOccurrences)
+WHERE {
+  ?topic a ex:Topic;
+  ex:topicName "cnn".
+  ?topic ex:isTopicOfCourse ?course.
+  ?topic ex:isTopicOfLecture ?lecture.
+  ?course a ex:Course;
+         ex:subject "COMP";
+         ex:number "6721";
+          ex:description ?courseDescription.
+}
+GROUP BY ?course ?courseDescription
+ORDER BY DESC(?numberOfOccurrences)
+
+3
+PREFIX ex: <http://example.org/vocab/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?courseDescription ?lectureFormat ?lectureNumber
+WHERE {
+  ?topicUri a ex:Topic;
+            ex:isTopicOfCourse ?courseUri;
+            ex:isTopicOfLecture ?lectureUri;
+            ex:topicName "cnn";
+            ex:materialType ?material.
+  ?courseUri ex:description ?courseDescription.
+  ?lectureUri ex:lectureNumber ?lectureNumber.
+
+  # Adjust the output format for lecture/material type.
+  BIND (IF(CONTAINS(STR(?material), "Lecture"), CONCAT("Lecture ", STR(?lectureNumber)), 
+           IF(CONTAINS(STR(?material), "Worksheet"), CONCAT("Worksheet ", STR(?lectureNumber)), STR(?material))) AS ?lectureFormat)
+}
+
+4
+PREFIX ex: <http://example.org/vocab/>
+
+SELECT ?courseCode
+WHERE {
+  ?courseUri a ex:Course;
+             ex:number ?number;
+             ex:subject ?subject.
+
+  # Construct course code from subject and number
+  BIND(CONCAT(?subject, " ", ?number) AS ?courseCode)
+
+  # Check if there is no topic linked to this course
+  FILTER NOT EXISTS {
+    ?topicUri a ex:Topic;
+              ex:isTopicOfCourse ?courseUri.
+  }
+}

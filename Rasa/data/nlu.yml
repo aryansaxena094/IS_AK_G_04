@@ -239,6 +239,34 @@ nlu:
     
 # More Queries from the second assignment
 # 17
+- intent: list_topics_in_course
+  examples: |
+    - List all topics covered in [COMP](subject) [474](course_number).
+    - Show me all topics covered in [SOEN](subject) [6011](course_number).
+    - What topics are covered in [COMP](subject) [352](course_number)?
+    - List all topics covered in [COMP](subject) [348](course_number).
+    - Show me all topics covered in [COMP](subject) [352](course_number).
+  
 # 18
+- intent: count_topic_occurances_in_course
+  examples: |
+    - List the number of occurances for [Deep Learning] for course [COMP](subject) [474](course_number).
+    - Show me the number of occurances for [Data Mining] for course [SOEN](subject) [6011](course_number).
+    - List the number of occurances for [Data Structures] for course [COMP](subject) [352](course_number).
+    - Show me the number of occurances for [Data Mining] for course [COMP](subject) [348](course_number).
+
 # 19
+- intent: list_description_and_info_for_topic
+  examples: |
+    - Give information about the topic of [Deep Learning](topic).
+    - Show me the description of the topic [Data Mining](topic).
+    - Give me information about the topic [Data Structures](topic).
+    - Information about the topic [Data Mining](topic).
+
 # 20
+- intent: no_material_for_courses
+  examples: |
+    - For which courses are there no materials available?
+    - List all courses for which there are no materials available.
+    - Show me the courses for which there are no materials available.
+    - Which courses have no materials available?
