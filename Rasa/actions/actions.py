@@ -728,5 +728,82 @@ class ActionCountTopicOccurances(Action):
     
 # 19.
 class ActionListDescriptionAndInfoForTopic(Action):
+    def name(self):
+        return "action_list_description_and_info_for_topic"
     
+    def run(self, dispatcher, tracker, domain):
+        topic = tracker.get_slot('topic')
+        print("Running function: action_list_description_and_info_for_topic")
+        print("Topic: ", topic)
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+            SELECT DISTINCT ?courseDescription ?lectureFormat ?lectureNumber
+            WHERE {{
+            ?topicUri a ex:Topic;
+                        ex:isTopicOfCourse ?courseUri;
+                        ex:isTopicOfLecture ?lectureUri;
+                        ex:topicName "{topic}";
+                        ex:materialType ?material.
+            ?courseUri ex:description ?courseDescription.
+            ?lectureUri ex:lectureNumber ?lectureNumber.
+
+            # Adjust the output format for lecture/material type.
+            BIND (IF(CONTAINS(STR(?material), "Lecture"), CONCAT("Lecture ", STR(?lectureNumber)), 
+                    IF(CONTAINS(STR(?material), "Worksheet"), CONCAT("Worksheet ", STR(?lectureNumber)), STR(?material))) AS ?lectureFormat)
+            }}
+        """
+
+        # Result will be - CourseDescription, LectureFormat, LectureNumber
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            info = [(result['courseDescription']['value'], result['lectureFormat']['value'], result['lectureNumber']['value']) for result in results['results']['bindings']]
+            message = f"Here is the information for the topic {topic}: \n"
+            for i in info:
+                message += f"Course Description: {i[0]}, Lecture Format: {i[1]}, Lecture Number: {i[2]}\n"
+        else:
+            message = f"No information was found for the topic {topic}."
+        dispatcher.utter_message(text=message)
+        return []
+
 # 20.
+class ActionNoMaterialForCourses(Action):
+    def name(self):
+        return "action_no_material_for_courses"
+    
+    def run(self, dispatcher, tracker, domain):
+        print("Running function: action_no_material_for_courses")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+
+            SELECT ?courseCode
+            WHERE {{
+            ?courseUri a ex:Course;
+                        ex:number ?number;
+                        ex:subject ?subject.
+
+            # Construct course code from subject and number
+            BIND(CONCAT(?subject, " ", ?number) AS ?courseCode)
+
+            # Check if there is no topic linked to this course
+            FILTER NOT EXISTS {{
+                ?topicUri a ex:Topic;
+                        ex:isTopicOfCourse ?courseUri.
+            }}
+            }}
+        """
+
+        # Result will be - COMP 5461(courseCode)
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            courses = [result['courseCode']['value'] for result in results['results']['bindings']]
+            message = f"The following courses have no material associated with them: " + ", ".join(courses)
+        else:
+            message = f"No courses were found with no material associated with them."
+        dispatcher.utter_message(text=message)
+        return []
