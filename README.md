@@ -58,3 +58,24 @@ We convert the CSV files into Turtle (.ttl) format for RDF:
 
 - CSVs and TTL files are stored in corresponding directories.
 - Queries are saved individually as `.csv` files for transparency and ease of access.
+
+## Rasa Chatbot Integration
+
+- The RDF data can be integrated with Rasa chatbots for conversational querying.
+- The chatbot can fetch data from RDF stores and provide answers to user queries.
+- Chatbot can answer all the queries related to the RDF data, it is done using Actions.py.
+- Actions.py has all the functions to fetch the data from the RDF files and return the response to the user.
+- The chatbot can answer queries related to courses, lectures, students, universities, and topics.
+
+### Files updated in Chatbot
+- `actions.py`
+- `domain.yml`
+- `data_generation.py`
+- `config.yml`
+- `credentials.yml`
+- `endpoints.yml`
+- `nlu.yml`
+- `stories.yml`
+
+## Conclusion
+The Roboprof project demonstrates the transformation of educational datasets into RDF format for advanced querying and integration with semantic web applications. The RDF data can be used for various purposes, including chatbots, recommendation systems, and data analysis.
