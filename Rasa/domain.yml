@@ -10,7 +10,7 @@ intents:
   - bot_challenge
   - list_university_courses
   - find_courses_by_topic
-  - list_topics_in_course
+  - list_topics_in_course_during_event
   - list_courses_by_subject
   - recommended_materials_for_topic
   - course_credits
@@ -40,7 +40,7 @@ entities:
 actions:
   - action_list_university_courses
   - action_find_courses_by_topic
-  - action_list_topics_in_course
+  - action_list_topics_in_course_during_event
   - action_list_courses_by_subject
   - action_recommended_materials_for_topic
   - action_course_credits

@@ -78,16 +78,16 @@ class ActionFindCoursesByTopic(Action):
         dispatcher.utter_message(text=message)
         return []
 
-# 3. List Topics In A Course Query
-class ActionListTopicsInCourse(Action):
+# 3. List Topics In A Course Query During Event
+class ActionListTopicsInCourseDuringEvent(Action):
     def name(self):
-        return "action_list_topics_in_course"
+        return "action_list_topics_in_course_during_event"
 
     def run(self, dispatcher, tracker, domain):
         number = tracker.get_slot('course_code')  # e.g., "COMP 6641"
         subject = tracker.get_slot('subject')
         lecture_number = tracker.get_slot('event')  # e.g., "lecture 2"
-        print("Running function: action_list_topics_in_course")
+        print("Running function: action_list_topics_in_course_during_event")
         print(f"Subject: {subject}, Number: {number}, Lecture Number: {lecture_number}")
         if lecture_number:
                 lecture_number = ''.join(filter(str.isdigit, lecture_number))

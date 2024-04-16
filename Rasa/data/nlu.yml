@@ -111,7 +111,7 @@ nlu:
     - Can you tell me about courses dealing with [neural networks](topic)?
 
 # 3
-- intent: list_topics_in_course
+- intent: list_topics_in_course_during_event
   examples: |
     - Which topics are covered in [COMP](subject) [474](course_number) during [lecture 5](event)?
     - What subjects does [SOEN](subject) [6011](course_number) cover in [lecture 10](event)?

@@ -25,10 +25,10 @@ rules:
     - action: action_find_courses_by_topic
 
   # Rule for listing topics in a course
-- rule: List Topics in a Course
+- rule: List topics in a course during an event
   steps:
-    - intent: list_topics_in_course
-    - action: action_list_topics_in_course
+  - intent: list_topics_in_course_during_event
+  - action: action_list_topics_in_course_during_event
 
   # Rule for listing courses by subject
 - rule: List Courses by Subject

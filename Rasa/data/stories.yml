@@ -109,10 +109,10 @@ stories:
   - intent: query_events_covering_topic
   - action: action_events_covering_topic
 
-- story: List topics in a course
+- story: List topics in a course during an event
   steps:
-  - intent: list_topics_in_course
-  - action: action_list_topics_in_course
+  - intent: list_topics_in_course_during_event
+  - action: action_list_topics_in_course_during_event
 
 - story: Count topic occurances in a course
   steps:
