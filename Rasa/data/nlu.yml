@@ -91,6 +91,7 @@ nlu:
     - am I talking to a human?
 
 #####
+
 # 1
 - intent: list_university_courses
   examples: |
@@ -99,6 +100,7 @@ nlu:
     - What courses does [MIT](university) offer?
     - List all courses at [Harvard](university).
     - Show me all courses at [McGill University](university).
+
 # 2
 - intent: find_courses_by_topic
   examples: |
@@ -107,12 +109,14 @@ nlu:
     - Is [data science](topic) covered in any courses?
     - Do any courses discuss [cryptography](topic)?
     - Can you tell me about courses dealing with [neural networks](topic)?
+
 # 3
 - intent: list_topics_in_course
   examples: |
     - Which topics are covered in [COMP](subject) [474](course_number) during [lecture 5](event)?
     - What subjects does [SOEN](subject) [6011](course_number) cover in [lecture 10](event)?
     - Detail the topics taught in [COMP](subject) [348](course_number) during [lecture 3](event).
+
 # 4
 - intent: list_courses_by_subject
   examples: |
@@ -121,6 +125,7 @@ nlu:
     - What [INSE](subject) courses are available?
     - List all courses in [ENGR](subject).
     - Show me all [MATH](subject) courses.
+
 # 5
 - intent: recommended_materials_for_topic
   examples: |
@@ -164,6 +169,7 @@ nlu:
     - Recommended readings for [data mining](topic) in [COMP](subject) [348](course_number)?
     - Readings for [data structures](topic) in [COMP](subject) [352](course_number)?
     - Lectures for [deep learning](topic) in [COMP](subject) [352](course_number)?
+
 # 10
 - intent: competencies_gained
   examples: |
@@ -172,6 +178,7 @@ nlu:
     - Competencies gained from [COMP](subject) [352](course_number)?
     - What will I learn from [COMP](subject) [348](course_number)
     - Skills acquired from [COMP](subject) [352](course_number)
+
 # 11
 - intent: student_grades
   examples: |
@@ -180,6 +187,7 @@ nlu:
     - Grades of [Anni Singh](person) in [COMP](subject) [6651](course_number)?
     - What grades did [Asmita Upadhyay](person) get in [COMP](subject) [348](course_number)
     - [Garvit Kataria](person) grades in [COMP](subject) [6721](course_number)
+
 # 12
 - intent: students_completed_course
   examples: |
@@ -189,6 +197,7 @@ nlu:
     - Who has completed [COMP](subject) [348](course_number)?
     - List of students who finished [COMP](subject) [352](course_number)
 
+# 13
 - intent: print_student_transcript
   examples: |
     - Print a transcript for [Aryan Saxena](person), listing all the courses taken with their grades.
@@ -196,17 +205,26 @@ nlu:
     - Print a transcript for [Garvit Kataria](person) with all the courses taken and grades.
     - Transcript for [Anni Singh](person).
 
+# 14
 # - intent: query_course_description
 #   examples: |
 #     - What is [COMP](subject) [474](course_number) about?
 #     - Can you give me the description for [COMP](subject) [474](course_number)?
 
+# 15
 # - intent: query_topics_in_course_event
 #   examples: |
 #     - Which topics are covered in [Lab #2](event) of [COMP](subject) [474](course_number)?
 #     - What are the main subjects in [Lecture 10](event) of [COMP](subject) [474](course_number)?
 
+# 16
 # - intent: query_events_covering_topic
 #   examples: |
 #     - Which course events cover [deep learning](topic)?
 #     - List all lectures and labs that include [artificial intelligence](topic).
+
+# More Queries from the second assignment
+# 17
+# 18
+# 19
+# 20
