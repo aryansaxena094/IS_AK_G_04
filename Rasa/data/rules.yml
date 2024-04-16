@@ -104,3 +104,23 @@ rules:
   steps:
     - intent: query_events_covering_topic
     - action: action_events_covering_topic
+
+- rule: List Topics in Course
+  steps:
+    - intent: list_topics_in_course
+    - action: action_list_topics_in_course
+
+- rule: Count Topic Occurances in Course
+  steps:
+    - intent: count_topic_occurances_in_course
+    - action: action_count_topic_occurances
+  
+- rule: List Description and Info for Topic
+  steps:
+    - intent: list_description_and_info_for_topic
+    - action: action_list_description_and_info_for_topic
+
+- rule: No Material for Courses
+  steps:
+    - intent: no_material_for_courses
+    - action: action_no_material_for_courses

@@ -24,6 +24,10 @@ intents:
   - course_description
   - query_topics_in_course_event
   - query_events_covering_topic
+  - list_topics_in_course
+  - count_topic_occurances_in_course
+  - list_description_and_info_for_topic
+  - no_material_for_courses
 
 entities:
   - university
@@ -50,6 +54,10 @@ actions:
   - action_course_description
   - action_topics_covered_in_course_event
   - action_events_covering_topic
+  - action_list_topics_in_course
+  - action_count_topic_occurances
+  - action_list_description_and_info_for_topic
+  - action_no_material_for_courses
 
 slots:
   university:

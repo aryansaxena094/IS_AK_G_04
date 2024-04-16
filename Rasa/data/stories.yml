@@ -109,3 +109,22 @@ stories:
   - intent: query_events_covering_topic
   - action: action_events_covering_topic
 
+- story: List topics in a course
+  steps:
+  - intent: list_topics_in_course
+  - action: action_list_topics_in_course
+
+- story: Count topic occurances in a course
+  steps:
+  - intent: count_topic_occurances_in_course
+  - action: action_count_topic_occurances
+
+- story: Description and info for a topic
+  steps:
+  - intent: list_description_and_info_for_topic
+  - action: action_list_description_and_info_for_topic
+
+- story: No material for courses
+  steps:
+  - intent: no_material_for_courses
+  - action: action_no_material_for_courses
