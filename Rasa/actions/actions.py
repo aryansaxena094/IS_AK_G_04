@@ -25,6 +25,9 @@ class ActionListUniversityCourses(Action):
 
     def run(self, dispatcher, tracker, domain):
         university = tracker.get_slot('university').replace(" ", "_")
+        print("Running function: action_list_university_courses")
+        print(f"University: {university}")
+
         query = f"""
         PREFIX ex: <http://example.org/vocab/>
         PREFIX dbo: <http://dbpedia.org/ontology/>
@@ -52,6 +55,7 @@ class ActionFindCoursesByTopic(Action):
 
     def run(self, dispatcher, tracker, domain):
         topic = tracker.get_slot('topic')
+        print("Running function: action_find_courses_by_topic")
         print(f"Topic: {topic}")
         
         query = f"""
@@ -83,6 +87,7 @@ class ActionListTopicsInCourse(Action):
         number = tracker.get_slot('course_code')  # e.g., "COMP 6641"
         subject = tracker.get_slot('subject')
         lecture_number = tracker.get_slot('event')  # e.g., "lecture 2"
+        print("Running function: action_list_topics_in_course")
         print(f"Subject: {subject}, Number: {number}, Lecture Number: {lecture_number}")
         if lecture_number:
                 lecture_number = ''.join(filter(str.isdigit, lecture_number))
@@ -121,8 +126,8 @@ class ActionListTopicsBySubject(Action):
         return "action_list_courses_by_subject"
 
     def run(self, dispatcher, tracker, domain):
-        print("Action triggered: action_list_courses_by_subject")
         subject = tracker.get_slot('subject')  # e.g., "SOEN"
+        print("Running function: action_list_courses_by_subject")
         print("Subject: ", subject)
         if subject:
             query = f"""
@@ -204,11 +209,12 @@ class ActionCourseCredits(Action):
         return "action_course_credits"
     
     def run(self, dispatcher, tracker, domain):
-        course = tracker.get_slot('course')
-        course_split = course.split(" ")
-        subject = course_split[0]
-        number = course_split[1]
+        subject = tracker.get_slot('subject')
+        number = tracker.get_slot('course_number')
+        course = f"{subject} {number}"
+        print("Running function: action_course_credits")
         print(f"Subject: {subject}, Number: {number}")
+
         query = f"""
             PREFIX ex: <http://example.org/vocab/>
             SELECT ?credits
@@ -237,7 +243,9 @@ class ActionAdditionalCourseResources(Action):
     def run(self, dispatcher, tracker, domain):
         number = tracker.get_slot('course_number')
         subject = tracker.get_slot('subject')
+        print("Running function: action_additional_course_resources")
         print(f"Subject: {subject}, Number: {number}")
+
         query = f"""
             PREFIX ex: <http://example.org/vocab/>
             PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -293,7 +301,6 @@ class ActionDetailCourseContent(Action):
             BIND (IRI(?topic) AS ?topicLink)
             }}
         """
-
         # Result will be like: 00038(topicName) <http://dbpedia.org/resource/00038>(topicLink) Lecture (materialType)
         results = run_query(query)
         if results and results['results']['bindings']:
@@ -316,6 +323,7 @@ class ActionRecommendedReadingForTopic(Action):
         subject = tracker.get_slot('subject')
         print("Running function: action_recommended_reading_for_topic")
         print(f"Topic: {topic}, Subject: {subject}, Number: {number}")
+
         query = f"""
             PREFIX ex: <http://example.org/vocab/>
             PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -356,11 +364,12 @@ class ActionCompetenciesGained(Action):
         return "action_competencies_gained"
     
     def run(self, dispatcher, tracker, domain):
-        course = tracker.get_slot('course')
-        course_split = course.split(" ")
-        subject = course_split[0]
-        number = course_split[1]
+        subject = tracker.get_slot('subject')
+        number = tracker.get_slot('course_number')
+        course = f"{subject} {number}"
+        print("Running function: action_competencies_gained")
         print(f"Subject: {subject}, Number: {number}")
+
         query = f"""
             PREFIX ex: <http://example.org/vocab/>
 
@@ -395,10 +404,10 @@ class ActionStudentGrades(Action):
     
     def run(self, dispatcher, tracker, domain):
         person = tracker.get_slot('person')
-        coursev = tracker.get_slot('course')
-        course_split = coursev.split(" ")
-        subject = course_split[0]
-        number = course_split[1]
+        subject = tracker.get_slot('subject')
+        number = tracker.get_slot('course_number')
+        coursev = f"{subject} {number}"
+        print("Running function: action_student_grades")
         print(f"Person: {person}, Subject: {subject}, Number: {number}")
         query = f"""
             PREFIX ex: <http://example.org/vocab/>
