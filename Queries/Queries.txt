@@ -85,7 +85,7 @@ SELECT ?seeAlso
 WHERE {
   ?lecture a ex:Lecture ;
            ex:lectureOfCourse ?course ;
-           rdfs:seeAlso ?seeAlso .
+           ex:lectureTopic ?seeAlso .
   ?course ex:number "6721" ;
           ex:subject "COMP" .
 }

@@ -206,23 +206,37 @@ nlu:
     - Transcript for [Anni Singh](person).
 
 # 14
-# - intent: query_course_description
-#   examples: |
-#     - What is [COMP](subject) [474](course_number) about?
-#     - Can you give me the description for [COMP](subject) [474](course_number)?
+# “What is the <course> about?”
+# E.g, “What is COMP 474 about?”: provides the course description as answer.
+- intent: course_description
+  examples: |
+    - What is [COMP](subject) [474](course_number) about?
+    - [SOEN](subject) [6011](course_number) description?
+    - Description of [COMP](subject) [352](course_number)?
+    - What is the description of [COMP](subject) [348](course_number)?
 
 # 15
-# - intent: query_topics_in_course_event
-#   examples: |
-#     - Which topics are covered in [Lab #2](event) of [COMP](subject) [474](course_number)?
-#     - What are the main subjects in [Lecture 10](event) of [COMP](subject) [474](course_number)?
+# “Which topics are covered in <course event>?”
+# E.g, “Which topics are covered in Worksheet 2 of COMP 474?”: provides the topics (in English), together with their resource URI where they can be found.
+- intent: query_topics_in_course_event
+  examples: |
+    - Which topics are covered in [Worksheet 2](event) of [COMP](subject) [474](course_number)?
+    - What are the main subjects in [Lecture 10](event) of [COMP](subject) [474](course_number)?
+    - What happened in [Lecture 3](event) of [COMP](subject) [352](course_number)?
+    - Topics covered in [Lecture 5](event) of [COMP](subject) [348](course_number)?
+    - What topics are covered in [Lecture 3](event) of [COMP](subject) [352](course_number)?
 
 # 16
-# - intent: query_events_covering_topic
-#   examples: |
-#     - Which course events cover [deep learning](topic)?
-#     - List all lectures and labs that include [artificial intelligence](topic).
-
+# Which course events cover <Topic>?”
+# E.g., “Which course events cover Deep Learning?”: lists all courses with their events (lectures, labs) that include this topic, sorted by frequency of the topic, in descending order.
+- intent: query_events_covering_topic
+  examples: |
+    - Which course events cover [deep learning](topic)?
+    - List all lectures and worksheets that include [artificial intelligence](topic).
+    - Which material cover [machine learning](topic)?
+    - List all lectures and worksheets that include [data mining](topic).
+    - Which course events cover [data structures](topic)?
+    
 # More Queries from the second assignment
 # 17
 # 18

@@ -102,12 +102,13 @@ class ActionListTopicsInCourse(Action):
                                 ex:subject "{subject}"^^xsd:string ;
                                 ex:number "{number}"^^xsd:string .
                         ?lecture a ex:Lecture ;
-                                ex:isPartOfCourse ?course ;
+                                ex:lectureOfCourse ?course ;
                                 ex:lectureNumber {lecture_number} .
-                        ?topic ex:isTopicOfCourse ?course ;
-                            ex:isTopicOfLecture ?lecture ;
+                        ?topic ex:isTopicOfLecture ?lecture ;
+                            ex:isTopicOfCourse ?course ;
                             ex:topicName ?topicName .
                     }}
+
                 """
                 result = run_query(query)
                 if result and result['results']['bindings']:
@@ -517,5 +518,122 @@ class ActionStudentTranscript(Action):
 
 
 # 14.
+class ActionCourseDescription(Action):
+    def name(self):
+        return "action_course_description"
+    
+    def run(self, dispatcher, tracker, domain):
+        subject = tracker.get_slot('subject')
+        number = tracker.get_slot('course_number')
+        print("Running function: action_course_description")
+        print(f"Subject: {subject}, Number: {number}")
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+            SELECT ?description
+            WHERE {{
+            ?course a ex:Course;
+                    ex:subject "{subject}"^^xsd:string; 
+                    ex:number "{number}"^^xsd:string; 
+                    ex:description ?description.
+            }}
+        """
+        # Result will be the description (APPLIED ARTIFICIAL INTELLIGENCE) of the course
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            description = results['results']['bindings'][0]['description']['value']
+            message = f"The course {subject} {number} is described as: {description}"
+        else:
+            message = f"An error occurred while fetching course description."
+        dispatcher.utter_message(text=message)
+        return []
+    
 # 15.
+class ActionTopicsCoveredInCourseEvent(Action):
+    def name(self):
+        return "action_topics_covered_in_course_event"
+    
+    def run(self, dispatcher, tracker, domain):
+        event = tracker.get_slot('event')
+        subject = tracker.get_slot('subject')
+        number = tracker.get_slot('course_number')
+        print("Running function: action_topics_covered_in_course_event")
+        print(f"Event: {event}, Subject: {subject}, Number: {number}")
+        lectureNumber = ''.join(filter(str.isdigit, event))
+
+        query = f"""
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?topicName ?topicLink
+            WHERE {{
+            ?course a ex:Course;
+                    ex:subject "{subject}"^^xsd:string;
+                    ex:number "{number}"^^xsd:string.
+            
+            ?lecture a ex:Lecture;
+                    ex:lectureNumber {lectureNumber} ;
+                    ex:lectureOfCourse ?course.
+            
+            ?topic a ex:Topic;
+                    ex:topicName ?topicName;
+                    ex:isTopicOfLecture ?lecture.
+            BIND (STR(?topic) AS ?topicLink)
+            }}
+        """
+
+        # Result wil be A12(topicName) http://dbpedia.org/resource/A12(topicLink)
+        result = run_query(query)
+
+        if result and result['results']['bindings']:
+            topics = [(r['topicName']['value'], r['topicLink']['value']) for r in result['results']['bindings']]
+            message = f"The topics covered in the event {event} of course {subject} {number} are: \n"
+            for topic in topics:
+                message += f"Topic: {topic[0]}, Link: {topic[1]}\n"
+        else:
+            message = f"No topics were found for the event {event} of course {subject} {number}."
+        dispatcher.utter_message(text=message)
+        return []
+
 # 16.
+class ActionEventsCoveringTopic(Action):
+    def name(self):
+        return "action_events_covering_topic"
+    
+    def run(self, dispatcher, tracker, domain):
+        topic = tracker.get_slot('topic')
+        print("Running function: action_events_covering_topic")
+        print("Topic: ", topic)
+
+        query = """
+            PREFIX ex: <http://example.org/vocab/>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?course ?materialType ?Name
+            WHERE {{
+            ?topic ex:topicName "CNN"^^xsd:string;
+                    ex:isTopicOfLecture ?lecture;
+                    ex:materialType ?materialType.
+            ?lecture a ex:Lecture;
+                    ex:lectureName ?Name;
+                    ex:lectureOfCourse ?course.
+            ?course a ex:Course;
+                    ex:description ?courseDescription.
+            }}
+            ORDER BY DESC(?materialType) 
+        """
+
+        # Result will be - <http://example.org/vocab/course/40353>(course) Worksheet(materialType) Deep Learning for Intelligent Systems(name)
+        results = run_query(query)
+
+        if results and results['results']['bindings']:
+            events = [(result['course']['value'], result['materialType']['value'], result['Name']['value']) for result in results['results']['bindings']]
+            message = f"The following events cover the topic {topic}: \n"
+            for event in events:
+                message += f"Course: {event[0]}, Material Type: {event[1]}, Name: {event[2]}\n"
+        else:
+            message = f"No events were found for the topic {topic}."
+        dispatcher.utter_message(text=message)
+        return []

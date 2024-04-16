@@ -89,3 +89,18 @@ rules:
   steps:
     - intent: print_student_transcript
     - action: action_print_student_transcript
+
+- rule: Give Course Description
+  steps:
+    - intent: course_description
+    - action: action_course_description
+
+- rule: Query Topics in Course Event
+  steps:
+    - intent: query_topics_in_course_event
+    - action: action_topics_covered_in_course_event
+  
+- rule: Query Events Covering Topic
+  steps:
+    - intent: query_events_covering_topic
+    - action: action_events_covering_topic

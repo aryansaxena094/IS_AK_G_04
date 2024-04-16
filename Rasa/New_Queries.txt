@@ -1,0 +1,59 @@
+1. “What is the <course> about?”
+E.g, “What is COMP 474 about?”: provides the course description as answer.
+
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?description
+WHERE {
+  ?course a ex:Course;
+          ex:subject "COMP"^^xsd:string; 
+          ex:number "6721"^^xsd:string; 
+          ex:description ?description.
+}
+
+
+2. “Which topics are covered in <course event>?”
+E.g, “Which topics are covered in Lab #2 of COMP 474?”: provides the topics (in English), together with their resource URI where they can be found.
+
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?topicName ?topicLink
+WHERE {
+  ?course a ex:Course;
+          ex:subject "COMP"^^xsd:string;
+          ex:number "6721"^^xsd:string.
+  
+  ?lecture a ex:Lecture;
+           ex:lectureNumber 2 ;
+           ex:lectureOfCourse ?course.
+  
+  ?topic a ex:Topic;
+         ex:topicName ?topicName;
+         ex:isTopicOfLecture ?lecture.
+  BIND (STR(?topic) AS ?topicLink)
+}
+
+3. “Which course events cover <Topic>?”
+E.g., “Which course events cover Deep Learning?”: lists all courses with their events (lectures, worksheets) that include this topic, sorted by frequency of the topic, in descending order.
+
+PREFIX ex: <http://example.org/vocab/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?course ?event ?materialType ?eventName
+WHERE {
+  # Find the topic "Deep Learning" and related lectures or events
+  ?topic ex:topicName "CNN"^^xsd:string;
+         ex:isTopicOfLecture ?lecture;
+         ex:materialType ?materialType.
+
+  # Retrieve lecture details
+  ?lecture a ex:Lecture;
+           ex:lectureName ?eventName;
+           ex:lectureOfCourse ?course.
+  
+  # Retrieve course details
+  ?course a ex:Course;
+          ex:description ?courseDescription.
+}
+ORDER BY DESC(?materialType) # Sort by material type assuming you want to prioritize certain types

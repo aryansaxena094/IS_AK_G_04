@@ -21,9 +21,9 @@ intents:
   - student_grades
   - students_completed_course
   - print_student_transcript
-  # - query_course_description
-  # - query_topics_in_course_event
-  # - query_events_covering_topic
+  - course_description
+  - query_topics_in_course_event
+  - query_events_covering_topic
 
 entities:
   - university
@@ -47,6 +47,9 @@ actions:
   - action_student_grades
   - action_student_completed_courses
   - action_print_student_transcript
+  - action_course_description
+  - action_topics_covered_in_course_event
+  - action_events_covering_topic
 
 slots:
   university:

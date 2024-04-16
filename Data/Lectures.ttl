@@ -1,120 +1,108 @@
 @prefix ex: <http://example.org/vocab/> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://example.org/vocab/lecture/1> a ex:Lecture ;
     ex:lectureName "Introduction to AI: Overview & History"^^xsd:string,
         "Introduction to Intelligent Systems"^^xsd:string ;
+    ex:lectureNumber 1 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Artificial_intelligence>,
-        <http://example.org/vocab/topic/Intelligent_Systems> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Artificial_intelligence>,
+    ex:lectureTopic <http://dbpedia.org/resource/Artificial_intelligence>,
         <http://dbpedia.org/resource/Intelligent_system> .
 
 <http://example.org/vocab/lecture/10> a ex:Lecture ;
     ex:lectureName "Introduction to Deep Learning"^^xsd:string,
         "Introduction to Natural Language Processing (NLP)"^^xsd:string ;
+    ex:lectureNumber 10 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Deep_learning>,
-        <http://example.org/vocab/topic/Natural_language_processing> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Deep_learning>,
+    ex:lectureTopic <http://dbpedia.org/resource/Deep_learning>,
         <http://dbpedia.org/resource/Natural_language_processing> .
 
 <http://example.org/vocab/lecture/11> a ex:Lecture ;
     ex:lectureName "Deep Learning for Intelligent Systems"^^xsd:string,
         "NLP: Applications, Vector Space Models"^^xsd:string ;
+    ex:lectureNumber 11 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Natural_language_processing>,
-        <http://example.org/vocab/topic/Vector_space_model> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Natural_language_processing>,
+    ex:lectureTopic <http://dbpedia.org/resource/Natural_language_processing>,
         <http://dbpedia.org/resource/Vector_space_model> .
 
 <http://example.org/vocab/lecture/12> a ex:Lecture ;
     ex:lectureName "Deep Learning for NLP"^^xsd:string ;
+    ex:lectureNumber 12 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Deep_learning> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Deep_learning> .
+    ex:lectureTopic <http://dbpedia.org/resource/Deep_learning> .
 
 <http://example.org/vocab/lecture/2> a ex:Lecture ;
     ex:lectureName "Introduction to Knowledge Graphs (RDF)"^^xsd:string,
         "State-Space Search: Uninformed & Heuristic Search"^^xsd:string ;
+    ex:lectureNumber 2 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Knowledge_Graph>,
-        <http://example.org/vocab/topic/State_space_search> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Knowledge_Graph>,
+    ex:lectureTopic <http://dbpedia.org/resource/Knowledge_Graph>,
         <http://dbpedia.org/resource/State_space_search> .
 
 <http://example.org/vocab/lecture/3> a ex:Lecture ;
     ex:lectureName "Adversarial Search: Mini-Max & Alpha-Beta Pruning"^^xsd:string,
         "Knowledge Graphs: Vocabularies & Ontologies (RDFS, OWL)"^^xsd:string ;
+    ex:lectureNumber 3 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Adversarial_search>,
-        <http://example.org/vocab/topic/RDF_Schema> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Adversarial_search>,
+    ex:lectureTopic <http://dbpedia.org/resource/Adversarial_search>,
         <http://dbpedia.org/resource/RDF_Schema> .
 
 <http://example.org/vocab/lecture/4> a ex:Lecture ;
     ex:lectureName "Introduction to Machine Learning (ML), Naïve Bayes Classification"^^xsd:string,
         "Knowledge Base Queries (SPARQL)"^^xsd:string ;
+    ex:lectureNumber 4 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Naive_Bayes_classifier>,
-        <http://example.org/vocab/topic/SPARQL> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Naive_Bayes_classifier>,
+    ex:lectureTopic <http://dbpedia.org/resource/Naive_Bayes_classifier>,
         <http://dbpedia.org/resource/SPARQL> .
 
 <http://example.org/vocab/lecture/5> a ex:Lecture ;
     ex:lectureName "ML: Decision Trees, Evaluation & Unsupervised Learning"^^xsd:string,
         "Recommender System"^^xsd:string ;
+    ex:lectureNumber 5 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Machine_learning>,
-        <http://example.org/vocab/topic/Recommender_System> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Linked_data>,
+    ex:lectureTopic <http://dbpedia.org/resource/Linked_data>,
         <http://dbpedia.org/resource/Machine_learning> .
 
 <http://example.org/vocab/lecture/6> a ex:Lecture ;
     ex:lectureName "Introduction to Artificial Neural Networks (ANN)"^^xsd:string,
         "Introduction to Machine Learning for Intelligent Systems"^^xsd:string ;
+    ex:lectureNumber 6 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Artificial_neural_network>,
-        <http://example.org/vocab/topic/Machine_learning> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Artificial_neural_network>,
+    ex:lectureTopic <http://dbpedia.org/resource/Artificial_neural_network>,
         <http://dbpedia.org/resource/Machine_learning> .
 
 <http://example.org/vocab/lecture/7> a ex:Lecture ;
     ex:lectureName "Intelligent Agents: Chatbots & Introduction to Natural Language Processing (NLP)"^^xsd:string,
         "Introduction to Deep Learning"^^xsd:string ;
+    ex:lectureNumber 7 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Deep_learning>,
-        <http://example.org/vocab/topic/Intelligent_agent> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Deep_learning>,
+    ex:lectureTopic <http://dbpedia.org/resource/Deep_learning>,
         <http://dbpedia.org/resource/Intelligent_agent> .
 
 <http://example.org/vocab/lecture/8> a ex:Lecture ;
     ex:lectureName "Knowledge Graphs & Intelligent Agents (I)"^^xsd:string,
         "NLP Applications & Text Mining"^^xsd:string ;
+    ex:lectureNumber 8 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Knowledge_Graph>,
-        <http://example.org/vocab/topic/Text_mining> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Knowledge_Graph>,
+    ex:lectureTopic <http://dbpedia.org/resource/Knowledge_Graph>,
         <http://dbpedia.org/resource/Text_mining> .
 
 <http://example.org/vocab/lecture/9> a ex:Lecture ;
     ex:lectureName "Knowledge Graphs & Intelligent Agents (II)"^^xsd:string,
         "Neural Networks & Word Embeddings"^^xsd:string ;
+    ex:lectureNumber 9 ;
     ex:lectureOfCourse <http://example.org/vocab/course/40353>,
         <http://example.org/vocab/course/40355> ;
-    ex:lectureTopic <http://example.org/vocab/topic/Artificial_neural_network>,
-        <http://example.org/vocab/topic/Intelligent_agent> ;
-    rdfs:seeAlso <http://dbpedia.org/resource/Artificial_neural_network>,
+    ex:lectureTopic <http://dbpedia.org/resource/Artificial_neural_network>,
         <http://dbpedia.org/resource/Intelligent_agent> .
 
