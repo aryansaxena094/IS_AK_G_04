@@ -42,7 +42,6 @@ def append_to_dataframe(course_id, doc_type, lecture_id, spacy_docs, data_entrie
                     'Identifier': lecture_id,
                     'Topic Name': ent.text,
                     'Topic Link': dbpedia_uri,
-                    'Entity Type': ent.label_
                 })
 
 def process_directory(course_id, doc_type, directory, data_entries, nlp):
